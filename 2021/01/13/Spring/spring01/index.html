@@ -200,27 +200,28 @@
         </header>
 
         <div class="post-content">
-            <p>Controller에서 parameter를 받는 방법에는 여러가지가 있는데, 좀 더 확실하게 알고 쓰면 좋을 것 같아 찾아보고 정리하게 되었다.</p>
-<p>내가 주로 사용하는 방법은 @RequestParam, @RequestBody, @ModelAttribute 이렇게 세가지 정도가 있었다.</p>
-<h2 id="RequestParam-사용"><a href="#RequestParam-사용" class="headerlink" title="@RequestParam 사용"></a>@RequestParam 사용</h2><p>GET 요청일 때 사용한다. </p>
+            <p>Controller에서 parameter를 받는 방법에는 여러가지가 있는데, 좀 더 확실하게 알고 쓰면 개발하는데에 도움이 될 것 같아 찾아보고 정리하게 되었다.</p>
+<p>내가 주로 사용하는 방법은 <span style="color:red"><strong>@RequestParam, @RequestBody, @ModelAttribute</strong></span> 이렇게 세가지 정도가 있었다.</p>
+<h2 id="RequestParam-사용"><a href="#RequestParam-사용" class="headerlink" title="@RequestParam 사용"></a>@RequestParam 사용</h2><p><span style="color:red">GET 요청</span>일 때 사용한다. </p>
 <p>url?idx=1 에서 url 뒤에 붙는 idx 파라미터를 통해 Controller에서 idx=1이라는 값을 받게 된다.</p>
 <p>controller에서는 아래처럼 @RequestParam을 사용해서 값을 한개 씩 받아 올 수 있다.</p>
 <h3 id="개별적으로-받는-경우"><a href="#개별적으로-받는-경우" class="headerlink" title="개별적으로 받는 경우"></a>개별적으로 받는 경우</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">test</span> <span class="params">(<span class="meta">@RequestParam(&quot;idx&quot;)</span> <span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//이런 식으로 가져와서 idx 값으로 1을 controller로 넘겨 줄 수 있다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p> 파라미터를 일일이 지정하지 않고 Map으로 담아서 간단하게 받아올 수 있다.</p>
 <h3 id="Map으로-받는-경우"><a href="#Map으로-받는-경우" class="headerlink" title="Map으로 받는 경우"></a>Map으로 받는 경우</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">test</span> <span class="params">(<span class="meta">@RequestParam</span> Map&lt;String, String&gt; params)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//이렇게 Map에 담아서 한번에 받아 올 수 있다.</span></span><br><span class="line">	<span class="comment">//params로 받아온 값을 꺼내서 사용할 때는 아래처럼 사용한다.</span></span><br><span class="line">	String data = params.get(<span class="string">&quot;idx&quot;</span>);</span><br><span class="line">	<span class="comment">//예를 들어 Map안에 (&quot;idx&quot;,&quot;1&quot;) 이렇게 담겨있다면</span></span><br><span class="line">	<span class="comment">//data에는 &quot;1&quot;이라는 값이 들어가게 된다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="RequestBody-사용"><a href="#RequestBody-사용" class="headerlink" title="@RequestBody 사용"></a>@RequestBody 사용</h2><p>POST 요청일 때 사용한다.</p>
+<h2 id="RequestBody-사용"><a href="#RequestBody-사용" class="headerlink" title="@RequestBody 사용"></a>@RequestBody 사용</h2><p><span style="color:red">POST 요청</span>일 때 사용한다.</p>
 <p>Http요청 Body를 Java 객체로 전달해준다. 그러므로 Body가 존재하지 않는 GET 방식의 메소드에 @RequestBody를 사용하는 것은 적합하지 않고 POST요청일때 사용되어야한다.</p>
-<p>특히 @ResponseBody와 함께 Json형식의 데이터들을 주고 받으며 Ajax통신을 할 때 주로 사용된다.</p>
+<p>특히 <span style="color:red">@ResponseBody</span>와 함께 <span style="color:red">Json형식</span>의 데이터들을 주고 받으며 Ajax통신을 할 때 주로 사용된다.</p>
 <h3 id="RequestBody를-이용해-받는-경우"><a href="#RequestBody를-이용해-받는-경우" class="headerlink" title="RequestBody를 이용해 받는 경우"></a>RequestBody를 이용해 받는 경우</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> HashMap&lt;String, Object&gt; <span class="title">test</span> <span class="params">(<span class="meta">@RequestBody</span> Map&lt;String, String&gt; params)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// RequestBody로 받아온 값 저장</span></span><br><span class="line">	String id = params.get(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">	String id = params.get(<span class="string">&quot;pwd&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="ModelAttribute-사용"><a href="#ModelAttribute-사용" class="headerlink" title="@ModelAttribute 사용"></a>@ModelAttribute 사용</h2><p>클라이언트가 전송하는 여러 파라미터들을 1대1로 객체에 바인딩하고 다시 View로 넘겨서 출력해준다. 객체를 바인딩 하기 때문에 JSP에서 Form 태그를 통해 전달 받은 파라미터들을 객체로 바인딩 시키는 경우에 사용할 수 있다.</p>
-<p>내가 이해한 @ModelAttribute는 @ModelAttribute를 사용하려면 객체가 있어야하고, getter와 setter가 있어야 한다. 만약 전달 받고 싶은 데이터가 추가가 된다면 객체(DTO)에 추가가 되어야하고, getter / setter 또한 추가가 되어야한다.</p>
-<h3 id="ModelAttribute로-받는-경우"><a href="#ModelAttribute로-받는-경우" class="headerlink" title="ModelAttribute로 받는 경우"></a>ModelAttribute로 받는 경우</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">list</span> <span class="params">(<span class="meta">@ModelAttribute(&quot;searchDTO&quot;)</span> SearchDto searchDTO)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//이렇게 @ModelAttribute를 사용하려면 SearchDto라는 객체가 있어야 한다.</span></span><br><span class="line">	<span class="comment">//그리고 아래 처럼 받아온 객체를 바로 전달해 사용할 수 있다.</span></span><br><span class="line">	searchService.searchList(searchDTO);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="ModelAttribute와-RequestParam의-차이점"><a href="#ModelAttribute와-RequestParam의-차이점" class="headerlink" title="ModelAttribute와 RequestParam의 차이점"></a>ModelAttribute와 RequestParam의 차이점</h2><p>ModelAttribute는 객체를 바인딩하고, RequestParam은 단일요청 매개변수를 바인딩한다.</p>
-<ul>
-<li>참고 사이트<br><a target="_blank" rel="noopener" href="https://codelib.tistory.com/24">@RequestBody와 @ResponseBody 개념</a><br><a target="_blank" rel="noopener" href="https://hongku.tistory.com/119">SpringMVC :: @RequestParam 을 이용한 값 받아오기</a><br><a target="_blank" rel="noopener" href="https://mangkyu.tistory.com/72">[Spring] @RequestBody, @ModelAttribute, @RequestParam의 차이</a></li>
+<h3 id="RequestBody-와-ResponseBody"><a href="#RequestBody-와-ResponseBody" class="headerlink" title="@RequestBody 와 @ResponseBody"></a>@RequestBody 와 @ResponseBody</h3><ul>
+<li>@RequestBody : Http요청의 body 내용을 자바 객체로 매핑하는 역할</li>
+<li>@ResponseBody : 자바 객체를 Http요청의 body 내용으로 매핑하는 역할</li>
 </ul>
+<h2 id="ModelAttribute-사용"><a href="#ModelAttribute-사용" class="headerlink" title="@ModelAttribute 사용"></a>@ModelAttribute 사용</h2><p>클라이언트가 전송하는 여러 파라미터들을 1대1로 객체에 바인딩하고 다시 View로 넘겨서 출력해준다. 객체를 바인딩 하기 때문에 JSP에서 Form 태그를 통해 전달 받은 파라미터들을 객체로 바인딩 시키는 경우에 사용할 수 있다.</p>
+<p>내가 이해한 @ModelAttribute는 <span style="color:red">@ModelAttribute</span>를 사용하려면 <span style="color:red">객체</span>가 있어야하고, <span style="color:red">getter</span>와 <span style="color:red">setter</span>가 있어야 한다. 만약 전달 받고 싶은 데이터가 추가가 된다면 객체(DTO)에 추가가 되어야하고, getter / setter 또한 추가가 되어야한다.</p>
+<h3 id="ModelAttribute로-받는-경우"><a href="#ModelAttribute로-받는-경우" class="headerlink" title="ModelAttribute로 받는 경우"></a>ModelAttribute로 받는 경우</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">list</span> <span class="params">(<span class="meta">@ModelAttribute(&quot;searchDTO&quot;)</span> SearchDto searchDTO)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//이렇게 @ModelAttribute를 사용하려면 SearchDto라는 객체가 있어야 한다.</span></span><br><span class="line">	<span class="comment">//그리고 아래 처럼 받아온 객체를 바로 전달해 사용할 수 있다.</span></span><br><span class="line">	searchService.searchList(searchDTO);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ModelAttribute와-RequestParam의-차이점"><a href="#ModelAttribute와-RequestParam의-차이점" class="headerlink" title="@ModelAttribute와 @RequestParam의 차이점"></a>@ModelAttribute와 @RequestParam의 차이점</h2><p>@ModelAttribute는 객체를 바인딩하고, @RequestParam은 단일요청 매개변수를 바인딩한다.</p>
+<h4 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h4><p><a target="_blank" rel="noopener" href="https://codelib.tistory.com/24">@RequestBody와 @ResponseBody 개념</a><br><a target="_blank" rel="noopener" href="https://hongku.tistory.com/119">SpringMVC :: @RequestParam 을 이용한 값 받아오기</a><br><a target="_blank" rel="noopener" href="https://mangkyu.tistory.com/72">[Spring] @RequestBody, @ModelAttribute, @RequestParam의 차이</a></p>
 
         </div>
 
@@ -259,9 +260,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/Spring/"># Spring</a>
-                    
                         <a href="/tags/Java/"># Java</a>
+                    
+                        <a href="/tags/Spring/"># Spring</a>
                     
                         <a href="/tags/SpringFramework/"># SpringFramework</a>
                     
