@@ -14,7 +14,7 @@
 
 
 
-<title>[Hexo] Hexo를 이용한 블로그 만들기 | ChargingJoo</title>
+<title>[Hexo] Hexo 블로그 테마와 글꼴 적용하기 | ChargingJoo</title>
 
 
 
@@ -185,7 +185,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">[Hexo] Hexo를 이용한 블로그 만들기</h1>
+            <h1 class="post-title">[Hexo] Hexo 블로그 테마와 글꼴 적용하기</h1>
             
                 <div class="post-meta">
                     
@@ -194,7 +194,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">January 18, 2021&nbsp;&nbsp;21:48:34</a>
+                        Date: <a href="#">January 19, 2021&nbsp;&nbsp;23:06:05</a>
                         </span>
                     
                     
@@ -210,20 +210,17 @@
         </header>
 
         <div class="post-content">
-            <p>먼저 Node.js 와 Git이 설치 되어있다는 가정 하에 진행한다. Git이 설치가 되어있다면 cmd창에서 git version을 입력했을 때 버전 정보가 나올 것이다.</p>
-<h2 id="Github-Repository-만들기"><a href="#Github-Repository-만들기" class="headerlink" title="Github Repository 만들기"></a>Github Repository 만들기</h2><p>블로그를 배포할 github repository를 만들면 된다. 이때 repository name에 <code>username.github.io</code> 이런 식으로 작성해 주면 된다. 여기서 username은 각자의 아이디를 넣어주면 된다. 그러면 블로그 주소가 <code>https://username.github.io/</code> 이렇게 생성이 될 것이다.</p>
-<h2 id="Hexo-설치하기"><a href="#Hexo-설치하기" class="headerlink" title="Hexo 설치하기"></a>Hexo 설치하기</h2><p>아래의 명령어들은 바탕화면에서 우클릭해서 <code>Git Bash Here</code>을 클릭한 후 git bash 창이 뜨면 입력해 주면 된다.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/* hexo 설치 */</span><br><span class="line">$ npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
-<p>hexo를 설치한 후 hexo를 이용해 블로그를 시작해준다. 나는 폴더 이름을 blog로 생성해서 아래처럼 blog를 입력해주었는데, 원하는 폴더명을 blog 자리에 입력해 주면 된다.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/* 원하는 폴더에서 hexo 시작 */</span><br><span class="line">$ hexo init blog</span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-<p>이렇게 하면 hexo를 이용한 블로그 생성 완료이다!</p>
-<h2 id="Hexo에서-github로-배포할-수-있는-플러그인-설치"><a href="#Hexo에서-github로-배포할-수-있는-플러그인-설치" class="headerlink" title="Hexo에서 github로 배포할 수 있는 플러그인 설치"></a>Hexo에서 github로 배포할 수 있는 플러그인 설치</h2><p>github로 배포하기 위해 <code>hexo-deployer-git</code> 플러그인을 설치해야한다.<br>이 명령어는 내 hexo블로그가 시작된 폴더에서 설치해주면 된다. 위에서 부터 따라온다면 따로 위치이동 없이 명령어를 실행해도 된다. 즉 나는 blog 밑에서 명령어를 실행했다.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<h2 id="환경설정하기-config-yml-변경"><a href="#환경설정하기-config-yml-변경" class="headerlink" title="환경설정하기 (_config.yml 변경)"></a>환경설정하기 (_config.yml 변경)</h2><p>프로젝트 설정을 위해 <code>_config.yml</code> 파일을 수정해준다. URL부분과 Deployment부분을 아래코드를 참고해서 수정해준다.</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://example.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">https://hjoopark.github.io/</span>    <span class="comment"># 앞에서 만든 github page 주소로 변경</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/hjoopark/hjoopark.github.io.git</span>  <span class="comment"># github git 주소로 변경</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-<p>URL 부분의 url을 앞에서 만든 github page 주소로 변경해준다. Deployment부분에 repo를 github git주소로 변경해준다.</p>
-<p>이렇게하면 Hexo를 이용한 블로그가 생성이 되고, 기본적인 환경설정까지 완료된다!<br>다음에는 블로그 포스팅하는 방법과 블로그 포스트 배포하는 방법을 작성해보겠다!</p>
-<h3 id="참고블로그"><a href="#참고블로그" class="headerlink" title="참고블로그"></a>참고블로그</h3><p><a target="_blank" rel="noopener" href="https://futurecreator.github.io/2016/06/14/get-started-with-hexo/">https://futurecreator.github.io/2016/06/14/get-started-with-hexo/</a></p>
+            <h2 id="블로그-테마-적용하기"><a href="#블로그-테마-적용하기" class="headerlink" title="블로그 테마 적용하기"></a>블로그 테마 적용하기</h2><p>이 <a target="_blank" rel="noopener" href="https://hexo.io/themes/">사이트</a>에 가면 여러가지 테마를 찾을 수 있다. 내가 현재 사용하는 테마는 Chic테마이다.<br>테마를 다운받고 테마를 설정하는 방법은 <code>README.md</code>에 자세하게 나와있다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>위 코드를 실행하여 server를 돌리고 localhost에 접속해보면 테마가 적용되어 있는 것을 알 수 있다.</p>
+<h2 id="테마-설정-변경"><a href="#테마-설정-변경" class="headerlink" title="테마 설정 변경"></a>테마 설정 변경</h2><p>favicon이나 프로필 사진, 테마에 보이는 링크, 블로그 이름 등을 <code>_config.yml</code> 파일을 수정하여 변경할 수 있다. <code>/blog/themes/다운한 테마 이름/_config.yml</code> 이 경로에 있는 config 파일을 수정하면 좀 더 나만의 블로그를 만들어 낼 수 있다.</p>
+<h2 id="글꼴-적용하기"><a href="#글꼴-적용하기" class="headerlink" title="글꼴 적용하기"></a>글꼴 적용하기</h2><p>개발자들이 주로 Hueman테마를 사용해서 그런지 Chic테마의 글꼴 적용 방법은 찾기가 힘들었다.<br>나름 다른 테마들에 글꼴 적용하는 방법들을 적용해보면서 글꼴을 적용할 수 있었다.<br>나는 나눔스퀘어라운드 폰트를 사용하기로 했다.</p>
+<h3 id="폰트-cdn주소를-head-ejs에-적용해준다"><a href="#폰트-cdn주소를-head-ejs에-적용해준다" class="headerlink" title="폰트 cdn주소를 head.ejs에 적용해준다."></a>폰트 cdn주소를 head.ejs에 적용해준다.</h3><p><code>head.ejs</code> 파일 안에 &lt;#% css list %&gt; 밑에 아래 코드를 추가해 주었다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> type=<span class="string">&quot;text/css&quot;</span> href=<span class="string">&quot;&quot;</span>&gt;</span><br><span class="line">&lt;%- css(<span class="string">&#x27;https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css&#x27;</span>) %&gt;</span><br><span class="line">&lt;%- css(<span class="string">&#x27;https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css&#x27;</span>) %&gt;</span><br><span class="line">&lt;%- css(<span class="string">&#x27;css/style&#x27;</span>) %&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="폰트-스타일을-나눔스퀘어라운드로-변경해준다"><a href="#폰트-스타일을-나눔스퀘어라운드로-변경해준다" class="headerlink" title="폰트 스타일을 나눔스퀘어라운드로 변경해준다."></a>폰트 스타일을 나눔스퀘어라운드로 변경해준다.</h3><p><code>font.styl</code> 파일에서 $font-family 코드를 아래의 코드로 수정해준다.</p>
+<p>원래 코드를 지우는 것 보단 주석처리를 해주었다. 아래의 두 부분만 수정해 주었다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@font-face</span><br><span class="line">  font-family <span class="string">&#x27;NanumSquareRound&#x27;</span> <span class="comment">//이부분</span></span><br><span class="line">  src: url(<span class="string">&#x27;../fonts/lanting/lanting.eot&#x27;</span>); <span class="comment">/* IE9 */</span></span><br><span class="line">  src: url(<span class="string">&#x27;../fonts/lanting/lanting.eot?#iefix&#x27;</span>) format(<span class="string">&#x27;embedded-opentype&#x27;</span>), <span class="comment">/* IE6-IE8 */</span> url(<span class="string">&#x27;../fonts/lanting/lanting.woff2&#x27;</span>) format(<span class="string">&#x27;woff2&#x27;</span>),</span><br><span class="line">          url(<span class="string">&#x27;../fonts/lanting/lanting.woff&#x27;</span>) format(<span class="string">&#x27;woff&#x27;</span>),</span><br><span class="line">          url(<span class="string">&#x27;../fonts/lanting/lanting.ttf&#x27;</span>) format(<span class="string">&#x27;truetype&#x27;</span>); <span class="comment">/* chrome, firefox, opera, Safari, Android, iOS 4.2+ */</span></span><br><span class="line">  font-weight <span class="number">300</span></span><br><span class="line">  font-display swap</span><br><span class="line"></span><br><span class="line"><span class="comment">//이부분</span></span><br><span class="line"><span class="comment">// $font-family = &#x27;Microsoft Jhenghei&#x27;,Lantinghei SC, &#x27;lanting&#x27;, PingFang SC, Seguo UI, Microsoft Yahei, Arial</span></span><br><span class="line">$font-family = <span class="string">&#x27;NanumSquareRound&#x27;</span>, <span class="string">&quot;Helvetica Neue&quot;</span>, sans-serif</span><br></pre></td></tr></table></figure>
+<p>이렇게 변경 후 테마를 적용했을 때와 같이 hexo server을 실행해서 로컬에서 변경이 되었으면 반영해주면 끝이다!</p>
 
         </div>
 
@@ -253,10 +250,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/01/19/Hexo/hexo02/">[Hexo] Hexo 블로그 테마와 글꼴 적용하기</a>
             
-            
-            <a class="next" rel="next" href="/2021/01/16/AWS/AWS01/">AWS SES로 이메일 전송</a>
+            <a class="next" rel="next" href="/2021/01/18/Hexo/hexo01/">[Hexo] Hexo를 이용한 블로그 만들기</a>
             
         </section>
 
