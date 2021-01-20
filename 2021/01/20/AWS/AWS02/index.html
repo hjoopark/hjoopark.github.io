@@ -119,6 +119,68 @@
             <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
 
     
     <article class="post-wrap">
@@ -148,7 +210,7 @@
         </header>
 
         <div class="post-content">
-            <p><a href="https://hjoopark.github.io/2021/01/16/AWS/AWS01/">AWS SES로 이메일 전송</a> 게시물에 포스팅한 방법처럼 이메일 전송 준비를 마쳤는데 <code>Could not convert socket to TLS</code> 라는 오류가 발생해서 메일 전송에 실패했었다.</p>
+            <h2 id="Could-not-convert-socket-to-TLS-오류"><a href="#Could-not-convert-socket-to-TLS-오류" class="headerlink" title="Could not convert socket to TLS 오류"></a>Could not convert socket to TLS 오류</h2><p><a href="https://hjoopark.github.io/2021/01/16/AWS/AWS01/">AWS SES로 이메일 전송</a> 게시물에 포스팅한 방법처럼 이메일 전송 준비를 마쳤는데 <code>Could not convert socket to TLS</code> 라는 오류가 발생해서 메일 전송에 실패했었다.</p>
 <p>이 오류를 해결하기 위해서 두 가지를 수정했다.</p>
 <ol>
 <li><p>먼저 java.mail jar을 최신으로 업데이트를 해준다.</p>
@@ -156,7 +218,7 @@
 <li><p>세션을 생성해주는 부분에 <code>props.put(&quot;mail.smtp.ssl.trust&quot;, &quot;*&quot;);</code> 를 추가해준다.</p>
 </li>
 </ol>
-<p>1번의 방법대로 jar파일을 최신으로 업데이트 해주었지만 계속해서 같은 오류가 발생했었다. 그리고 2번 처럼 <code>props.put(&quot;mail.smtp.ssl.trust&quot;, &quot;*&quot;);</code> 를 추가해 주었더니 오류를 해결할 수 있었다.<br>메일을 전송할 이메일이 gmail.com 이나 다른 메일을 사용해서 보내주려면 위 코드를 추가를 해주어야한다.</p>
+<p>1번의 방법대로 jar파일을 최신으로 업데이트 해주었지만 계속해서 같은 오류가 발생했었다. 나는 2번 방법처럼 <code>props.put(&quot;mail.smtp.ssl.trust&quot;, &quot;*&quot;);</code> 를 추가해 주었더니 오류를 해결할 수 있었다.<br>이 오류는 메일 전송을 gmail.com이나 그 외에 다른 메일을 사용할 때 나타났다. gmail.com 이나 다른 메일을 사용해서 메일을 전송하려면 위 코드를 추가 해주어야한다.</p>
 
         </div>
 
@@ -167,9 +229,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/AWS/"># AWS</a>
-                    
                         <a href="/tags/Java/"># Java</a>
+                    
+                        <a href="/tags/AWS/"># AWS</a>
                     
                         
                 </span>
