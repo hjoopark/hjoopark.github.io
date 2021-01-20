@@ -14,7 +14,7 @@
 
 
 
-<title>Archives | ChargingJoo</title>
+<title>AWS SMTP Could not convert socket to TLS 오류 해결 | ChargingJoo</title>
 
 
 
@@ -116,103 +116,81 @@
     }
 </script>
         <div class="main">
-            <div class="post-wrap archive">
+            <div class="container">
     
     
-        
 
-        
-            <h3>2021</h3>
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2021/01/20/AWS/AWS02/">AWS SMTP Could not convert socket to TLS 오류 해결</a>
-            <span class="archive-item-date">January 20, 2021</span>
-        </article>
     
-        
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">AWS SMTP Could not convert socket to TLS 오류 해결</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Hyunjoo Park</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">January 20, 2021&nbsp;&nbsp;22:00:18</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/AWS/">AWS</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p><a href="https://hjoopark.github.io/2021/01/16/AWS/AWS01/">AWS SES로 이메일 전송</a> 게시물에 포스팅한 방법처럼 이메일 전송 준비를 마쳤는데 <code>Could not convert socket to TLS</code> 라는 오류가 발생해서 메일 전송에 실패했었다.</p>
+<p>이 오류를 해결하기 위해서 두 가지를 수정했다.</p>
+<ol>
+<li><p>먼저 java.mail jar을 최신으로 업데이트를 해준다.</p>
+</li>
+<li><p>세션을 생성해주는 부분에 <code>props.put(&quot;mail.smtp.ssl.trust&quot;, &quot;*&quot;);</code> 를 추가해준다.</p>
+</li>
+</ol>
+<p>1번의 방법대로 jar파일을 최신으로 업데이트 해주었지만 계속해서 같은 오류가 발생했었다. 그리고 2번 처럼 <code>props.put(&quot;mail.smtp.ssl.trust&quot;, &quot;*&quot;);</code> 를 추가해 주었더니 오류를 해결할 수 있었다.<br>메일을 전송할 이메일이 gmail.com 이나 다른 메일을 사용해서 보내주려면 위 코드를 추가를 해주어야한다.</p>
+
+        </div>
 
         
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/AWS/"># AWS</a>
+                    
+                        <a href="/tags/Java/"># Java</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/01/19/Hexo/hexo02/">[Hexo] Hexo 블로그 테마와 글꼴 적용하기</a>
+            
+        </section>
 
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2021/01/19/Hexo/hexo02/">[Hexo] Hexo 블로그 테마와 글꼴 적용하기</a>
-            <span class="archive-item-date">January 19, 2021</span>
-        </article>
-    
-        
 
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2021/01/18/Hexo/hexo01/">[Hexo] Hexo를 이용한 블로그 만들기</a>
-            <span class="archive-item-date">January 18, 2021</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2021/01/16/AWS/AWS01/">AWS SES로 이메일 전송</a>
-            <span class="archive-item-date">January 16, 2021</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2021/01/14/Spring/spring02/">[Spring] @Resource, @Autowired, @Inject 의 차이</a>
-            <span class="archive-item-date">January 14, 2021</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2021/01/13/Spring/spring01/">[Spring] Controller에서 parameter를 받는 방법</a>
-            <span class="archive-item-date">January 13, 2021</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2021/01/12/Algorithm/programmers-42577/">[프로그래머스] 전화번호 목록</a>
-            <span class="archive-item-date">January 12, 2021</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2021/01/10/Algorithm/programmers-42576/">[프로그래머스] 완주하지 못한 선수</a>
-            <span class="archive-item-date">January 10, 2021</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2021/01/04/test-draft/">Hexo를 사용한 블로그에 첫 게시물</a>
-            <span class="archive-item-date">January 4, 2021</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2021/01/04/hello-world/">Hello World</a>
-            <span class="archive-item-date">January 4, 2021</span>
-        </article>
-    
-    
+    </article>
 </div>
+
         </div>
         <footer id="footer" class="footer">
     <div class="copyright">
