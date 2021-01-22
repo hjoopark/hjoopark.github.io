@@ -14,7 +14,7 @@
 
 
 
-<title>AWS SMTP Could not convert socket to TLS 오류 해결 | ChargingJoo</title>
+<title>AWS SMTP 보내는 사람, 메일 제목 한글 깨짐 | ChargingJoo</title>
 
 
 
@@ -185,7 +185,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">AWS SMTP Could not convert socket to TLS 오류 해결</h1>
+            <h1 class="post-title">AWS SMTP 보내는 사람, 메일 제목 한글 깨짐</h1>
             
                 <div class="post-meta">
                     
@@ -194,7 +194,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">January 20, 2021&nbsp;&nbsp;22:00:18</a>
+                        Date: <a href="#">January 22, 2021&nbsp;&nbsp;23:00:33</a>
                         </span>
                     
                     
@@ -210,16 +210,13 @@
         </header>
 
         <div class="post-content">
-            <h2 id="Could-not-convert-socket-to-TLS-오류"><a href="#Could-not-convert-socket-to-TLS-오류" class="headerlink" title="Could not convert socket to TLS 오류"></a>Could not convert socket to TLS 오류</h2><p><a href="https://hjoopark.github.io/2021/01/16/AWS/AWS01/">AWS SES로 이메일 전송</a> 게시물에 포스팅한 방법처럼 이메일 전송 준비를 마쳤는데 <code>Could not convert socket to TLS</code> 라는 오류가 발생해서 메일 전송에 실패했었다.</p>
-<p>이 오류를 해결하기 위해서 두 가지를 수정했다.</p>
-<ol>
-<li><p>먼저 java.mail jar을 최신으로 업데이트를 해준다.</p>
-</li>
-<li><p>세션을 생성할 때 필요한 설정 부분에 <code>props.put(&quot;mail.smtp.ssl.trust&quot;, &quot;*&quot;);</code> 를 추가해준다.</p>
-</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 세션을 생성할 때 필요한 메일 연결에 관련된 설정 정보를 설정</span></span><br><span class="line">Properties props = System.getProperties();</span><br><span class="line">props.put(<span class="string">&quot;mail.transport.protocol&quot;</span>, <span class="string">&quot;smtp&quot;</span>);</span><br><span class="line">props.put(<span class="string">&quot;mail.smtp.port&quot;</span>, PORT); </span><br><span class="line">props.put(<span class="string">&quot;mail.smtp.starttls.enable&quot;</span>, <span class="string">&quot;true&quot;</span>);</span><br><span class="line">props.put(<span class="string">&quot;mail.smtp.auth&quot;</span>, <span class="string">&quot;true&quot;</span>);</span><br><span class="line">props.put(<span class="string">&quot;mail.smtp.ssl.trust&quot;</span>, <span class="string">&quot;*&quot;</span>);`  <span class="comment">// 여기에 추가하면 된다.</span></span><br></pre></td></tr></table></figure>
-<p>1번의 방법대로 jar파일을 최신으로 업데이트 해주었지만 계속해서 같은 오류가 발생했었다. 나는 2번 방법처럼 <code>props.put(&quot;mail.smtp.ssl.trust&quot;, &quot;*&quot;);</code> 를 추가해 주었더니 오류를 해결할 수 있었다.<br>이 오류는 메일을 보내는 메일이 gmail.com이나 그 외에 다른 메일을 사용할 때 나타났다. gmail.com 이나 다른 메일을 사용해서 메일을 전송하려면 위 코드를 추가 해주어야한다.</p>
+            <h2 id="메일-전송-시-한글-깨짐"><a href="#메일-전송-시-한글-깨짐" class="headerlink" title="메일 전송 시 한글 깨짐"></a>메일 전송 시 한글 깨짐</h2><p>메일을 전송할 때 <strong>네이버 메일</strong>에서는 보내는 사람과 메일 제목이 한글일 경우 깨지지 않았는데, <strong>gmail이나 외부메일</strong>(회사메일이나 학교메일 등)로 전송하면 한글이 깨져서 보였다.</p>
+<p><img src="/image/AWS/aws_smtp_err01.png" alt="한글깨짐"></p>
+<h2 id="제목-인코딩-방법"><a href="#제목-인코딩-방법" class="headerlink" title="제목 인코딩 방법"></a>제목 인코딩 방법</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 원래 코드</span></span><br><span class="line">msg.setSubject(Subject);</span><br><span class="line"><span class="comment">// 바꾼 코드</span></span><br><span class="line">msg.setSubject(MimeUtility.encodeText(Subject, <span class="string">&quot;UTF-8&quot;</span>, <span class="string">&quot;B&quot;</span>));</span><br></pre></td></tr></table></figure>
+<p>위 코드 처럼 제목을 작성해 주는 코드에서 encodeText함수를 사용해서 <code>UTF_8</code>로 인코딩해준다.</p>
+<h2 id="메일-보내는-사람-인코딩-방법"><a href="#메일-보내는-사람-인코딩-방법" class="headerlink" title="메일 보내는 사람 인코딩 방법"></a>메일 보내는 사람 인코딩 방법</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 원래 코드</span></span><br><span class="line">msg.setFrom(<span class="keyword">new</span> InternetAddress(FROM,FROMNAME));</span><br><span class="line"><span class="comment">// 바꾼 코드</span></span><br><span class="line">msg.setFrom(<span class="keyword">new</span> InternetAddress(FROM, MimeUtility.encodeText(FROMNAME, <span class="string">&quot;UTF-8&quot;</span>, <span class="string">&quot;B&quot;</span>)));</span><br></pre></td></tr></table></figure>
+<p>위 코드 처럼 메일 보내는 사람을 작성해 주는 코드에서도 같은 방식으로 <code>UTF-8</code>로 인코딩해준다.</p>
+<h2 id="메세지-전송-성공"><a href="#메세지-전송-성공" class="headerlink" title="메세지 전송 성공"></a>메세지 전송 성공</h2><p><img src="/image/AWS/aws_smtp_succ01.png" alt="전송성공"><br>인코딩을 하고 다시 메일을 전송한다면 이렇게 성공적으로 메일이 보내진 것을 확인할 수 있다!!</p>
 
         </div>
 
@@ -245,10 +242,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/01/22/AWS/AWS03/">AWS SMTP 보내는 사람, 메일 제목 한글 깨짐</a>
             
-            
-            <a class="next" rel="next" href="/2021/01/19/Hexo/hexo02/">[Hexo] Hexo 블로그 테마와 글꼴 적용하기</a>
+            <a class="next" rel="next" href="/2021/01/20/AWS/AWS02/">AWS SMTP Could not convert socket to TLS 오류 해결</a>
             
         </section>
 
