@@ -14,7 +14,7 @@
 
 
 
-<title>Postman을 사용해서 kakaopay api 테스트 (Postman 사용하기) | ChargingJoo</title>
+<title>[JS] document.ready 와 window.load 차이 | ChargingJoo</title>
 
 
 
@@ -185,7 +185,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Postman을 사용해서 kakaopay api 테스트 (Postman 사용하기)</h1>
+            <h1 class="post-title">[JS] document.ready 와 window.load 차이</h1>
             
                 <div class="post-meta">
                     
@@ -194,14 +194,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">January 25, 2021&nbsp;&nbsp;22:38:30</a>
+                        Date: <a href="#">January 26, 2021&nbsp;&nbsp;23:22:35</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/KakaoPay/">KakaoPay</a>
+                                <a href="/categories/Javascript/">Javascript</a>
                             
                         </span>
                     
@@ -210,12 +210,12 @@
         </header>
 
         <div class="post-content">
-            <h2 id="Postman에-카카오페이-URL-입력"><a href="#Postman에-카카오페이-URL-입력" class="headerlink" title="Postman에 카카오페이 URL 입력"></a>Postman에 카카오페이 URL 입력</h2><p><img src="/image/KakaoPay/kakaopayurl.png" alt="카카오페이URL입력"><br>먼저 kakao pay 결제 준비를 하는 url을 입력하고 request는 post로 설정한다.</p>
-<p>여기서 https:// 를 넣지 않고 테스트를 해서 계속 에러가 떴었다..</p>
-<h2 id="Header부분에-kakao-admin-키-입력"><a href="#Header부분에-kakao-admin-키-입력" class="headerlink" title="Header부분에 kakao admin 키 입력"></a>Header부분에 kakao admin 키 입력</h2><p><img src="/image/KakaoPay/kakaoheader.png" alt="header채우기"><br>header부분에 kakao admin키를 입력해준다. 앞에 “KakaoAK “ 띄어쓰기 까지 포함 해주어야한다.</p>
-<h2 id="Body부분에-전송할-데이터-입력"><a href="#Body부분에-전송할-데이터-입력" class="headerlink" title="Body부분에 전송할 데이터 입력"></a>Body부분에 전송할 데이터 입력</h2><p><img src="/image/KakaoPay/kakaobody.png" alt="header채우기"><br>body에 전송할 데이터들을 입력 해준다. 형식은 <code>x-www-form-urlencoded</code>를 체크해준다.</p>
-<p>그리고 <code>send</code> 버튼을 누르면  api통신이 성공한 것을 볼 수 있다.</p>
-<h2 id="api통신-결과"><a href="#api통신-결과" class="headerlink" title="api통신 결과"></a>api통신 결과</h2>
+            <h2 id="document-ready"><a href="#document-ready" class="headerlink" title="$(document).ready"></a>$(document).ready</h2><p>$(function(){ 과 같다. DOM 즉 문서 객체 모델(HTML이나 XML)이 생성되면 이 때 동작합니다. 중복 사용해도 선언한 순서대로 실행이 됩니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 문서가 전부 로드되었을 때 실행된다. </span></span><br><span class="line"></span><br><span class="line">&#125;); </span><br></pre></td></tr></table></figure>
+<h2 id="window-load"><a href="#window-load" class="headerlink" title="$(window).load"></a>$(window).load</h2><p>$(window).load는 화면에 필요한 모든 요소(css, image등등)가 로드가 되면 동작합니다.  동작순서는 document 다음 window이다. 중복 사용하면 둘 중 하나만 적용 됩니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">window</span>).load(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 모든 창이 모드 로드되었을 때 실행된다. </span></span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="참고블로그"><a href="#참고블로그" class="headerlink" title="참고블로그"></a>참고블로그</h3><p><a target="_blank" rel="noopener" href="https://diaryofgreen.tistory.com/96">https://diaryofgreen.tistory.com/96</a></p>
+
         </div>
 
         
@@ -225,11 +225,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/KakaoPay/"># KakaoPay</a>
-                    
-                        <a href="/tags/Postman/"># Postman</a>
-                    
-                        <a href="/tags/API/"># API</a>
+                        <a href="/tags/Javascript/"># Javascript</a>
                     
                         
                 </span>
@@ -242,10 +238,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/01/26/Javascript/js01/">[JS] document.ready 와 window.load 차이</a>
             
-            
-            <a class="next" rel="next" href="/2021/01/24/AWS/AWS04/">AWS S3로 이미지 업로드/다운로드</a>
+            <a class="next" rel="next" href="/2021/01/25/KakaoPay/kakaopayTest/">Postman을 사용해서 kakaopay api 테스트 (Postman 사용하기)</a>
             
         </section>
 
