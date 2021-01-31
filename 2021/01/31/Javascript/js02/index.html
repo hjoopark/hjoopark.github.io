@@ -14,7 +14,7 @@
 
 
 
-<title>[JS] AJAX 간단 정리 | ChargingJoo</title>
+<title>[JQuery] AJAX 간단 정리 | ChargingJoo</title>
 
 
 
@@ -119,11 +119,73 @@
             <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">[JS] AJAX 간단 정리</h1>
+            <h1 class="post-title">[JQuery] AJAX 간단 정리</h1>
             
                 <div class="post-meta">
                     
@@ -148,22 +210,141 @@
         </header>
 
         <div class="post-content">
-            <ul>
-<li><strong>AJAX (Asynchronous Javascript and XML)</strong></li>
-</ul>
-<p>AJAX는 웹페이지가 서버와 비동기 통신을 하는 기술들의 집합체이다.</p>
+            <h2 id="AJAX-Asynchronous-Javascript-and-XML"><a href="#AJAX-Asynchronous-Javascript-and-XML" class="headerlink" title="AJAX (Asynchronous Javascript and XML)"></a>AJAX (Asynchronous Javascript and XML)</h2><p>AJAX는 웹페이지가 서버와 비동기 통신을 하는 기술들의 집합체이다.</p>
 <p>비동기식이란 여러가지 일이 동시적으로 발생해서 서버와 통신하는 동안 다른 작업을 할 수 있다.</p>
-<ul>
-<li><strong>ajax사용법</strong></li>
-</ul>
-<p>$.ajax(settings)</p>
+<h2 id="ajax사용법"><a href="#ajax사용법" class="headerlink" title="ajax사용법"></a>ajax사용법</h2><p>$.ajax(settings)</p>
 <p>settings안에 ajax 속성들을 설정한다.</p>
 <p>ex) 아이디 중복체크 ajax</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> query = &#123;<span class="string">&#x27;userId&#x27;</span> : $txtUserId.val()&#125;;</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">	type: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">	data: JSON.stringify(query),</span><br><span class="line">	url: <span class="string">&#x27;/customer/idCheck_Ajax&#x27;</span>,</span><br><span class="line">	contentType: <span class="string">&#x27;application/json&#x27;</span>,</span><br><span class="line">	success: function(data) &#123;</span><br><span class="line">		<span class="keyword">if</span>(data == <span class="number">1</span>) &#123;</span><br><span class="line">			alert(<span class="string">&quot;해당 아이디가 등록 되어 있습니다.&quot;</span>);</span><br><span class="line">			idck = <span class="number">0</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			alert(<span class="string">&quot;사용가능한 아이디입니다.&quot;</span>);</span><br><span class="line">			idck = <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	error: function(error) &#123;</span><br><span class="line">		alert(<span class="string">&quot;error: &quot;</span> + error);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>자주 사용되는 <strong>Ajax의 속성</strong></li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://www.notion.so/f297bc850a064b07b84fe4367d0efc00">Ajax 속성</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> query = &#123;<span class="string">&#x27;userId&#x27;</span> : $txtUserId.val()&#125;;</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">	type: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">	data: <span class="built_in">JSON</span>.stringify(query),</span><br><span class="line">	url: <span class="string">&#x27;/customer/idCheck_Ajax&#x27;</span>,</span><br><span class="line">	contentType: <span class="string">&#x27;application/json&#x27;</span>,</span><br><span class="line">	success: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(data == <span class="number">1</span>) &#123;</span><br><span class="line">			alert(<span class="string">&quot;해당 아이디가 등록 되어 있습니다.&quot;</span>);</span><br><span class="line">			idck = <span class="number">0</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			alert(<span class="string">&quot;사용가능한 아이디입니다.&quot;</span>);</span><br><span class="line">			idck = <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	error: <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">		alert(<span class="string">&quot;error: &quot;</span> + error);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Ajax의-속성-요약"><a href="#Ajax의-속성-요약" class="headerlink" title="Ajax의 속성 요약"></a>Ajax의 속성 요약</h2><table>
+<thead>
+<tr>
+<th align="center">속성</th>
+<th align="center">설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">url</td>
+<td align="center">데이터를 전송할 URL</td>
+</tr>
+<tr>
+<td align="center">HTTP 요청을 할 대상이 되는 URL</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">contentType</td>
+<td align="center">기본값 : application/x-www-from-urlencode</td>
+</tr>
+<tr>
+<td align="center">서버에 데이터를 전송할 때 콘텐츠 타입을 나타내는 값</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">JSON형식의 데이터를 서버로 보낼 때는 “application/json”으로 설정</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">type</td>
+<td align="center">기본값 : GET</td>
+</tr>
+<tr>
+<td align="center">서버로 전송하는 HTTP요청 방식 (GET, POST)</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">dataType</td>
+<td align="center">서버가 리턴하는 데이터 타입</td>
+</tr>
+<tr>
+<td align="center">xml = XML 문서</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">json = JSON형식 데이터로 평가하고 Javascript의 개체로 변환</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">script = JavaScript 코드를 텍스트 데이터로.</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">html = HTML을 텍스트 데이터로. 여기에 script 태그가 포함 된 경우 처리가 실행됨.</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">text = 일반 텍스트</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">data</td>
+<td align="center">서버에 전송할 데이터, key/value형식의 객체</td>
+</tr>
+<tr>
+<td align="center">async</td>
+<td align="center">기본값 : true</td>
+</tr>
+<tr>
+<td align="center">기본적으로 모든 Ajax요청은 비동기적으로 보내짐.</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">동기적으로 호출하면 요청이 진행되는 동안 페이지가 잠시 블로킹 된다.</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">beforeSend</td>
+<td align="center">beforeSend에 설정된 콜백함수를 호출할 때는 두 인자를 차례로 전달함.</td>
+</tr>
+<tr>
+<td align="center">jqXHR : jQuery XMLHttpRequest 객체</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">settings : 설정항목</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">success</td>
+<td align="center">HTTP 요청이 성공하면 호출되는 함수.</td>
+</tr>
+<tr>
+<td align="center">data : 서버에서 반환된 데이터 (dataType 설정에 따라 반환된 결과가 달라진다.)</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">textStatus : 요청 상태를 나타내는 문자열</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">jqXHR : jQuery XMLHttpRequest 객체</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">error</td>
+<td align="center">HTTP 요청이 실패하면 호출되는 함수.</td>
+</tr>
+<tr>
+<td align="center">jqXHR : jQuery XMLHttpRequest 객체</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">textStatus : 에러 타입을 나타내는 문자열 (‘timeout’, ‘error’, ‘abort’, ‘parseerror’ 등)</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">errorThrown : HTTP 에러가 발생하는 경우 “Not Found”나 “Internal Server Error”와 같이 HTTP 상태를 나타내는 문자열</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">complete</td>
+<td align="center">HTTP 요청이 끝난 후나 success, error 콜백 함수가 실행되고 나서 호출되는 함수.</td>
+</tr>
+<tr>
+<td align="center">jqXHR, textStatus를 인자로 전달 받음.</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><p><a target="_blank" rel="noopener" href="https://www.notion.so/f297bc850a064b07b84fe4367d0efc00">Ajax 속성</a></p>
 <p><a target="_blank" rel="noopener" href="https://thiago6.tistory.com/11">Ajax의 Content-Type</a></p>
 <p><a target="_blank" rel="noopener" href="https://devbox.tistory.com/entry/jQuery-AttributeCSS">[jQuery] Ajax 설정</a></p>
 
@@ -179,6 +360,8 @@
                         <a href="/tags/Javascript/"># Javascript</a>
                     
                         <a href="/tags/AJAX/"># AJAX</a>
+                    
+                        <a href="/tags/JQuery/"># JQuery</a>
                     
                         
                 </span>
