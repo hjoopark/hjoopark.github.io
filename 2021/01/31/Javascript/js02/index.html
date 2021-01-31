@@ -233,47 +233,15 @@
 </tr>
 <tr>
 <td align="center">contentType</td>
-<td align="center">기본값 : application/x-www-from-urlencode</td>
-</tr>
-<tr>
-<td align="center">서버에 데이터를 전송할 때 콘텐츠 타입을 나타내는 값</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">JSON형식의 데이터를 서버로 보낼 때는 “application/json”으로 설정</td>
-<td align="center"></td>
+<td align="center">기본값 : application/x-www-from-urlencode<br>서버에 데이터를 전송할 때 콘텐츠 타입을 나타내는 값<br>JSON형식의 데이터를 서버로 보낼 때는 “application/json”으로 설정</td>
 </tr>
 <tr>
 <td align="center">type</td>
-<td align="center">기본값 : GET</td>
-</tr>
-<tr>
-<td align="center">서버로 전송하는 HTTP요청 방식 (GET, POST)</td>
-<td align="center"></td>
+<td align="center">기본값 : GET<br>서버로 전송하는 HTTP요청 방식 (GET, POST)</td>
 </tr>
 <tr>
 <td align="center">dataType</td>
-<td align="center">서버가 리턴하는 데이터 타입</td>
-</tr>
-<tr>
-<td align="center">xml = XML 문서</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">json = JSON형식 데이터로 평가하고 Javascript의 개체로 변환</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">script = JavaScript 코드를 텍스트 데이터로.</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">html = HTML을 텍스트 데이터로. 여기에 script 태그가 포함 된 경우 처리가 실행됨.</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">text = 일반 텍스트</td>
-<td align="center"></td>
+<td align="center">서버가 리턴하는 데이터 타입<br>xml = XML 문서<br>json = JSON형식 데이터로 평가하고 Javascript의 개체로 변환<br>script = JavaScript 코드를 텍스트 데이터로.<br>html = HTML을 텍스트 데이터로. 여기에 script 태그가 포함 된 경우 처리가 실행됨.<br>text = 일반 텍스트</td>
 </tr>
 <tr>
 <td align="center">data</td>
@@ -281,67 +249,23 @@
 </tr>
 <tr>
 <td align="center">async</td>
-<td align="center">기본값 : true</td>
-</tr>
-<tr>
-<td align="center">기본적으로 모든 Ajax요청은 비동기적으로 보내짐.</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">동기적으로 호출하면 요청이 진행되는 동안 페이지가 잠시 블로킹 된다.</td>
-<td align="center"></td>
+<td align="center">기본값 : true<br>기본적으로 모든 Ajax요청은 비동기적으로 보내짐.<br>동기적으로 호출하면 요청이 진행되는 동안 페이지가 잠시 블로킹 된다.</td>
 </tr>
 <tr>
 <td align="center">beforeSend</td>
-<td align="center">beforeSend에 설정된 콜백함수를 호출할 때는 두 인자를 차례로 전달함.</td>
-</tr>
-<tr>
-<td align="center">jqXHR : jQuery XMLHttpRequest 객체</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">settings : 설정항목</td>
-<td align="center"></td>
+<td align="center">beforeSend에 설정된 콜백함수를 호출할 때는 두 인자를 차례로 전달함.<br>jqXHR : jQuery XMLHttpRequest 객체<br>settings : 설정항목</td>
 </tr>
 <tr>
 <td align="center">success</td>
-<td align="center">HTTP 요청이 성공하면 호출되는 함수.</td>
-</tr>
-<tr>
-<td align="center">data : 서버에서 반환된 데이터 (dataType 설정에 따라 반환된 결과가 달라진다.)</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">textStatus : 요청 상태를 나타내는 문자열</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">jqXHR : jQuery XMLHttpRequest 객체</td>
-<td align="center"></td>
+<td align="center">HTTP 요청이 성공하면 호출되는 함수.<br>data : 서버에서 반환된 데이터 (dataType 설정에 따라 반환된 결과가 달라진다.)<br>textStatus : 요청 상태를 나타내는 문자열<br>jqXHR : jQuery XMLHttpRequest 객체</td>
 </tr>
 <tr>
 <td align="center">error</td>
-<td align="center">HTTP 요청이 실패하면 호출되는 함수.</td>
-</tr>
-<tr>
-<td align="center">jqXHR : jQuery XMLHttpRequest 객체</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">textStatus : 에러 타입을 나타내는 문자열 (‘timeout’, ‘error’, ‘abort’, ‘parseerror’ 등)</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">errorThrown : HTTP 에러가 발생하는 경우 “Not Found”나 “Internal Server Error”와 같이 HTTP 상태를 나타내는 문자열</td>
-<td align="center"></td>
+<td align="center">HTTP 요청이 실패하면 호출되는 함수.<br>jqXHR : jQuery XMLHttpRequest 객체<br>textStatus : 에러 타입을 나타내는 문자열 (‘timeout’, ‘error’, ‘abort’, ‘parseerror’ 등)<br>errorThrown : HTTP 에러가 발생하는 경우 “Not Found”나 “Internal Server Error”와 같이 HTTP 상태를 나타내는 문자열</td>
 </tr>
 <tr>
 <td align="center">complete</td>
-<td align="center">HTTP 요청이 끝난 후나 success, error 콜백 함수가 실행되고 나서 호출되는 함수.</td>
-</tr>
-<tr>
-<td align="center">jqXHR, textStatus를 인자로 전달 받음.</td>
-<td align="center"></td>
+<td align="center">HTTP 요청이 끝난 후나 success, error 콜백 함수가 실행되고 나서 호출되는 함수.<br>jqXHR, textStatus를 인자로 전달 받음.</td>
 </tr>
 </tbody></table>
 <h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><p><a target="_blank" rel="noopener" href="https://www.notion.so/f297bc850a064b07b84fe4367d0efc00">Ajax 속성</a></p>
