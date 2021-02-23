@@ -14,7 +14,7 @@
 
 
 
-<title>[프로그래머스] 스킬트리 | ChargingJoo</title>
+<title>[프로그래머스] 다리를 지나는 트럭 | ChargingJoo</title>
 
 
 
@@ -185,7 +185,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">[프로그래머스] 스킬트리</h1>
+            <h1 class="post-title">[프로그래머스] 다리를 지나는 트럭</h1>
             
                 <div class="post-meta">
                     
@@ -194,7 +194,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">February 22, 2021&nbsp;&nbsp;22:19:29</a>
+                        Date: <a href="#">February 23, 2021&nbsp;&nbsp;20:37:27</a>
                         </span>
                     
                     
@@ -210,29 +210,97 @@
         </header>
 
         <div class="post-content">
-            <h2 id="문제-설명"><a href="#문제-설명" class="headerlink" title="문제 설명"></a>문제 설명</h2><p>선행 스킬이란 어떤 스킬을 배우기 전에 먼저 배워야 하는 스킬을 뜻합니다.</p>
-<p>예를 들어 선행 스킬 순서가 스파크 → 라이트닝 볼트 → 썬더일때, 썬더를 배우려면 먼저 라이트닝 볼트를 배워야 하고, 라이트닝 볼트를 배우려면 먼저 스파크를 배워야 합니다.</p>
-<p>위 순서에 없는 다른 스킬(힐링 등)은 순서에 상관없이 배울 수 있습니다. 따라서 스파크 → 힐링 → 라이트닝 볼트 → 썬더와 같은 스킬트리는 가능하지만, 썬더 → 스파크나 라이트닝 볼트 → 스파크 → 힐링 → 썬더와 같은 스킬트리는 불가능합니다.</p>
-<p>선행 스킬 순서 skill과 유저들이 만든 스킬트리1를 담은 배열 skill_trees가 매개변수로 주어질 때, 가능한 스킬트리 개수를 return 하는 solution 함수를 작성해주세요.</p>
-<h2 id="제한-조건"><a href="#제한-조건" class="headerlink" title="제한 조건"></a>제한 조건</h2><p>스킬은 알파벳 대문자로 표기하며, 모든 문자열은 알파벳 대문자로만 이루어져 있습니다.<br>스킬 순서와 스킬트리는 문자열로 표기합니다.<br>예를 들어, C → B → D 라면 CBD로 표기합니다<br>선행 스킬 순서 skill의 길이는 1 이상 26 이하이며, 스킬은 중복해 주어지지 않습니다.<br>skill_trees는 길이 1 이상 20 이하인 배열입니다.<br>skill_trees의 원소는 스킬을 나타내는 문자열입니다.<br>skill_trees의 원소는 길이가 2 이상 26 이하인 문자열이며, 스킬이 중복해 주어지지 않습니다.</p>
+            <h2 id="문제-설명"><a href="#문제-설명" class="headerlink" title="문제 설명"></a>문제 설명</h2><p>트럭 여러 대가 강을 가로지르는 일 차선 다리를 정해진 순으로 건너려 합니다. 모든 트럭이 다리를 건너려면 최소 몇 초가 걸리는지 알아내야 합니다. 트럭은 1초에 1만큼 움직이며, 다리 길이는 bridge_length이고 다리는 무게 weight까지 견딥니다.<br>※ 트럭이 다리에 완전히 오르지 않은 경우, 이 트럭의 무게는 고려하지 않습니다.</p>
+<p>예를 들어, 길이가 2이고 10kg 무게를 견디는 다리가 있습니다. 무게가 [7, 4, 5, 6]kg인 트럭이 순서대로 최단 시간 안에 다리를 건너려면 다음과 같이 건너야 합니다.</p>
+<table>
+<thead>
+<tr>
+<th align="center">경과 시간</th>
+<th align="center">다리를 지난 트럭</th>
+<th align="center">다리를 건너는 트럭</th>
+<th align="center">대기 트럭</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">[]</td>
+<td align="center">[]</td>
+<td align="center">[7,4,5,6]</td>
+</tr>
+<tr>
+<td align="center">1~2</td>
+<td align="center">[]</td>
+<td align="center">[7]</td>
+<td align="center">[4,5,6]</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">[7]</td>
+<td align="center">[4]</td>
+<td align="center">[5,6]</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">[7]</td>
+<td align="center">[4,5]</td>
+<td align="center">[6]</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">[7,4]</td>
+<td align="center">[5]</td>
+<td align="center">[6]</td>
+</tr>
+<tr>
+<td align="center">6~7</td>
+<td align="center">[7,4,5]</td>
+<td align="center">[6]</td>
+<td align="center">[]</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">[7,4,5,6]</td>
+<td align="center">[]</td>
+<td align="center">[]</td>
+</tr>
+<tr>
+<td align="center">따라서, 모든 트럭이 다리를 지나려면 최소 8초가 걸립니다.</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p>solution 함수의 매개변수로 다리 길이 bridge_length, 다리가 견딜 수 있는 무게 weight, 트럭별 무게 truck_weights가 주어집니다. 이때 모든 트럭이 다리를 건너려면 최소 몇 초가 걸리는지 return 하도록 solution 함수를 완성하세요.</p>
+<h2 id="제한-조건"><a href="#제한-조건" class="headerlink" title="제한 조건"></a>제한 조건</h2><p>bridge_length는 1 이상 10,000 이하입니다.<br>weight는 1 이상 10,000 이하입니다.<br>truck_weights의 길이는 1 이상 10,000 이하입니다.<br>모든 트럭의 무게는 1 이상 weight 이하입니다.</p>
 <h2 id="입출력-예"><a href="#입출력-예" class="headerlink" title="입출력 예"></a>입출력 예</h2><table>
 <thead>
 <tr>
-<th align="center">skill</th>
-<th align="center">skill_trees</th>
+<th align="center">bridge_length</th>
+<th align="center">weight</th>
+<th align="center">truck_weights</th>
 <th align="center">return</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">“CBD”</td>
-<td align="center">[“BACDE”, “CBADF”, “AECB”, “BDA”]</td>
 <td align="center">2</td>
+<td align="center">10</td>
+<td align="center">[7,4,5,6]</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">[10]</td>
+<td align="center">101</td>
+</tr>
+<tr>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">[10,10,10,10,10,10,10,10,10,10]</td>
+<td align="center">110</td>
 </tr>
 </tbody></table>
-<h2 id="입출력-예-설명"><a href="#입출력-예-설명" class="headerlink" title="입출력 예 설명"></a>입출력 예 설명</h2><p>BACDE: B 스킬을 배우기 전에 C 스킬을 먼저 배워야 합니다. 불가능한 스킬트립니다.<br>CBADF: 가능한 스킬트리입니다.<br>AECB: 가능한 스킬트리입니다.<br>BDA: B 스킬을 배우기 전에 C 스킬을 먼저 배워야 합니다. 불가능한 스킬트리입니다.</p>
-<h2 id="내가-구현한-코드"><a href="#내가-구현한-코드" class="headerlink" title="내가 구현한 코드"></a>내가 구현한 코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(String skill, String[] skill_trees)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(String skillTree : skill_trees) &#123;</span><br><span class="line">            String cloneTree = <span class="keyword">new</span> String(skillTree);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;cloneTree.length(); i++) &#123;</span><br><span class="line">                String oneSkill = String.valueOf(cloneTree.charAt(i));</span><br><span class="line">                <span class="keyword">if</span>(!skill.contains(oneSkill)) &#123;</span><br><span class="line">                    skillTree = skillTree.replace(oneSkill, <span class="string">&quot;&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (skill.indexOf(skillTree) == <span class="number">0</span>) &#123;</span><br><span class="line">				answer++;</span><br><span class="line">			&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="풀이"><a href="#풀이" class="headerlink" title="풀이"></a>풀이</h2><p>먼저 skill_trees에서 skill에 포함 되지 않는 스킬을 제거해주었다.<br>예를 들어서 BACDE =&gt; BCD , CBADF =&gt; CBD , AECB =&gt; CB , BDA =&gt; BD 이런 식으로 만들어 주었다. 그리고 원래 스킬인 skill과 비교해서 포함을 하고 있으면 카운트를해주었다.</p>
-
+<h2 id="내가-구현한-코드"><a href="#내가-구현한-코드" class="headerlink" title="내가 구현한 코드"></a>내가 구현한 코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
         </div>
 
         
@@ -259,10 +327,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/02/23/Algorithm/programmers-42583/">[프로그래머스] 다리를 지나는 트럭</a>
             
-            
-            <a class="next" rel="next" href="/2021/02/18/Javascript/javascript-ios-issue/">아이폰(IOS) new Date 이슈</a>
+            <a class="next" rel="next" href="/2021/02/22/Algorithm/programmers-49993/">[프로그래머스] 스킬트리</a>
             
         </section>
 
