@@ -14,7 +14,7 @@
 
 
 
-<title>[백준-1026] 보물 | ChargingJoo</title>
+<title>[백준-2164] 카드2 | ChargingJoo</title>
 
 
 
@@ -185,7 +185,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">[백준-1026] 보물</h1>
+            <h1 class="post-title">[백준-2164] 카드2</h1>
             
                 <div class="post-meta">
                     
@@ -194,7 +194,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">March 8, 2021&nbsp;&nbsp;21:16:03</a>
+                        Date: <a href="#">March 12, 2021&nbsp;&nbsp;23:33:24</a>
                         </span>
                     
                     
@@ -210,16 +210,14 @@
         </header>
 
         <div class="post-content">
-            <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>옛날 옛적에 수학이 항상 큰 골칫거리였던 나라가 있었다. 이 나라의 국왕 김지민은 다음과 같은 문제를 내고 큰 상금을 걸었다.</p>
-<p>길이가 N인 정수 배열 A와 B가 있다. 다음과 같이 함수 S를 정의하자.</p>
-<p>S = A[0]×B[0] + … + A[N-1]×B[N-1]</p>
-<p>S의 값을 가장 작게 만들기 위해 A의 수를 재배열하자. 단, B에 있는 수는 재배열하면 안 된다.</p>
-<p>S의 최솟값을 출력하는 프로그램을 작성하시오.</p>
-<h2 id="입력"><a href="#입력" class="headerlink" title="입력"></a>입력</h2><p>첫째 줄에 N이 주어진다. 둘째 줄에는 A에 있는 N개의 수가 순서대로 주어지고, 셋째 줄에는 B에 있는 수가 순서대로 주어진다. N은 50보다 작거나 같은 자연수이고, A와 B의 각 원소는 100보다 작거나 같은 음이 아닌 정수이다.</p>
-<h2 id="출력"><a href="#출력" class="headerlink" title="출력"></a>출력</h2><p>첫째 줄에 S의 최솟값을 출력한다.</p>
-<h2 id="예제-입력-1"><a href="#예제-입력-1" class="headerlink" title="예제 입력 1"></a>예제 입력 1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">1 1 1 6 0</span><br><span class="line">2 7 8 3 1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="예제-출력-1"><a href="#예제-출력-1" class="headerlink" title="예제 출력 1"></a>예제 출력 1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">18</span><br></pre></td></tr></table></figure>
-<h2 id="내가-푼-코드"><a href="#내가-푼-코드" class="headerlink" title="내가 푼 코드"></a>내가 푼 코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    	Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">    	ArrayList&lt;Integer&gt; alist = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    	ArrayList&lt;Integer&gt; blist = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> n = sc.nextInt();</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</span><br><span class="line">        	<span class="keyword">int</span> num = sc.nextInt();</span><br><span class="line">        	alist.add(num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</span><br><span class="line">        	<span class="keyword">int</span> num = sc.nextInt();</span><br><span class="line">        	blist.add(num);</span><br><span class="line">        &#125;</span><br><span class="line">        Collections.sort(alist);</span><br><span class="line">        Collections.sort(blist);</span><br><span class="line">        Collections.reverse(blist);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</span><br><span class="line">        	sum += alist.get(i) * blist.get(i);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>N장의 카드가 있다. 각각의 카드는 차례로 1부터 N까지의 번호가 붙어 있으며, 1번 카드가 제일 위에, N번 카드가 제일 아래인 상태로 순서대로 카드가 놓여 있다.</p>
+<p>이제 다음과 같은 동작을 카드가 한 장 남을 때까지 반복하게 된다. 우선, 제일 위에 있는 카드를 바닥에 버린다. 그 다음, 제일 위에 있는 카드를 제일 아래에 있는 카드 밑으로 옮긴다.</p>
+<p>예를 들어 N=4인 경우를 생각해 보자. 카드는 제일 위에서부터 1234 의 순서로 놓여있다. 1을 버리면 234가 남는다. 여기서 2를 제일 아래로 옮기면 342가 된다. 3을 버리면 42가 되고, 4를 밑으로 옮기면 24가 된다. 마지막으로 2를 버리고 나면, 남는 카드는 4가 된다.</p>
+<p>N이 주어졌을 때, 제일 마지막에 남게 되는 카드를 구하는 프로그램을 작성하시오.</p>
+<h2 id="입력"><a href="#입력" class="headerlink" title="입력"></a>입력</h2><p>첫째 줄에 정수 N(1 ≤ N ≤ 500,000)이 주어진다.</p>
+<h2 id="출력"><a href="#출력" class="headerlink" title="출력"></a>출력</h2><p>첫째 줄에 남게 되는 카드의 번호를 출력한다.</p>
+<p>예제 입력 1<br>6<br>예제 출력 1<br>4</p>
+
         </div>
 
         
@@ -246,10 +244,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/03/12/Algorithm/BOJ-2164/">[백준-2164] 카드2</a>
             
-            
-            <a class="next" rel="next" href="/2021/03/07/Algorithm/BOJ-1316/">[백준-1316] 그룹 단어 체커</a>
+            <a class="next" rel="next" href="/2021/03/08/Algorithm/BOJ-1026/">[백준-1026] 보물</a>
             
         </section>
 
