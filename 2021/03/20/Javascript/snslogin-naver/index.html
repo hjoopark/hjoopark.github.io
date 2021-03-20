@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Hyunjoo Park">
+
+
+    <meta name="subtitle" content="개발 지식 충전 중..">
+
+
+
+
+<title>[SNS로그인] 네이버 아이디로 로그인 구현 | ChargingJoo</title>
+
+
+
+    <link rel="icon" href="/hjoofavicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" type="text/css" href="">
+    
+<link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+
+    
+<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Joo&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Joo&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">[SNS로그인] 네이버 아이디로 로그인 구현</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Hyunjoo Park</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">March 20, 2021&nbsp;&nbsp;21:25:12</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Javascript/">Javascript</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>SNS로 로그인을 구현하게 되었다. 네이버, 카카오, 애플 로그인 중 네이버 로그인 먼저 구현해 보았다. 네이버 로그인은 Javascript를 통해 구현하였다.<br>먼저 네이버 개발자 사이트에 어플리케이션을 등록해주어야한다.</p>
+<ol>
+<li>애플리케이션 등록을 한다.<br><a target="_blank" rel="noopener" href="https://developers.naver.com/main/">https://developers.naver.com/main/</a></li>
+</ol>
+<p>Application &gt; 애플리케이션 등록 (사용API - 네아로 선택)</p>
+<ol start="2">
+<li>네이버 아이디로 로그인 샘플코드를 적용한다.<br>(네이버 로그인 JavaScript 예제는 2개의 파일로 구성되어 있습니다.)</li>
+</ol>
+<p><strong>로그인버튼이 노출되는 로그인 페이지</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js&quot;</span> charset=<span class="string">&quot;utf-8&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 네이버아이디로로그인 버튼 노출 영역 --&gt;</span><br><span class="line">&lt;div id=<span class="string">&quot;naverIdLogin&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">	<span class="comment">/* 네이버아이디로로그인 초기화 Script */</span></span><br><span class="line">	<span class="keyword">var</span> naverLogin = <span class="keyword">new</span> naver.LoginWithNaverId(</span><br><span class="line">		&#123;</span><br><span class="line">			clientId: <span class="string">&quot;$&#123;SYSTEM_NAVER_CLIENTID&#125;&quot;</span>,</span><br><span class="line">			callbackUrl: <span class="string">&quot;$&#123;SYSTEM_JSP_SITEURL&#125;/login/snsNaverlogin&quot;</span>, <span class="comment">/* 애플리케이션에 등록한 callbackURL */</span></span><br><span class="line">			isPopup: <span class="literal">false</span>, <span class="comment">/* 팝업을 통한 연동처리 여부 */</span></span><br><span class="line">			loginButton: &#123;<span class="attr">color</span>: <span class="string">&quot;green&quot;</span>, <span class="attr">type</span>: <span class="number">1</span>, <span class="attr">height</span>: <span class="number">60</span>&#125; <span class="comment">/* 로그인 버튼의 타입을 지정 */</span></span><br><span class="line">		&#125;</span><br><span class="line">	);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/* 설정정보를 초기화하고 연동을 준비 */</span></span><br><span class="line">	naverLogin.init();</span><br><span class="line">	</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>네이버 아이디 로그인 버튼 사용 가능한 Option<br>버튼 색상 : white, green<br>크기 : 1(버튼형), 2(작은 배너), 3(큰 배너)<br>배너 및 버튼 높이 : 사용자 지정값</li>
+</ul>
+<p><strong>로그인버튼 클릭 시 callback처리되는 페이지</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;kr&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset=<span class="string">&quot;utf-8&quot;</span>&gt;</span><br><span class="line">	&lt;meta http-equiv=<span class="string">&quot;X-UA-Compatible&quot;</span> content=<span class="string">&quot;IE=edge&quot;</span>&gt;</span><br><span class="line">	&lt;meta name=<span class="string">&quot;viewport&quot;</span> content=<span class="string">&quot;width=device-width, initial-scale=1&quot;</span>&gt;</span><br><span class="line">	&lt;title&gt;NaverLoginSDK&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">callback 처리중입니다. 이 페이지에서는 callback을 처리하고 바로 main으로 redirect하기때문에 이 메시지가 보이면 안됩니다.</span><br><span class="line">	&lt;!-- (<span class="number">1</span>) LoginWithNaverId Javscript SDK --&gt;</span><br><span class="line">	&lt;script type=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js&quot;</span> charset=<span class="string">&quot;utf-8&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- (<span class="number">2</span>) LoginWithNaverId Javscript 설정 정보 및 초기화 --&gt;</span><br><span class="line">	&lt;script&gt;</span><br><span class="line">		<span class="keyword">var</span> naverLogin = <span class="keyword">new</span> naver.LoginWithNaverId(</span><br><span class="line">			&#123;</span><br><span class="line">				clientId: <span class="string">&quot;$&#123;SYSTEM_NAVER_CLIENTID&#125;&quot;</span>,</span><br><span class="line">				callbackUrl: <span class="string">&quot;$&#123;SYSTEM_JSP_SITEURL&#125;/login/snsNaverlogin&quot;</span>,</span><br><span class="line">				isPopup: <span class="literal">false</span>,</span><br><span class="line">				callbackHandle: <span class="literal">true</span></span><br><span class="line">				<span class="comment">/* callback 페이지가 분리되었을 경우에 callback 페이지에서는 callback처리를 해줄수 있도록 설정합니다. */</span></span><br><span class="line">			&#125;</span><br><span class="line">		);</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* (3) 네아로 로그인 정보를 초기화하기 위하여 init을 호출 */</span></span><br><span class="line">		naverLogin.init();</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* (4) Callback의 처리. 정상적으로 Callback 처리가 완료될 경우 main page로 redirect(또는 Popup close) */</span></span><br><span class="line">		<span class="built_in">window</span>.addEventListener(<span class="string">&#x27;load&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">			naverLogin.getLoginStatus(<span class="function"><span class="keyword">function</span> (<span class="params">status</span>) </span>&#123;</span><br><span class="line">				<span class="keyword">if</span> (status) &#123;</span><br><span class="line">					<span class="comment">/* (5) 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */</span></span><br><span class="line">					<span class="keyword">var</span> phone = naverLogin.user.getMobile();</span><br><span class="line">					<span class="keyword">if</span>( phone == <span class="literal">undefined</span> || phone == <span class="literal">null</span>) &#123;</span><br><span class="line">						alert(<span class="string">&quot;휴대폰번호는 필수정보입니다. 정보제공을 동의해주세요.&quot;</span>);</span><br><span class="line">						<span class="comment">/* (5-1) 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */</span></span><br><span class="line">						naverLogin.reprompt();</span><br><span class="line">						<span class="keyword">return</span>;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="comment">/* 인증이 완료된후 해당 페이지로 이동. 본인 페이지로 수정해야한다. */</span></span><br><span class="line">					<span class="built_in">window</span>.location.replace(<span class="string">&quot;$&#123;SYSTEM_JSP_SITEURL&#125;/login/snsLoginWithPhone?snsType=N&amp;phone=&quot;</span> + phone);</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="built_in">console</span>.log(<span class="string">&quot;callback 처리에 실패하였습니다.&quot;</span>);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;);</span><br><span class="line">	&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>결과화면</strong><br><img src="/image/SnsLogin/NaverSNS.png" alt="네이버로그인"></p>
+
+        </div>
+
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Javascript/"># Javascript</a>
+                    
+                        <a href="/tags/SNS/"># SNS</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/03/16/Algorithm/BOJ-11866/">[백준-11866] 요세푸스 문제 0</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Hyunjoo Park | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
