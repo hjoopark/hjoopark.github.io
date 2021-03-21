@@ -211,9 +211,9 @@
 
         <div class="post-content">
             <p>SNS로 로그인을 구현하게 되었다. 네이버, 카카오, 애플 로그인 중 네이버 로그인 먼저 구현해 보았다. 네이버 로그인은 Javascript를 통해 구현하였다.<br>먼저 네이버 개발자 사이트에 어플리케이션을 등록해주어야한다.</p>
-<p>1.애플리케이션 등록을 한다.<br><a target="_blank" rel="noopener" href="https://developers.naver.com/main/">https://developers.naver.com/main/</a></p>
+<p><strong>1.애플리케이션 등록을 한다.</strong><br><a target="_blank" rel="noopener" href="https://developers.naver.com/main/">https://developers.naver.com/main/</a></p>
 <p>Application &gt; 애플리케이션 등록 (사용API - 네아로 선택)</p>
-<p>2.네이버 아이디로 로그인 샘플코드를 적용한다.<br>(네이버 로그인 JavaScript 예제는 2개의 파일로 구성되어 있습니다.)</p>
+<p><strong>2.네이버 아이디로 로그인 샘플코드를 적용한다.</strong><br>(네이버 로그인 JavaScript 예제는 2개의 파일로 구성되어 있습니다.)</p>
 <h3 id="로그인버튼이-노출되는-로그인-페이지"><a href="#로그인버튼이-노출되는-로그인-페이지" class="headerlink" title="로그인버튼이 노출되는 로그인 페이지"></a>로그인버튼이 노출되는 로그인 페이지</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js&quot;</span> charset=<span class="string">&quot;utf-8&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 네이버아이디로로그인 버튼 노출 영역 --&gt;</span><br><span class="line">&lt;div id=<span class="string">&quot;naverIdLogin&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">	<span class="comment">/* 네이버아이디로로그인 초기화 Script */</span></span><br><span class="line">	<span class="keyword">var</span> naverLogin = <span class="keyword">new</span> naver.LoginWithNaverId(</span><br><span class="line">		&#123;</span><br><span class="line">			clientId: <span class="string">&quot;$&#123;SYSTEM_NAVER_CLIENTID&#125;&quot;</span>,</span><br><span class="line">			callbackUrl: <span class="string">&quot;$&#123;SYSTEM_JSP_SITEURL&#125;/login/snsNaverlogin&quot;</span>, <span class="comment">/* 애플리케이션에 등록한 callbackURL */</span></span><br><span class="line">			isPopup: <span class="literal">false</span>, <span class="comment">/* 팝업을 통한 연동처리 여부 */</span></span><br><span class="line">			loginButton: &#123;<span class="attr">color</span>: <span class="string">&quot;green&quot;</span>, <span class="attr">type</span>: <span class="number">1</span>, <span class="attr">height</span>: <span class="number">60</span>&#125; <span class="comment">/* 로그인 버튼의 타입을 지정 */</span></span><br><span class="line">		&#125;</span><br><span class="line">	);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/* 설정정보를 초기화하고 연동을 준비 */</span></span><br><span class="line">	naverLogin.init();</span><br><span class="line">	</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>네이버 아이디 로그인 버튼 사용 가능한 Option<br>버튼 색상 : white, green<br>크기 : 1(버튼형), 2(작은 배너), 3(큰 배너)<br>배너 및 버튼 높이 : 사용자 지정값</li>
@@ -244,6 +244,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/03/21/Java/snslogin-kakao/">[SNS로그인] 카카오 로그인 구현</a>
             
             
             <a class="next" rel="next" href="/2021/03/16/Algorithm/BOJ-11866/">[백준-11866] 요세푸스 문제 0</a>

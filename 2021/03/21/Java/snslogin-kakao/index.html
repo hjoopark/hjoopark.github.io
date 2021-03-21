@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Hyunjoo Park">
+
+
+    <meta name="subtitle" content="개발 지식 충전 중..">
+
+
+
+
+<title>[SNS로그인] 카카오 로그인 구현 | ChargingJoo</title>
+
+
+
+    <link rel="icon" href="/hjoofavicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" type="text/css" href="">
+    
+<link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+
+    
+<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Joo&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Joo&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">[SNS로그인] 카카오 로그인 구현</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Hyunjoo Park</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">March 21, 2021&nbsp;&nbsp;23:06:57</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Java/">Java</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>카카오 로그인 처리 단계를 아래의 세 단계로 나눠보았다.<br>인가 코드 받기 -&gt; 토큰 받기 -&gt; 사용자 정보 가져오기<br>이 중 인가 코드 받기 단계를 JavaScript SDK의 <code>Kakao.Auth.authorize</code> 함수로 요청하고 나머지 단계는 REST API로 처리해주었다.</p>
+<p>네이버 로그인과 마찬가지로 카카오 개발자 사이트에서 어플리케이션을 등록해주고 카카오 로그인을 설정해준다.</p>
+<h3 id="카카오-로그인-설정하기"><a href="#카카오-로그인-설정하기" class="headerlink" title="카카오 로그인 설정하기"></a>카카오 로그인 설정하기</h3><p><a target="_blank" rel="noopener" href="https://developers.kakao.com/docs/latest/ko/kakaologin/prerequisite">Kakao Developers</a></p>
+<h3 id="카카오-로그인-버튼-생성-amp-인가-코드-받기-JavaScript-SDK-활용"><a href="#카카오-로그인-버튼-생성-amp-인가-코드-받기-JavaScript-SDK-활용" class="headerlink" title="카카오 로그인 버튼 생성 &amp; 인가 코드 받기 (JavaScript SDK 활용)"></a>카카오 로그인 버튼 생성 &amp; 인가 코드 받기 (JavaScript SDK 활용)</h3><p>사용자가 카카오 로그인 버튼을 클릭했을 때, 클릭 이벤트 핸들러에서 <code>Kakao.Auth.authorize</code> 함수를 호출하면 카카오 로그인 동의 화면을 띄울 수 있다. 동의 화면에서 사용자가 사용자 정보 제공 및 기능 활용 동의를 하고 ‘동의하고 계속하기’ 버튼을 누르면 인가 코드가 발급된다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">  	&lt;!-- 카카오 로그인 javascript키 초기화 --&gt;</span><br><span class="line">    Kakao.init(<span class="string">&#x27;$&#123;SYSTEM_KAKAO_JAVASCRIPTKEY&#125;&#x27;</span>); <span class="comment">/* */</span></span><br><span class="line">		Kakao.isInitialized();</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 카카오 아이디로로그인 버튼 노출 영역 --&gt;</span><br><span class="line">&lt;a id=<span class="string">&quot;custom-login-btn&quot;</span> href=<span class="string">&quot;javascript:loginWithKakao()&quot;</span>&gt;</span><br><span class="line">	&lt;img</span><br><span class="line">	  src=<span class="string">&quot;//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg&quot;</span></span><br><span class="line">	  width=<span class="string">&quot;222&quot;</span></span><br><span class="line">	/&gt;</span><br><span class="line">&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">		<span class="comment">/*  카카오아이디로로그인 Script */</span></span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">loginWithKakao</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			Kakao.Auth.authorize(&#123;</span><br><span class="line">				redirectUri: <span class="string">&#x27;$&#123;SYSTEM_JSP_SITEURL&#125;/login/snsKakaologin&#x27;</span>,  <span class="comment">/* redirect되는 URL */</span></span><br><span class="line">				scope: <span class="string">&#x27;phone_number&#x27;</span>  <span class="comment">/* 전달 받을 정보 */</span></span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="redirectUri로-인가코드-전달-받기"><a href="#redirectUri로-인가코드-전달-받기" class="headerlink" title="redirectUri로 인가코드 전달 받기"></a>redirectUri로 인가코드 전달 받기</h3><p>redirectUri에 입력한 주소로 redirect가 되고 code(인가코드)를 전달 받는다.</p>
+<p>이 코드에서 access_token, 사용자 정보를 가져오는 함수를 호출해주었다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 카카오 sns 로그인 redirect 페이지</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@RequestMapping(value = &quot;/snsKakaologin&quot;)</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ModelAndView <span class="title">snsKakaologin</span><span class="params">(String code, HttpServletRequest request)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">// 전달 받은 code를 사용해서 access_token 받기</span></span><br><span class="line">		String accessToken = getAccessToken(code);</span><br><span class="line">		<span class="comment">//return받은 access_token으로 사용자 정보 가져오기</span></span><br><span class="line">		HashMap&lt;String, Object&gt; userInfo = getKakaoUniqueNo(accessToken);</span><br><span class="line"></span><br><span class="line">		String phone = (String) userInfo.get(<span class="string">&quot;phone_number&quot;</span>);</span><br><span class="line">		String strPhone = phone.replaceAll(<span class="string">&quot;-&quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">		strPhone = strPhone.replace(<span class="string">&quot;+82 &quot;</span>, <span class="string">&quot;0&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(userInfo != <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="comment">//사용자 정보가 존재하면 SNS로그인 처리해주도록 redirect</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span>.redirect(<span class="string">&quot;/login/snsLoginWithPhone?snsType=K&amp;phone=&quot;</span> + strPhone);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">//회원가입 페이지로 redirect</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span>.redirect(<span class="string">&quot;/join/join?snsType=K&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="토큰-받기"><a href="#토큰-받기" class="headerlink" title="토큰 받기"></a>토큰 받기</h3><p>전달 받은 code를 사용해서 access_token을 전달 받는다.</p>
+<p><strong>요청에 필요한 정보</strong><br><img src="/image/SnsLogin/TokenRequest.png" alt="토큰요청정보"></p>
+<p><strong>전달 받은 정보</strong><br><img src="/image/SnsLogin/TokenResponse.png" alt="토큰전달정보"></p>
+<p><strong>작성 코드</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 카카오 로그인 access_token 리턴</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getAccessToken</span><span class="params">(String code)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	 String access_Token = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        String refresh_Token = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        String reqURL = <span class="string">&quot;https://kauth.kakao.com/oauth/token&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            URL url = <span class="keyword">new</span> URL(reqURL);</span><br><span class="line"></span><br><span class="line">            HttpURLConnection conn = (HttpURLConnection) url.openConnection();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//POST 요청을 위해 기본값이 false인 setDoOutput을 true로</span></span><br><span class="line">            conn.setRequestMethod(<span class="string">&quot;POST&quot;</span>);</span><br><span class="line">            conn.setDoOutput(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송</span></span><br><span class="line">            BufferedWriter bw = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(conn.getOutputStream()));</span><br><span class="line">            StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">            sb.append(<span class="string">&quot;grant_type=authorization_code&quot;</span>);</span><br><span class="line">            sb.append(<span class="string">&quot;&amp;client_id=&quot;</span> + <span class="keyword">this</span>.config.getString(<span class="string">&quot;system.kakao.restapikey&quot;</span>));  <span class="comment">//본인이 발급받은 key</span></span><br><span class="line">            sb.append(<span class="string">&quot;&amp;redirect_uri=&quot;</span> + <span class="keyword">this</span>.config.getString(<span class="string">&quot;system.jsp.siteUrl&quot;</span>) + <span class="string">&quot;/login/snsKakaologin&quot;</span>);     <span class="comment">// 본인이 설정해 놓은 경로</span></span><br><span class="line">            sb.append(<span class="string">&quot;&amp;code=&quot;</span> + code);</span><br><span class="line">            bw.write(sb.toString());</span><br><span class="line">            bw.flush();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//결과 코드가 200이라면 성공</span></span><br><span class="line">            <span class="keyword">int</span> responseCode = conn.getResponseCode();</span><br><span class="line">            System.out.println(<span class="string">&quot;responseCode : &quot;</span> + responseCode);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기</span></span><br><span class="line">            BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(conn.getInputStream()));</span><br><span class="line">            String line = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            String result = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> ((line = br.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                result += line;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;response body : &quot;</span> + result);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성</span></span><br><span class="line">            JsonParser parser = <span class="keyword">new</span> JsonParser();</span><br><span class="line">            JsonElement element = parser.parse(result);</span><br><span class="line"></span><br><span class="line">            access_Token = element.getAsJsonObject().get(<span class="string">&quot;access_token&quot;</span>).getAsString();</span><br><span class="line">            refresh_Token = element.getAsJsonObject().get(<span class="string">&quot;refresh_token&quot;</span>).getAsString();</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">&quot;access_token : &quot;</span> + access_Token);</span><br><span class="line">            System.out.println(<span class="string">&quot;refresh_token : &quot;</span> + refresh_Token);</span><br><span class="line"></span><br><span class="line">            br.close();</span><br><span class="line">            bw.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> access_Token;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="사용자-정보-가져오기"><a href="#사용자-정보-가져오기" class="headerlink" title="사용자 정보 가져오기"></a>사용자 정보 가져오기</h3><p>리턴 받은 access_token을 사용해서 사용자 정보를 가져올 수 있다.</p>
+<p><strong>요청에 필요한 정보</strong><br><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/17e0d7dc-b46a-40d2-aaae-294cc877ed59/Untitled.png" alt="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/17e0d7dc-b46a-40d2-aaae-294cc877ed59/Untitled.png"></p>
+<p><strong>전달 받은 정보</strong><br>동의한 정보를 받을 수 있다. 이번엔 핸드폰 번호만 전달 받도록 구현했다. 카카오 동의항목은 <a target="_blank" rel="noopener" href="https://developers.kakao.com/console/app/416585/product/login/scope">https://developers.kakao.com/console/app/416585/product/login/scope</a> 에서 설정할 수 있다.<br><a target="_blank" rel="noopener" href="https://developers.kakao.com/docs/latest/ko/kakaologin/common#user-info">https://developers.kakao.com/docs/latest/ko/kakaologin/common#user-info</a> 문서 내용을 참고해서 전달 받을 정보를 설정하면 좋을 것 같다.</p>
+<p><strong>작성코드</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 카카오 사용자 핸드폰 번호 추출</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> HashMap&lt;String, Object&gt; <span class="title">getKakaoUniqueNo</span><span class="params">(String accessToken)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">			<span class="comment">//요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언</span></span><br><span class="line">       HashMap&lt;String, Object&gt; userInfo = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">       String reqURL = <span class="string">&quot;https://kapi.kakao.com/v2/user/me&quot;</span>;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           URL url = <span class="keyword">new</span> URL(reqURL);</span><br><span class="line">           HttpURLConnection conn = (HttpURLConnection) url.openConnection();</span><br><span class="line">           conn.setRequestMethod(<span class="string">&quot;GET&quot;</span>);</span><br><span class="line"></span><br><span class="line">           <span class="comment">//요청에 필요한 Header에 포함될 내용</span></span><br><span class="line">           conn.setRequestProperty(<span class="string">&quot;Authorization&quot;</span>, <span class="string">&quot;Bearer &quot;</span> + accessToken);</span><br><span class="line"></span><br><span class="line">           <span class="keyword">int</span> responseCode = conn.getResponseCode();</span><br><span class="line">           System.out.println(<span class="string">&quot;responseCode : &quot;</span> + responseCode);</span><br><span class="line"></span><br><span class="line">           BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(conn.getInputStream()));</span><br><span class="line"></span><br><span class="line">           String line = <span class="string">&quot;&quot;</span>;</span><br><span class="line">           String result = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">while</span> ((line = br.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">               result += line;</span><br><span class="line">           &#125;</span><br><span class="line">           System.out.println(<span class="string">&quot;response body : &quot;</span> + result);</span><br><span class="line"></span><br><span class="line">           JsonParser parser = <span class="keyword">new</span> JsonParser();</span><br><span class="line">           JsonElement element = parser.parse(result);</span><br><span class="line"></span><br><span class="line">           JsonObject kakao_account = element.getAsJsonObject().get(<span class="string">&quot;kakao_account&quot;</span>).getAsJsonObject();</span><br><span class="line"></span><br><span class="line">           String phone_number = kakao_account.getAsJsonObject().get(<span class="string">&quot;phone_number&quot;</span>).getAsString();</span><br><span class="line"></span><br><span class="line">           userInfo.put(<span class="string">&quot;phone_number&quot;</span>, phone_number);</span><br><span class="line"></span><br><span class="line">       &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">           <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> userInfo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Javascript/"># Javascript</a>
+                    
+                        <a href="/tags/SNS/"># SNS</a>
+                    
+                        <a href="/tags/REST-API/"># REST API</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/03/20/Javascript/snslogin-naver/">[SNS로그인] 네이버 아이디로 로그인 구현</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Hyunjoo Park | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
