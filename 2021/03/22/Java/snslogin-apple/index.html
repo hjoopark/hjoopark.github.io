@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Hyunjoo Park">
+
+
+    <meta name="subtitle" content="개발 지식 충전 중..">
+
+
+
+
+<title>[SNS로그인] 애플 로그인 구현 | ChargingJoo</title>
+
+
+
+    <link rel="icon" href="/hjoofavicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" type="text/css" href="">
+    
+<link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+
+    
+<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Joo&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Joo&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">[SNS로그인] 애플 로그인 구현</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Hyunjoo Park</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">March 22, 2021&nbsp;&nbsp;21:39:29</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Java/">Java</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>애플 로그인을 시작하기 전에 <a target="_blank" rel="noopener" href="https://developer.apple.com/">애플 개발자 사이트</a>에서 ‘Services ID’ 라고 되어 있는 ‘client id’ 를 얻어야 한다. ‘Services ID’를 발급받았다고 가정하에 작성하였다.<br><a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_js/configuring_your_webpage_for_sign_in_with_apple">Apple Developer Documentation</a> 문서를 참고해서 함께 보면 좋을 것 같다.</p>
+<h3 id="애플-로그인-버튼-생성-amp-Apple-JS로-로그인"><a href="#애플-로그인-버튼-생성-amp-Apple-JS로-로그인" class="headerlink" title="애플 로그인 버튼 생성 &amp; Apple JS로 로그인"></a>애플 로그인 버튼 생성 &amp; Apple JS로 로그인</h3><p>Javascript를 사용해서 애플 인증 기능으로 로그인에 액세스 할 수 있다.</p>
+<p>client-id : client id는 service id 등록 시에 입력했던 Identifier를 입력<br>scope : scope는 애플로 로그인 시, 애플에서 받아올 유저의 정보를 입력, 사용자의 이름이나 이메일을 요청할 수 있다. 둘 다 요청할 수 있고, 안 할 수도 있다.<br>redirect-uri : redirect uri는 service id 등록시에 입력했던 redirect url을 입력<br>state : state는 CSRF공격을 완화하기 위한 OAuth 파라미터 이다. 어떠한 문자가 들어가도 상관없지만, 아무도 추정할 수 없도록 유니크한 값이어야 한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">			&lt;script type=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">			&lt;meta name=<span class="string">&quot;appleid-signin-client-id&quot;</span> content=<span class="string">&quot;$&#123;SYSTEM_APPLE_CLIENTID&#125;&quot;</span>&gt;</span><br><span class="line">			&lt;meta name=<span class="string">&quot;appleid-signin-scope&quot;</span> content=<span class="string">&quot;email&quot;</span>&gt;</span><br><span class="line">			&lt;meta name=<span class="string">&quot;appleid-signin-redirect-uri&quot;</span> content=<span class="string">&quot;$&#123;SYSTEM_JSP_SITEURL&#125;/login/snsApplelogin&quot;</span>&gt;</span><br><span class="line">			&lt;meta name=<span class="string">&quot;appleid-signin-state&quot;</span> content=<span class="string">&quot;$&#123;SYSTEM_APPLE_STATE&#125;&quot;</span>&gt;</span><br><span class="line">			&lt;meta name=<span class="string">&quot;appleid-signin-use-popup&quot;</span> content=<span class="string">&quot;false&quot;</span>&gt; &lt;!-- or <span class="literal">false</span> defaults to <span class="literal">false</span> --&gt;</span><br><span class="line">		&lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">			&lt;!-- 애플아이디로로그인 버튼 노출 영역 --&gt;</span><br><span class="line">			&lt;div id=<span class="string">&quot;appleid-signin&quot;</span> data-mode=<span class="string">&quot;logo-only&quot;</span> data-color=<span class="string">&quot;black&quot;</span> data-border=<span class="string">&quot;false&quot;</span> data-border-radius=<span class="string">&quot;15&quot;</span> data-size=<span class="string">&quot;60&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">		&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>여기까지하면 애플로그인 버튼이 생성되는 것을 확인할 수 있다. 버튼을 클릭하여 애플 아이디로 로그인을 하면 로그인 처리가 완료되고 응답값을 redirect-uri로 넘겨주게 될 것이다.<br>사용자가 Apple로 로그인 버튼을 클릭하면 프레임 워크가 인증 정보를 Apple로 보내준다. Apple은 인증 요청을 처리하고 인증 결과가 포함 된 HTTP POST 요청을 제공된 redirect-uri로 보내준다. </p>
+<h3 id="승인-응답값-확인"><a href="#승인-응답값-확인" class="headerlink" title="승인 응답값 확인"></a>승인 응답값 확인</h3><p>응답값은 content-type이 <code>application/x-www-form-urlencoded</code> 로 넘어오게 된다. </p>
+<p>code : 5 분 동안 유효한 일회용 인증 코드<br>id_token : 사용자의 식별 정보가 포함 된 JSON 웹 토큰 (JWT)<br>state : init함수가 전달한 상태<br>user : scope 속성에서 요청 된 데이터가 포함 된 JSON 문자열</p>
+<p>여기서 중요한게 user는 사용자가 앱을 처음으로 인증할 때만 개체를 반환해준다. 처음 인증할 경우에만 user객체가 넘어오고 다음 인증 부터는 user객체가 넘어오지 않는다.<br>사용자의 email 정보를 사용하기 위해서 id_token으로 넘어오는 JSON 웹 토큰을 decode해줄것이다. <a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_rest_api/authenticating_users_with_sign_in_with_apple">이 문서</a>를 보면 id_token에 포함된 데이터를 알 수 있다.</p>
+<h3 id="Decode된-JWT-토큰-확인"><a href="#Decode된-JWT-토큰-확인" class="headerlink" title="Decode된 JWT 토큰 확인"></a>Decode된 JWT 토큰 확인</h3><p>JWT는 header, payload, signature 세 파트로 나누어지며 우리는 payload 데이터를 사용할 것이다. </p>
+<p><a target="_blank" rel="noopener" href="https://jwt.io/">https://jwt.io/</a><br>위 사이트에서 Encoded에 애플에서 전달 받은 id_token 값을 입력하면, Decoded된 값을 확인 할 수 있다.<br>이제 payload에 있는 email 값을 사용할 수 있다.<br><img src="/image/SnsLogin/jwt.png" alt="JWT토큰확인"></p>
+<h3 id="JWT-라이브러리-추가"><a href="#JWT-라이브러리-추가" class="headerlink" title="JWT 라이브러리 추가"></a>JWT 라이브러리 추가</h3><p>실제 코드에서 Json 웹 토큰(JWT)을 처리하기 위해 JWT 관련 라이브러리를 이용해 줄 것이다.<br>JWT 관련 라이브러리는 “nimbus-jose-jwt(v3.10)”를 이용했다. pom.xml에 아래 코드를 추가해주었다. <a target="_blank" rel="noopener" href="https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt/3.10">nimbus-jose-jwt 라이브러리 다운</a> </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.nimbusds<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>nimbus-jose-jwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Controller에서-응답값-실제-처리-코드"><a href="#Controller에서-응답값-실제-처리-코드" class="headerlink" title="Controller에서 응답값 실제 처리 코드"></a>Controller에서 응답값 실제 처리 코드</h3><p>응답값의 content-type이 <code>application/x-www-form-urlencoded</code> 로 넘어오기 때문에 <code>MultiValueMap&lt;String, Object&gt;</code> 를 사용해서 data를 받아주었다. 받아 온 data 중 우리가 사용해야할 데이터는 id_token값이므로 id_token값을 가지고 사용자의 email 정보를 가져왔다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 애플 sns 로그인 redirect 페이지 */</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/snsApplelogin&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">snsApplelogin</span><span class="params">(<span class="meta">@RequestBody</span> MultiValueMap&lt;String, Object&gt; data, HttpServletRequest request)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//전달 받은 data에서 token 값 저장</span></span><br><span class="line">	String id_token = data.get(<span class="string">&quot;id_token&quot;</span>).toString();</span><br><span class="line">  String email = <span class="string">&quot;&quot;</span>;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">//token값 decode처리</span></span><br><span class="line">	    SignedJWT signedJWT = SignedJWT.parse(id_token);</span><br><span class="line">			<span class="comment">//token값에서 payload 저장</span></span><br><span class="line">	    ReadOnlyJWTClaimsSet payload = signedJWT.getJWTClaimsSet();</span><br><span class="line">	    <span class="comment">//payload에서 email 값 저장</span></span><br><span class="line">	    email = payload.getClaim(<span class="string">&quot;email&quot;</span>).toString();</span><br><span class="line"></span><br><span class="line">	&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.redirect(<span class="string">&quot;/login/snsLoginWithPhone?snsType=A&amp;phone=&quot;</span> + email);</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Javascript/"># Javascript</a>
+                    
+                        <a href="/tags/SNS/"># SNS</a>
+                    
+                        <a href="/tags/REST-API/"># REST API</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/03/21/Java/snslogin-kakao/">[SNS로그인] 카카오 로그인 구현</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Hyunjoo Park | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
