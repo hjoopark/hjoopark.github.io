@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Hyunjoo Park">
+
+
+    <meta name="subtitle" content="개발 지식 충전 중..">
+
+
+
+
+<title>[SNS로그인] 애플 로그인 설정하기 | ChargingJoo</title>
+
+
+
+    <link rel="icon" href="/hjoofavicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" type="text/css" href="">
+    
+<link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+
+    
+<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Joo&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Joo&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">[SNS로그인] 애플 로그인 설정하기</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Hyunjoo Park</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">March 23, 2021&nbsp;&nbsp;23:01:56</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Java/">Java</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>애플로그인을 구현하기 위해 Apple Developer 사이트에서 설정을 먼저해주어야한다. Services ID의 ‘Identifier’가 로그인 처리에서 client_id 로 사용되기 때문이다.</p>
+<p>Apple Developer에서 필요한 서비스를 이용하기 위해서는 매년 결제가 되어야한다. </p>
+<h3 id="App-ID-등록"><a href="#App-ID-등록" class="headerlink" title="App ID 등록"></a>App ID 등록</h3><p>App ID는 이미 등록되어 있어서 등록 시 참고할 수 있는 사이트만 가져왔다.</p>
+<p><a target="_blank" rel="noopener" href="https://whitepaek.tistory.com/60">[1] 스프링 프로젝트에 애플 로그인 API 연동을 위한 Apple Developer 설정</a></p>
+<h3 id="Service-ID-등록"><a href="#Service-ID-등록" class="headerlink" title="Service ID 등록"></a>Service ID 등록</h3><p><img src="/image/SnsLoginRegistServicesId.png" alt="service ID등록"></p>
+<p>Identifiers에서 빨간 박스안에 있는 부분을 Services IDs로 바꿔주고 + 버튼을 눌러서 Services ID를 추가해준다.</p>
+<p><img src="/image/SnsLoginRegistServicesId2.png" alt="service ID등록2"></p>
+<p><strong>Description</strong>에 Services ID를 설명하는 이름을 입력해준다.<br><strong>Identifier</strong>에 Services ID를 식별할 수 있는 도메인을 작성해준다.</p>
+<p>생성된 Services ID를 클릭하면 설정할 수 있는 페이지가 뜬다. 여기서 ‘Identifier’은 로그인 처리 시에 ‘client_id’에 사용하면 된다.</p>
+<p><img src="/image/SnsLoginRegistServicesId3.png" alt="service ID등록3"></p>
+<p>Configure버튼을 클릭하여 WebsiteURLs 를 추가해준다.</p>
+<p><img src="/image/SnsLoginRegistServicesId4.png" alt="service ID등록4"></p>
+<p><strong>Domains and Subdomains</strong>에 애플 로그인을 사용할 도메인을 입력해준다. ex) developer.apple.com<br><strong>Return URLs</strong>에 로그인 처리 후 return되는 url을 입력해 주면 된다. ex) <a target="_blank" rel="noopener" href="https://developer.apple.com/documentation">https://developer.apple.com/documentation</a></p>
+<p>여기서 Return URLs에는 https만 입력할 수 있다. localhost나 http로 입력을 했을 경우 형식이 맞지 않다는 알럿창이 뜬다.</p>
+<p>이렇게 Services ID를 등록해주면 Apple 로그인을 위한 준비가 완료된다!</p>
+<p><a href="https://hjoopark.github.io/2021/03/22/Java/snslogin-apple/">Apple 로그인 구현하러 가기</a></p>
+
+        </div>
+
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/SNS/"># SNS</a>
+                    
+                        <a href="/tags/Apple/"># Apple</a>
+                    
+                        <a href="/tags/Apple-Developer/"># Apple Developer</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/03/22/Java/snslogin-apple/">[SNS로그인] 애플 로그인 구현</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Hyunjoo Park | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
