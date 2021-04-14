@@ -14,7 +14,7 @@
 
 
 
-<title>[프로그래머스] 타겟넘버 | ChargingJoo</title>
+<title>JDBC/DBCP/JNDI 차이 &amp; DBCP옵션 | ChargingJoo</title>
 
 
 
@@ -185,7 +185,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">[프로그래머스] 타겟넘버</h1>
+            <h1 class="post-title">JDBC/DBCP/JNDI 차이 &amp; DBCP옵션</h1>
             
                 <div class="post-meta">
                     
@@ -194,14 +194,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">March 30, 2021&nbsp;&nbsp;23:00:31</a>
+                        Date: <a href="#">April 14, 2021&nbsp;&nbsp;23:07:47</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Algorithm/">Algorithm</a>
+                                <a href="/categories/Java/">Java</a>
                             
                         </span>
                     
@@ -210,13 +210,27 @@
         </header>
 
         <div class="post-content">
-            <h2 id="문제-설명"><a href="#문제-설명" class="headerlink" title="문제 설명"></a>문제 설명</h2><p>n개의 음이 아닌 정수가 있습니다. 이 수를 ㅎ적절히 더하거나 빼서 타겟 넘버를 만들려고 합니다. 예를 들어 [1, 1, 1, 1, 1]로 숫자 3을 만들려면 다음 다섯 방법을 쓸 수 있습니다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-1+1+1+1+1 &#x3D; 3</span><br><span class="line">+1-1+1+1+1 &#x3D; 3</span><br><span class="line">+1+1-1+1+1 &#x3D; 3</span><br><span class="line">+1+1+1-1+1 &#x3D; 3</span><br><span class="line">+1+1+1+1-1 &#x3D; 3</span><br></pre></td></tr></table></figure>
-<p>사용할 수 있는 숫자가 담긴 배열 numbers, 타겟 넘버 target이 매개변수로 주어질 때 숫자를 적절히 더하고 빼서 타겟 넘버를 만드는 방법의 수를 return 하도록 solution 함수를 작성해주세요.</p>
-<h2 id="제한사항"><a href="#제한사항" class="headerlink" title="제한사항"></a>제한사항</h2><p>주어지는 숫자의 개수는 2개 이상 20개 이하입니다.<br>각 숫자는 1 이상 50 이하인 자연수입니다.<br>타겟 넘버는 1 이상 1000 이하인 자연수입니다.</p>
-<h2 id="입출력-예"><a href="#입출력-예" class="headerlink" title="입출력 예"></a>입출력 예</h2><p>| numbers    | target |    return |<br>|[1, 1, 1, 1, 1] |    3 |    5 |</p>
-<h2 id="입출력-예-설명"><a href="#입출력-예-설명" class="headerlink" title="입출력 예 설명"></a>입출력 예 설명</h2><p>문제에 나온 예와 같습니다.</p>
-<h3 id="내가-구현한-코드"><a href="#내가-구현한-코드" class="headerlink" title="내가 구현한 코드"></a>내가 구현한 코드</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span>[] numbers, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">        answer = DFS(numbers, target, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span>[] numbers, <span class="keyword">int</span> target, <span class="keyword">int</span> n, <span class="keyword">int</span> sum)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n == numbers.length) &#123;</span><br><span class="line">            <span class="keyword">if</span>(sum == target) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> DFS(numbers, target, n+<span class="number">1</span>, sum + numbers[n]) + DFS(numbers, target, n+<span class="number">1</span>, sum - numbers[n]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h3 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h3><p>JDBC는 자바에서 제공하는 데이터베이스와 연결하여 데이터를 주고받을 수 있도록 하는 인터페이스이다.</p>
+<h3 id="DBCP-커넥션-풀"><a href="#DBCP-커넥션-풀" class="headerlink" title="DBCP(커넥션 풀)"></a>DBCP(커넥션 풀)</h3><p>데이터베이스 커넥션을 소스 내에서 설정해놓은 방법이다.<br>WAS 실행 시 데이터베이스와 연결된 DB Connection을 미리 만들어서 풀(pool) 속에 저장해 두고, DB연결 요청이 있으면 Pool에서 Connection객체를 가져다 쓰고 다시 Pool에 반환한다.<br>만약 모든 커넥션이 사용중이여서 풀에 남은 커넥션이 없다면 해당 클라이언트는 대기 상태로 전환이 되고, 커넥션이 반환되면 대기하고 있는 순서대로 커넥션이 제공된다.<br><img src="/image/java/dbcp.png" alt="dbcp동작방식"></p>
+<h4 id="DBCP-옵션"><a href="#DBCP-옵션" class="headerlink" title="DBCP 옵션"></a>DBCP 옵션</h4><p>DBCP를 사용하므로써 설정할 수 있는 옵션<br>maxActive : 동시에 사용할 수 있는 최대 커넥션 개수<br>maxIdle : Connection Pool에 반납할 때 최대로 유지할 수 있는 커넥션 개수<br>minIdle : 최소한으로 유지할 커넥션 개수<br>initialSize : 최소로 getConnection() 메서드를 통해 커넥션 풀에 채워 넣을 커넥션 개수</p>
+<h3 id="JNDI"><a href="#JNDI" class="headerlink" title="JNDI"></a>JNDI</h3><p>JNDI는 WAS 단에 DB Pool을 미리 Naming을 시켜두는 방법이다. </p>
+<h3 id="JDBC와-DBCP의-차이"><a href="#JDBC와-DBCP의-차이" class="headerlink" title="JDBC와 DBCP의 차이"></a>JDBC와 DBCP의 차이</h3><p>JDBC를 사용할 경우 DB접속 시</p>
+<ol>
+<li>DB접속을 위한 JDBC 드라이버 로드</li>
+<li>getConnection 메소드로 부터 DB커넥션 객체를 얻음</li>
+<li>쿼리 수행을 위한 PreparedStatement 객체 생성</li>
+<li>executeQuery를 실행해서 결과를 받아옴</li>
+</ol>
+<p>여기서 1번과 2번을 DB연결 할 때 마다 같은 작업을 반복한다.<br>이 부분을 효율적으로 처리하는 것이 DBCP이다.<br>DBCP를 이용하면 미리 일정량의 Connection객체를 Pool에 생성하고 DB연결 요청할 때마다 Pool에서 Connection을 가져와 사용하기 때문에 매번 DB연결하지 않아도 된다.</p>
+<h3 id="DBCP와-JNDI의-차이"><a href="#DBCP와-JNDI의-차이" class="headerlink" title="DBCP와 JNDI의 차이"></a>DBCP와 JNDI의 차이</h3><p><code>DBCP</code>는 커넥션 풀을 어플리케이션 소스단에서 설정해 놓는다.<br><code>JNDI</code>는 WAS단에 커넥션 풀을 미리 네이밍 해둔다.</p>
+<h3 id="JNDI의-장점"><a href="#JNDI의-장점" class="headerlink" title="JNDI의 장점"></a>JNDI의 장점</h3><p>WAS에 DataSource를 설정하는 이유</p>
+<ul>
+<li><p>DB설정 정보를 파악하기 쉽다.<br>JNDI를 사용하여 WAS단에 설정정보를 저장해놓으면 디비가 몇개 붙었는지, DB설정정보를 파악하기 쉽다.</p>
+</li>
+<li><p>DB커넥션 풀을 효율적으로 사용 가능<br>WAS단에서 DB Pool을 하나로 관리하면 효율이 좋아진다.</p>
+</li>
+</ul>
+
         </div>
 
         
@@ -228,9 +242,11 @@
                     
                         <a href="/tags/Java/"># Java</a>
                     
-                        <a href="/tags/Algorithm/"># Algorithm</a>
+                        <a href="/tags/JDBC/"># JDBC</a>
                     
-                        <a href="/tags/Programmers/"># Programmers</a>
+                        <a href="/tags/DBCP/"># DBCP</a>
+                    
+                        <a href="/tags/JNDI/"># JNDI</a>
                     
                         
                 </span>
@@ -243,10 +259,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/04/14/Java/java-jdbc-dbcp-jndi/">JDBC/DBCP/JNDI 차이 & DBCP옵션</a>
             
-            
-            <a class="next" rel="next" href="/2021/03/23/Java/snslogin-apple-setting/">[SNS로그인] 애플 로그인 설정하기</a>
+            <a class="next" rel="next" href="/2021/03/30/Algorithm/programmers-43165/">[프로그래머스] 타겟넘버</a>
             
         </section>
 
