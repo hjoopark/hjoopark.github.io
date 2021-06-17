@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Hyunjoo Park">
+
+
+    <meta name="subtitle" content="개발 지식 충전 중..">
+
+
+
+
+<title>Identity Access Management (IAM) | ChargingJoo</title>
+
+
+
+    <link rel="icon" href="/hjoofavicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" type="text/css" href="">
+    
+<link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+
+    
+<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Joo&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Joo&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Identity Access Management (IAM)</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Hyunjoo Park</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 17, 2021&nbsp;&nbsp;22:05:28</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/AWS-SAA/">AWS-SAA</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="AWS-Identity-Access-Management-란"><a href="#AWS-Identity-Access-Management-란" class="headerlink" title="AWS Identity Access Management 란?"></a>AWS Identity Access Management 란?</h3><p>AWS IAM을 사용하면 AWS 리소스에 대한 <strong>개별 액세스 및 그룹 액세스</strong>를 <strong>안전하게 제어</strong>할 수 있다. <strong>사용자 자격증명을 생성 및 관리</strong>하고, 이러한 IAM 사용자에게 <strong>리소스에 액세스할 수 있는 권한을 부여</strong>할 수 있다. </p>
+<p>IAM</p>
+<ul>
+<li>AWS 계정의 중앙 집중식 제어</li>
+<li>AWS 계정에 대한 공유 액세스</li>
+<li>세분화된 권한</li>
+<li>ID 연합</li>
+<li>다중 인증</li>
+<li>필요한 경우 사용자 / 장치 및 서비스에 대한 임시 액세스를 제공한다</li>
+<li>고유한 비밀번호 교체 정책을 설정할 수 있다</li>
+<li>다양한 AWS 서비스와 통합</li>
+<li>PCI DSS 준수 지원</li>
+</ul>
+<h3 id="주요-단어"><a href="#주요-단어" class="headerlink" title="주요 단어"></a>주요 단어</h3><p>Users - 최종 사용자</p>
+<p>Groups - 하나의 권한 집합 아래있는 사용자 모음</p>
+<p>Roles - 역할을 생성하고 이를 AWS 리소스에 할당할 수 있다</p>
+<p>Policies - user/group/role에 대한 허가들을 정의해놓은 문서</p>
+<h3 id="IAM-만드는-순서"><a href="#IAM-만드는-순서" class="headerlink" title="IAM 만드는 순서"></a>IAM 만드는 순서</h3><p><strong>set user detail</strong></p>
+<p>access type : programmatic access / aws management console access</p>
+<ul>
+<li>programmatic access는 access key ID, Secret access key를 생성해줌</li>
+<li>aws management console access 는 콘솔에서 접근할 수 있게 아이디랑 비밀번호 넣는거</li>
+</ul>
+<p><strong>set permission</strong></p>
+<p>add users to group / copy permissions from existing user / attach existing policies directly</p>
+<p>group은 developer, administrator 등등으로 관리할 수 있다.</p>
+<p>policy는 그 그룹이 접근할 수 있는 document이다. group을 생성할 때 policy를 선택해서 생성해준다. policy는 키 밸류 형식으로 되어있는 document이다.</p>
+<h3 id="IAM-요약"><a href="#IAM-요약" class="headerlink" title="IAM 요약"></a>IAM 요약</h3><ul>
+<li>IAM은 global로 되어있다. users, groups, roles, policies들을 생성하는데 지역이 상관없기 때문이다</li>
+<li>“root account”는 처음 계정을 만들 때 생성되는 계정이다. Admin 계정</li>
+<li>새로운 user를 만들때 처음에는 permission이 정해져있지 않는다. 권한이 아무것도 없다. 지정해줘야한다.</li>
+<li>새로운 user에는 access key ID와 secret access key가 부여된다.</li>
+<li>ID와 password는 console에 접근할 때 사용하는 것이고, access key ID와 secret access key는 programmatic 접근을 할 때 (command 창이나 개발에서나 API에서 접근할 때) 사용한다.</li>
+<li>access key ID와 secret access key는 한번만 보여주는데 csv 형식으로 다운 받아서 로컬에 저장할 수 있고, 잃어버리면 다시 재발급 받을 수 있다.</li>
+<li>Multifactor Authentication (다중인증)을 루트계정에 설정해야한다.</li>
+<li>설정에서 비밀번호 교체 정책을 만들 수 있다.</li>
+</ul>
+<h3 id="IAM-Policies-IAM-정책"><a href="#IAM-Policies-IAM-정책" class="headerlink" title="IAM Policies - IAM 정책"></a>IAM Policies - IAM 정책</h3><ul>
+<li>허가를 정의하는 JSON 문서</li>
+<li>Identity 정책</li>
+<li>Resource 정책</li>
+<li>첨부된 정책만 적용됨</li>
+<li>statements 목록</li>
+<li>명시적으로 허용되지 않음 == <strong>암묵적으로 거부됨</strong></li>
+</ul>
+<p><strong>Statement 설명</strong></p>
+<ul>
+<li>각 statement가 AWS API 요청과 매칭된다.</li>
+<li>Effect는 Allow 아니면 Deny이다</li>
+<li>Action에 있는 것들과 매칭된다</li>
+<li>Resource는 Action이 상대한다</li>
+</ul>
+<p><img src="/image/AWS_SAA/IAM_Policies.png" alt="IAM Policies"></p>
+<h3 id="Permission-Boundaries-권한경계"><a href="#Permission-Boundaries-권한경계" class="headerlink" title="Permission Boundaries - 권한경계"></a>Permission Boundaries - 권한경계</h3><ul>
+<li>다른 사용자에게 관리를 <strong>위임</strong>하는데 사용된다</li>
+<li><strong>권한 상승 또는 불필요하게 광범위한 권한을 방지</strong>한다.</li>
+<li>IAM 정책이 부여할 수 있는 <strong>최대 권한제어</strong></li>
+<li>사용 케이스<ul>
+<li>람다 함수에 대한 역할을 생성하는 개발자</li>
+<li>EC2 인스턴스에 대한 역항르 생성하는 애플리케이션 소유자</li>
+<li>임시 사용자를 만드는 관리자.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Resource-Access-Manager-RAM"><a href="#Resource-Access-Manager-RAM" class="headerlink" title="Resource Access Manager (RAM)"></a>Resource Access Manager (RAM)</h3><p>AWS Resource Access Manager (RAM)을 통해 계정 간 리소스 공유 가능</p>
+<p>예시)</p>
+<p><img src="/image/AWS_SAA/RAM.png" alt="RAM"></p>
+<p>계정 2에서 계정 1에 private subnet에 있는 인스턴스를 접근하고 사용하고 싶을 때 RAM을 사용한다. RAM에서 리소스를 계정끼리 공유할 수 있다. 계정 1에서 리소스를 공유해주고 계정 2에서 공유된 리소스를 허용하면 공유 가능하다.</p>
+<h3 id="AWS-Single-Sign-On-AWS-SSO"><a href="#AWS-Single-Sign-On-AWS-SSO" class="headerlink" title="AWS Single Sign-On (AWS SSO)"></a>AWS Single Sign-On (AWS SSO)</h3><p>AWS SSO는 여러 AWS 계정 및 비즈니스 애플리케이션에 대한 액세스를 <strong>중앙에서 손쉽게 관리</strong>하고 <strong>사용자에게 Single Sign-On 액세스를 제공</strong>하여 <strong>할당된 모든 계정 및 애플리케이션</strong>을 <strong>한 곳에서 액세스하도록 할 수 있</strong>는 AWS 서비스</p>
+<h3 id="AWS-Organizations"><a href="#AWS-Organizations" class="headerlink" title="AWS Organizations"></a>AWS Organizations</h3><p>AWS Organizations는 여러 AWS 계정을 생성하고 중앙에서 관리하는 조직으로 통합할 수 있는 계정 관리 서비스이다.</p>
+<h3 id="AWS-Organizations의-모범-사례"><a href="#AWS-Organizations의-모범-사례" class="headerlink" title="AWS Organizations의 모범 사례"></a>AWS Organizations의 모범 사례</h3><ul>
+<li>항상 루트 계정에서 다단계 인증을 활성화한다</li>
+<li>항상 루트 계정은 강하고 복잡한 비밀번호를 사용한다</li>
+<li>지불 계정은 청구 목적으로만 사용해야한다. 지불 계정에 리소스를 배포하지 마시오.</li>
+<li>OU(Organizaion Unit?) 또는 개별 계정에서 서비스 제어 정책을 사용하여 AWS 서비스를 활성화/비활성화한다.</li>
+</ul>
+<p>재무팀이 EC2를 접근하지 못하게 하려면 Policies에 가서 Service control policies에서 바꿔주면 된다.</p>
+
+        </div>
+
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/AWS/"># AWS</a>
+                    
+                        <a href="/tags/SAA/"># SAA</a>
+                    
+                        <a href="/tags/Cloud/"># Cloud</a>
+                    
+                        <a href="/tags/IAM/"># IAM</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/05/30/AWS-SAA/AWS-SAA-Start/">AWS-SAA자격증 시험을 준비하다.</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Hyunjoo Park | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
