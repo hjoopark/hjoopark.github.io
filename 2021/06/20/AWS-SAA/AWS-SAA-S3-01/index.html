@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Hyunjoo Park">
+
+
+    <meta name="subtitle" content="개발 지식 충전 중..">
+
+
+
+
+<title>AWS S3 -1 | ChargingJoo</title>
+
+
+
+    <link rel="icon" href="/hjoofavicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" type="text/css" href="">
+    
+<link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+
+    
+<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Joo&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Joo&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">AWS S3 -1</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Hyunjoo Park</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 20, 2021&nbsp;&nbsp;0:43:25</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/AWS-SAA/">AWS-SAA</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="S3-스토리지"><a href="#S3-스토리지" class="headerlink" title="S3 스토리지"></a>S3 스토리지</h2><h3 id="S3란"><a href="#S3란" class="headerlink" title="S3란?"></a><strong>S3란?</strong></h3><p>S3는 개발자에게 안전하고, 튼튼하고, 가용성이 높은 저장소를 제공한다. amazon s3는 웹상에서 어떠한 양의 데이터를 저장할 수 있다. 객체기반 저장소이다. S3에 올라가있는 데이터에 다양한 기종이나 시설에서 접근이 가능하다.</p>
+<p>Amazon S3는 어디서나 원하는 양의 데이터를 저장하고 검색할 수 있도록 구축된 객체 스토리지입니다. 업계 최고 수준의 <strong>내구성, 가용성, 성능, 보안 및 거의 무제한의 확장성</strong>을 아주 저렴한 요금으로 제공하는 <strong>단순한 스토리지 서비스</strong>입니다.</p>
+<h3 id="S3-특징"><a href="#S3-특징" class="headerlink" title="S3 특징"></a><strong>S3 특징</strong></h3><ul>
+<li><strong>S3는 객체 기반이다.</strong> ⇒ 중요용!!!</li>
+<li>Not suitable to install an operating system on. (데이터베이스나 이런거처럼 운영체제에 설치하는게 아니고 그냥 파일을 올리는 저장소인거다.)</li>
+<li>파일은 <strong>0byte에서 5TB</strong>까지 가능하다</li>
+<li>용량이 제한되지 않은 저장소이다</li>
+<li>파일은 buckets이라는 곳에 저장이 된다.</li>
+<li>S3는 공용 namespace이기 때문에 전체적으로 <strong>유니크</strong>해야한다.</li>
+<li>S3에 파일을 업로드하고 성공일 때 HTTP 200 코드를 받을 수 있다.</li>
+<li>99.99퍼센트로 S3플랫폼에서 이용가능하다.</li>
+<li>아마존 보증 99.9퍼센트 유효성</li>
+<li>아마존 보증 99.999999999% 로 내구성이 튼실 (11*9)</li>
+<li>계층형 스토리지 사용가능 (S3 사용할 때 S3 Standard, S3-IA, S3 OneZone-IA, Glacier 이렇게 분류되어있음)</li>
+<li>versioning</li>
+<li>암호화 가능</li>
+<li>안전하다.</li>
+</ul>
+<p><strong>Data Consistency Model For S3</strong></p>
+<p>시험에서 가장 중요하게 나오는 부분이다. <strong>S3에 올렸을 때 거의 동시에 볼 수 있다.</strong> 파일을 수정할 때에도 거의 동시에 볼 수 있다. 그래서 데이터 일관성이 있다고 쓴거 같음..</p>
+<p><strong>S3는 key-value로 저장된다.</strong></p>
+<ul>
+<li>key : 이름</li>
+<li>value : 데이터</li>
+<li>versionID</li>
+<li>metadata : 페이로드 이런거</li>
+<li>subresources :  Access Control Lists (ACL) 어떤 사람들이 접근 가능한지..</li>
+</ul>
+<h3 id="S3-생성-방법"><a href="#S3-생성-방법" class="headerlink" title="S3 생성 방법"></a>S3 생성 방법</h3><p>S3는 지역이 global로 바뀐다. <strong>global로 관리</strong>가 되는데 어차피 bucket을 생성할 때 지역을 설정하기 때문에 관리는 global에서 한다.</p>
+<p><strong>S3 버켓 생성 방법</strong></p>
+<ul>
+<li>버켓의 이름은 <strong>전체 대상이라 유니크</strong>해야한다</li>
+<li>S3 업로드에 성공했다면 HTTP 200 코드를 받는다</li>
+<li>S3, S3-IA, S3 Reduced Redundancy 저장소가 있다</li>
+<li>암호화<ul>
+<li>Client Side Encryption</li>
+<li>Server Side Encryption<ul>
+<li>Server side encryption with Amazon S3 Managed Keys (SSE-S3)</li>
+<li>Server side encryption with KMS (SSE-KMS)</li>
+<li>Server side encryption with Customer Provide Keys (SSE-C)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>버켓 ACL</strong> 과 <strong>버켓 Polices</strong>를 이용해서 <strong>버켓 접근을 제어</strong>할 수 있다</li>
+<li>버켓을 처음 만들 때 디폴트가 <strong>private</strong>이다. 그리고 private 버켓 안에 파일들도 모두 private이다</li>
+<li>버킷의 properties, permissions, management를 관리할 수 있지만 그 안에 <strong>파일 하나의 properties, permissions, management를 따로 관리</strong>할 수 있다.</li>
+</ul>
+<h2 id="스토리지-클래스-및-관리"><a href="#스토리지-클래스-및-관리" class="headerlink" title="스토리지 클래스 및 관리"></a>스토리지 클래스 및 관리</h2><h3 id="S3-Pricing-Tiers"><a href="#S3-Pricing-Tiers" class="headerlink" title="S3 Pricing Tiers"></a>S3 Pricing Tiers</h3><p><strong>S3 비용 책정</strong></p>
+<ul>
+<li>저장소</li>
+<li>요청 및 데이터 검색</li>
+<li>데이터 이전</li>
+<li>관리 &amp; 복제</li>
+</ul>
+<p><strong>비용 순서</strong></p>
+<ul>
+<li><p><strong>S3 Standard</strong></p>
+<p>  튼튼한. 즉시 사용 가능. 자주 접근</p>
+</li>
+<li><p><strong>S3 - IA</strong></p>
+<p>  튼튼한. 즉시 사용 가능. 드물게 접근 </p>
+<p>  S3 스탠다드–IA는 액세스 빈도가 낮지만 필요할 때 빠르게 액세스해야 하는 데이터에 적합</p>
+<p>  S3 Standard–IA는 장기 파일 스토리지, 이전 동기화 및 공유 스토리지, 다른 오래된 데이터에 적합</p>
+</li>
+<li><p><strong>S3 - Intelligent Tiering</strong></p>
+<p>  Amazon S3 Intelligent-Tiering(S3 Intelligent-Tiering)은 운영 오버헤드 없이 가장 비용 효과적인 액세스 계층으로 데이터를 자동으로 이동하여 스토리지 비용을 최적화하기 위해 설계된 S3 스토리지 클래스</p>
+</li>
+<li><p><strong>S3 One Zone - IA</strong></p>
+<p>  가용영역이 한개에만 있고 더 싸다</p>
+<p>  백업 복사본, 재해 복구 복사본 또는, 손쉽게 재생성 가능한 기타 데이터 등 자주 액세스하지 않는 스토리지에 S3 One Zone-IA를 사용</p>
+</li>
+<li><p><strong>S3 Glacier</strong></p>
+<p>  매우 싸고 보관에만 사용한다. Expedidited, Standard, Bulk 세 종류가 있다. Expedidited(긴급 검색)는 몇분, Bulk(대량 검색)는 <strong>5-12시간</strong>, Standard(표준 검색) 검색 시간은 <strong>3-5시간</strong> 걸린다.</p>
+</li>
+<li><p><strong>S3 Glacier Deep Archive</strong></p>
+<p>  1년에 한두 번 정도 액세스하는 데이터의 장기 보존을 위한 안전하고 안정적인 객체 스토리지를 제공하는 Amazon S3 스토리지 클래스</p>
+</li>
+</ul>
+<p>*thousands or millions of objects 일 때를 빼곤 거의 S3- intelligent tiering</p>
+<p>*glacier은 아카이브(검색)</p>
+<h3 id="Lifecycle-Management-수명주기"><a href="#Lifecycle-Management-수명주기" class="headerlink" title="Lifecycle Management - 수명주기"></a>Lifecycle Management - 수명주기</h3><p>잘 사용 안하는 파일들을 S3에서 S3-IA나 Glacier 로 변경하는 서비스를 제공한다.</p>
+<ul>
+<li>버전 관리와 함께 사용할 수 있습니다.</li>
+<li>현재 버전 및 이전 버전에 적용 가능</li>
+<li>다음 작업을 수행할 수 있다<ul>
+<li><strong>S3 standard</strong> 와 <strong>S3 IA</strong> 계층으로 전환 가능 (<strong>생성일로 부터 30일 이후</strong>)</li>
+<li><strong>Glacier</strong> 저장소 에 보관 가능 (<strong>IA에서 30일 이후</strong>)</li>
+<li>영구적으로 삭제</li>
+</ul>
+</li>
+</ul>
+<h3 id="S3-versioning"><a href="#S3-versioning" class="headerlink" title="S3 versioning"></a>S3 versioning</h3><ul>
+<li>객체의 <strong>모든 버전을 저장</strong>한다 (모든 <strong>쓰기</strong>와 객체를 <strong>삭제</strong>할 때도 포함).</li>
+<li>아주 좋은 <strong>백업 도구</strong>.</li>
+<li>버저닝을 한번 enabled 시키면 disabled 못시키고 suspended(중지)만 시킬 수 있다.</li>
+<li>수명주기 규칙과 통합</li>
+<li>다단계 인증을 사용하는 버전관리의 MFA 삭제 기능을 사용하여 추가 보안 계층을 제공할 수 있다.</li>
+</ul>
+<h2 id="S3-복제"><a href="#S3-복제" class="headerlink" title="S3 복제"></a>S3 복제</h2><h3 id="Cross-Region-Replication-복제"><a href="#Cross-Region-Replication-복제" class="headerlink" title="Cross Region Replication 복제"></a>Cross Region Replication 복제</h3><ul>
+<li><strong>소스</strong> 및 <strong>대상 버킷</strong> 모두에서 <strong>버전관리를 활성화</strong> 해야한다.</li>
+<li>지역은 <strong>유니크</strong>해야한다.</li>
+<li>기존 버킷의 파일은 자동으로 복제되지 않는다. 이후의 모든 업데이트 된 파일은 자동으로 복제된다. 원래 있던 파일이 복사되는 것은 아님!!!</li>
+<li>여러 버킷에 복제하거나 데이지 체인을 사용할 수 없다. (현재는)</li>
+<li>삭제 마커는 복제된다. ⇒ 삭제를 하면 replication에서도 삭제가 되는데, 삭제marker를 삭제할 때는 복제가 안된다.</li>
+<li>개별버전이나 삭제 마커를 삭제하면 복제되지 않는다.</li>
+</ul>
+
+        </div>
+
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/AWS/"># AWS</a>
+                    
+                        <a href="/tags/SAA/"># SAA</a>
+                    
+                        <a href="/tags/Cloud/"># Cloud</a>
+                    
+                        <a href="/tags/S3/"># S3</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/06/17/AWS-SAA/AWS-SAA-IAM/">Identity Access Management (IAM)</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Hyunjoo Park | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
