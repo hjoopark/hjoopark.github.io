@@ -317,6 +317,37 @@
 <li>삭제 마커는 복제된다. ⇒ 삭제를 하면 replication에서도 삭제가 되는데, 삭제marker를 삭제할 때는 복제가 안된다.</li>
 <li>개별버전이나 삭제 마커를 삭제하면 복제되지 않는다.</li>
 </ul>
+<h2 id="데이터-전송"><a href="#데이터-전송" class="headerlink" title="데이터 전송"></a>데이터 전송</h2><h3 id="S3-Transfer-Acceleration"><a href="#S3-Transfer-Acceleration" class="headerlink" title="S3 Transfer Acceleration"></a>S3 Transfer Acceleration</h3><p>Amazon S3 Transfer Acceleration은 <strong>거리가 먼 클라이언트</strong>와 <strong>Amazon S3 버킷</strong> 간에 <strong>파일을 빠르고, 쉽고, 안전하게 전송</strong>할 수 있게 해줍니다. S3 Transfer Acceleration은 전 세계적으로 분산된 Amazon CloudFront의 AWS 엣지 로케이션을 활용합니다. 데이터가 AWS 엣지 로케이션에 도착하면, 이 데이터는 최적화된 네트워크 경로를 통해 Amazon S3 버킷으로 라우팅됩니다.</p>
+<p><strong>Q1. S3 Transfer Acceleration 언제 사용하나?</strong></p>
+<p>⇒ <strong>지리적으로 분산된 위치</strong>에서 중앙 집중식 버킷으로 데이터를 업로드 할 경우</p>
+<p><strong>대륙 간에 GB 또는 TB 규모의 데이터를 정기적으로 전송하는 경우</strong></p>
+<p><strong>Q2. S3 Transfer Acceleration VS Amazon CloudFront의 PUT/POST</strong></p>
+<p>⇒ <strong>더 높은 처리량</strong>이 필요한 경우 <strong>S3 Transfer Acceleration</strong></p>
+<p><strong>객체가 1GB보다 작거나 데이터 세트가 1GB보다 작을</strong> 경우 <strong>Amazon CloudFront의 PUT/POST</strong></p>
+<p><strong>Q3. S3 Transfer Acceleration VS AWS Snow 패밀리(Snowball, Snowball Edge, Snowmobile)</strong></p>
+<p>⇒ <strong>AWS Snowball 패밀리</strong>는 <strong>대용량 데이터 배치를 한 번에 옮기려는 고객</strong>에게 적합</p>
+<h3 id="Snowball"><a href="#Snowball" class="headerlink" title="Snowball"></a>Snowball</h3><p>AWS Snowball은 AWS 컴퓨팅 및 스토리지 기능을 엣지 환경으로 가져오고 AWS와 데이터를 주고 받을 수 있도록, 안전하고 견고한 디바이스를 제공하는 서비스</p>
+<h3 id="Snowmobile"><a href="#Snowmobile" class="headerlink" title="Snowmobile"></a>Snowmobile</h3><p>AWS Snowmobile은 초대용량 데이터 세트를 온프레미스에서 AWS로 이전할 수 있는 첫 번째 엑사바이트 규모의 데이터 마이그레이션 서비스. 각 Snowmobile은 고객 사이트로 보내서 고객 네트워크 백본에 직접 연결하여 고속 데이터 마이그레이션을 수행할 수 있는 안전한 데이터 트럭으로 <strong>최대 100PB 스토리지 용량을 지원</strong>합니다. 단일 위치 또는 여러 데이터 센터에서 병렬로 10개의 Snowmobile을 사용해 엑사바이트의 데이터를 신속하게 마이그레이션할 수 있습니다.</p>
+<p><strong>Q1. Snowmobile과 Snowball은 각각 언제 사용해야 합니까?</strong></p>
+<p>⇒ <strong>단일 위치</strong>에서 <strong>10PB 이상</strong>의 대규모 데이터 세트를 마이그레이션하려면 <strong>Snowmobile</strong>을 사용</p>
+<p>데이터 세트가 <strong>10PB 미만</strong>이거나 <strong>여러 위치에 분산</strong>되어 있다면 <strong>Snowball</strong>을 사용</p>
+<h3 id="Storage-Gateway"><a href="#Storage-Gateway" class="headerlink" title="Storage Gateway"></a>Storage Gateway</h3><p>AWS Storage Gateway는 사실상 무제한의 클라우드 스토리지에 대한 온프레미스 액세스 권한을 제공하는 하이브리드 클라우드 스토리지 서비스입니다.</p>
+<p><strong>AWS Storage Gateway 사용하는 이유?</strong></p>
+<p>Storage Gateway를 사용하면 AWS 클라우드 스토리지 서비스를 활용하여 온프레미스 스토리지 공간과 관련 비용을 줄일 수 있다</p>
+<p><strong>AWS Storage Gateway 사용 사례?</strong></p>
+<ol>
+<li>백업 및 아카이브를 클라우드로 이동시킬 경우</li>
+<li>클라우드 기반 파일 공유를 통한 온프레미스 스토리지 감소</li>
+<li>온프레미스 애플리케이션에 AWS에 저장된 데이터에 대한 짧은 지연 시간의 액세스 제공</li>
+<li>처리 전/후 워크플로에 대한 데이터 레이크 액세스인 네가지 주요 하이브리드 클라우드 사용 사례</li>
+</ol>
+<p><strong>AWS Storage Gateway 종류</strong></p>
+<ul>
+<li>Amazon S3 File Gateway<br><code>NFS(네트워크 파일 시스템)</code> 및 <code>SMB(서버 메시지 블록)</code>와 같은 <code>파일 프로토콜</code>을 사용하여 Amazon S3에서 객체를 저장하고 검색할 수 있다. S3 파일 게이트웨이를 통해 작성된 객체는 S3에서 직접 액세스할 수 있다.</li>
+<li>Amazon FSx 파일 게이트웨이<br><code>SMB 프로토콜</code>을 사용하여 Amazon FSx for Windows File Server <code>내 파일을 저장 및 검색</code>할 수 있다. Amazon FSx 파일 게이트웨이를 통해 작성한 파일은 Amazon FSx for Windows File Server에서 바로 액세스할 수 있다.</li>
+<li>볼륨 게이트웨이<br><code>iSCSI 연결</code>을 사용하여 온프레미스 애플리케이션에 블록 스토리지를 제공한다. 볼륨의 데이터는 Amazon S3에 저장되며, 사용자는 특정 시점의 볼륨 복사본을 생성할 수 있고 이는 AWS에 <code>Amazon EBS 스냅샷으로 저장</code>된다. 또한 AWS Backup을 사용하여 볼륨의 복사본을 가져와서 보존 관리를 수행할 수도 있다. EBS 스냅샷을 볼륨 게이트 웨어 볼륨 또는 EBS 볼륨에 저장할 수 있다.</li>
+<li>테이프 게이트웨이<br>가상 미디어 체인저, 가상 테이프 드라이브 및 가상 테이프로 구성된 iSCSI 가상 <code>테이프 라이브러리(VTL) 인터페이스</code>를 백업 애플리케이션에 제공한다. 가상 테이프는 Amazon S3에 저장되며 Amazon S3 Glacier 또는 Amazon S3 Glacier Deep Archive에 아카이브될 수 있다.</li>
+</ul>
 
         </div>
 
