@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Hyunjoo Park">
+
+
+    <meta name="subtitle" content="개발 지식 충전 중..">
+
+
+
+
+<title>Cloud Front CDN | ChargingJoo</title>
+
+
+
+    <link rel="icon" href="/hjoofavicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" type="text/css" href="">
+    
+<link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+
+    
+<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Joo&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Joo&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Cloud Front CDN</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Hyunjoo Park</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 22, 2021&nbsp;&nbsp;19:12:15</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/AWS-SAA/">AWS-SAA</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="CDN이란"><a href="#CDN이란" class="headerlink" title="CDN이란?"></a>CDN이란?</h3><p>CDN은 곳곳에 분산되어 있는 서버 그룹을 말한다. 이를 작동 시켜 인터넷 콘텐츠를 빠르게 전달할 수 있는 서비스를 말합니다. CDN을 사용하면 HTML 페이지, JS 파일, css, 이미지 및 비디오를 비롯한 인터넷 콘텐츠로드에 필요한 것을 신속하게 전송할 수 있습니다.</p>
+<p>사용자 입장에서 가장 가까운 곳에서 컨텐츠를 받게해주는 서비스</p>
+<h3 id="Amazon-CloudFront란"><a href="#Amazon-CloudFront란" class="headerlink" title="Amazon CloudFront란?"></a>Amazon CloudFront란?</h3><p>Amazon CloudFront는 비즈니스 및 웹 애플리케이션 개발자에게 짧은 지연 시간과 빠른 데이터 전송 속도를 사용하여 콘텐츠를 간편하고 비용 효율적으로 배포할 방법을 제공합니다.</p>
+<p>CloudFront를 사용하면 <strong>엣지 로케이션의 글로벌 네트워크</strong>를 사용해 최종 사용자에게 파일이 전송됩니다.</p>
+<p>CDN은 원본서버가 중요하다. 원본서버의 컨텐츠를 각 나라에의 서버로 배포해주는 서비스이다.</p>
+<ul>
+<li>엣지 로케이션 = 컨텐츠가 캐쉬될 지역 (캐쉬: 미리 가져와 있는 것)<ul>
+<li>엣지 로케이션은 READ only가 아니고 쓸수도 있다</li>
+<li>객체는 TTL의 수명동안 캐시된다</li>
+<li>캐쉬된 객체를 지울 수 있는데 돈이 든다.</li>
+</ul>
+</li>
+<li>원본(origin) = CDN이 분산 시킬 파일의 원본. S3버켓, EC2 인스턴스, ELB, Route53 이 될 수 있다.</li>
+<li>분산(distribution) = CDN에 주어진 이름이다. 엣지 로케이션의 모음으로 구성되어있다.<ul>
+<li>Web Distribution - 전형적으로 Websites에서 사용된다 (정적인 컨텐츠)</li>
+<li>RTMP - 미디어 스트리밍에서 사용된다 (동영상 컨텐츠 프로토콜)</li>
+</ul>
+</li>
+</ul>
+<p><strong>하나의 distribution에 여러개의 origin이 존재할 수 있다.</strong></p>
+<p>같은 distribution의 다수의 origin사이에서 구별하기 위해서 origin ID 값이 필요하다. </p>
+<p>각 origin의 설명은 distribution안에서 유니크해야한다. </p>
+<p><img src="/image/AWS_SAA/CDN.png" alt="CDN"></p>
+<p>사용자가 요청을 하면 일단 <strong>지역에 있는 데이터 센터</strong>에 연결 된다. 데이터 센터에서 다시 uk에 있는 s3로 연결이 된다. 데이터 센터에서 받아온 것을 캐시한다. 두번째 사용자(초록색 화살표)는 이미 데이터 센터에 캐쉬가 남아있기 때문에 바로 볼 수 있다.</p>
+<h3 id="URLs-VS-Cookies"><a href="#URLs-VS-Cookies" class="headerlink" title="URLs VS Cookies"></a>URLs VS Cookies</h3><p>CloudFront 서명된 URL또는 서명된 쿠키 사용</p>
+<ol>
+<li>서명된 <strong>URL</strong>은 개별 파일 <strong>1file = 1URL</strong></li>
+<li>서명된 <strong>쿠키</strong>는 다중 파일  <strong>1cookie = multiple files</strong></li>
+</ol>
+<p><strong>서명된 URL 이나 서명된 쿠키를 생성할 때, 정책을 붙혀야한다</strong></p>
+<p>정책에 포함된 것 :</p>
+<ul>
+<li>URL만료</li>
+<li>IP 범위</li>
+<li>신뢰할 수 있는 서명자  (서명 된 URL을 생성 할 수있는 AWS 계정)</li>
+</ul>
+<h3 id="CloudFront-Signed-URL"><a href="#CloudFront-Signed-URL" class="headerlink" title="CloudFront Signed URL"></a>CloudFront Signed URL</h3><ul>
+<li>다른 오리진을 가질 수 있다. <strong>EC2일 필요 없다</strong></li>
+<li><strong>캐싱</strong> 특징을 활용할수 있다.</li>
+<li>key-pair은 계정 전체이며 루트 사용자가 관리한다.</li>
+<li>날짜, 경로, IP 주소, 만료 등으로 필터링할 수 있다.</li>
+</ul>
+<h3 id="S3-Signed-URL"><a href="#S3-Signed-URL" class="headerlink" title="S3 Signed URL"></a>S3 Signed URL</h3><ul>
+<li>미리 서명된 URL을 생성하는 IAM 사용자로 요청을 보낸다</li>
+<li>제한된 lifetime</li>
+</ul>
+<p><strong>S3 signed URL은 S3 버킷에 접근이 가능하고 CloudFront Signed URL은 S3 버킷에 가능하지 않다.</strong></p>
+<ul>
+<li>승인한 사람만 액세스할 수 있도록 콘텐츠를 보호하려면 서명된 URL/쿠키를 사용한다</li>
+<li>서명된 URL은 개별 파일 1file = 1URL</li>
+<li>서명된 쿠키는 다중 파일  1cookie = multiple files</li>
+<li>오리진이 EC2이면, CloudFront를 사용한다</li>
+</ul>
+
+        </div>
+
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/AWS/"># AWS</a>
+                    
+                        <a href="/tags/SAA/"># SAA</a>
+                    
+                        <a href="/tags/Cloud/"># Cloud</a>
+                    
+                        <a href="/tags/CloudFront/"># CloudFront</a>
+                    
+                        <a href="/tags/CDN/"># CDN</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/06/20/AWS-SAA/AWS-SAA-S3/">AWS S3</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Hyunjoo Park | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
