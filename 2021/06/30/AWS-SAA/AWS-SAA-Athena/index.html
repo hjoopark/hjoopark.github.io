@@ -14,7 +14,7 @@
 
 
 
-<title>AWS DataSync | ChargingJoo</title>
+<title>Athena VS Macie | ChargingJoo</title>
 
 
 
@@ -185,7 +185,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">AWS DataSync</h1>
+            <h1 class="post-title">Athena VS Macie</h1>
             
                 <div class="post-meta">
                     
@@ -194,7 +194,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">June 28, 2021&nbsp;&nbsp;23:42:48</a>
+                        Date: <a href="#">June 30, 2021&nbsp;&nbsp;23:40:22</a>
                         </span>
                     
                     
@@ -210,19 +210,24 @@
         </header>
 
         <div class="post-content">
-            <h3 id="DataSync-란"><a href="#DataSync-란" class="headerlink" title="DataSync 란?"></a>DataSync 란?</h3><p>AWS DataSync는 <strong>온프레미스 스토리지 시스템</strong>과 <strong>AWS 스토리지 서비스</strong> 간, 그리고 <strong>여러 AWS 스토리지 서비스</strong> 간의 많은 <strong>데이터 복사를 간소화, 자동화 및 가속화</strong>하는 온라인 <strong>데이터 전송 서비스</strong>이다.</p>
-<p>DataSync에서는 특별 제작된 프로토콜을 사용하여 인터넷 또는 AWS Direct Connect를 통해 오픈 소스 도구보다 <strong>10배 더 빠른 속도로 안전하게 전송</strong>한다.</p>
-<ul>
-<li>온프레미스에서 AWS로 대량의 데이터를 전송할 수 있다</li>
-<li><strong>NFS</strong>와 <strong>SMB</strong>와 호환 가능한 파일시스템 사용</li>
-<li>매시간마다, 매일, 매주 복제할 수 있다</li>
-<li>복제를 시작하기 위해 DataSync 에이전트를 설치</li>
-<li>EFS에서 EFS로 복제 가능하다</li>
-<li>일회성 데이터 마이그레이션이다</li>
-<li>동기화가 아니고 <strong>한번만 복제하는 경우</strong></li>
+            <h3 id="Athena"><a href="#Athena" class="headerlink" title="Athena"></a>Athena</h3><ul>
+<li>Athena는 대화형 쿼리 서비스이다</li>
+<li>표준 SQL을 사용하여 S3에 있는 데이터를 쿼리할 수 있다</li>
+<li>Serverless</li>
+<li>S3에 저장된 로그 데이터를 분석하는데 주로 사용한다</li>
 </ul>
-<p>AWS DataSync 를 사용하는 이유?</p>
-<p>AWS DataSync 를 사용하면 오픈소스 도구를 사용하여 사용자 지정 솔루션을 구축하거나 비싼 상용 네트워크 가속화 소프트웨어 라이선스를 사용 및 관리할 필요없이 <strong>수십억개의 파일이 포함된 대규모 데이터 세트를 복사</strong>할 수 있다.</p>
+<h4 id="Athena가-사용되는-곳"><a href="#Athena가-사용되는-곳" class="headerlink" title="Athena가 사용되는 곳?"></a>Athena가 사용되는 곳?</h4><ul>
+<li>ELB 로그, S3접근 로그 등 S3에 저장된 로그 파일을 쿼리하는데 사용할 수 있다</li>
+<li>S3에 저장된 데이터에 대한 비즈니스 보고서 생성</li>
+<li>AWS비용과 사용 레포트 분석</li>
+<li>클릭 스트림 데이터에 대한 쿼리 실행</li>
+</ul>
+<h3 id="Macie"><a href="#Macie" class="headerlink" title="Macie"></a>Macie</h3><ul>
+<li>Macie는 AI를 사용하여 S3의 데이터를 분석하고 PII를 식별하는데 도움을 준다</li>
+<li>의심스러운 API 활동에 대한 CloudTrail 로그를 분석하는데 사용할 수도 있다</li>
+<li>대시보드, 보고서 및 경고 포함</li>
+<li>PCI-DSS 규정 준수 및 ID 도용 방지에 적합</li>
+</ul>
 
         </div>
 
@@ -239,8 +244,6 @@
                     
                         <a href="/tags/Cloud/"># Cloud</a>
                     
-                        <a href="/tags/DataSync/"># DataSync</a>
-                    
                         
                 </span>
             </div>
@@ -252,10 +255,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/06/30/AWS-SAA/AWS-SAA-Athena/">Athena VS Macie</a>
+                <a class="prev" rel="prev" href="/2021/07/06/AWS-SAA/AWS-SAA-S3Security/">S3 보안</a>
             
             
-            <a class="next" rel="next" href="/2021/06/27/AWS-SAA/AWS-SAA-S3Select/">S3 Select & Glacier Select</a>
+            <a class="next" rel="next" href="/2021/06/28/AWS-SAA/AWS-SAA-DataSync/">AWS DataSync</a>
             
         </section>
 

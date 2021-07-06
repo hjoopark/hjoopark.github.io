@@ -14,7 +14,7 @@
 
 
 
-<title>AWS DataSync | ChargingJoo</title>
+<title>S3 보안 | ChargingJoo</title>
 
 
 
@@ -185,7 +185,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">AWS DataSync</h1>
+            <h1 class="post-title">S3 보안</h1>
             
                 <div class="post-meta">
                     
@@ -194,7 +194,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">June 28, 2021&nbsp;&nbsp;23:42:48</a>
+                        Date: <a href="#">July 6, 2021&nbsp;&nbsp;23:44:55</a>
                         </span>
                     
                     
@@ -210,19 +210,41 @@
         </header>
 
         <div class="post-content">
-            <h3 id="DataSync-란"><a href="#DataSync-란" class="headerlink" title="DataSync 란?"></a>DataSync 란?</h3><p>AWS DataSync는 <strong>온프레미스 스토리지 시스템</strong>과 <strong>AWS 스토리지 서비스</strong> 간, 그리고 <strong>여러 AWS 스토리지 서비스</strong> 간의 많은 <strong>데이터 복사를 간소화, 자동화 및 가속화</strong>하는 온라인 <strong>데이터 전송 서비스</strong>이다.</p>
-<p>DataSync에서는 특별 제작된 프로토콜을 사용하여 인터넷 또는 AWS Direct Connect를 통해 오픈 소스 도구보다 <strong>10배 더 빠른 속도로 안전하게 전송</strong>한다.</p>
-<ul>
-<li>온프레미스에서 AWS로 대량의 데이터를 전송할 수 있다</li>
-<li><strong>NFS</strong>와 <strong>SMB</strong>와 호환 가능한 파일시스템 사용</li>
-<li>매시간마다, 매일, 매주 복제할 수 있다</li>
-<li>복제를 시작하기 위해 DataSync 에이전트를 설치</li>
-<li>EFS에서 EFS로 복제 가능하다</li>
-<li>일회성 데이터 마이그레이션이다</li>
-<li>동기화가 아니고 <strong>한번만 복제하는 경우</strong></li>
+            <h2 id="S3-보안"><a href="#S3-보안" class="headerlink" title="S3 보안"></a>S3 보안</h2><h3 id="Securing-bucket"><a href="#Securing-bucket" class="headerlink" title="Securing bucket"></a>Securing bucket</h3><ul>
+<li><p>디폴트로 새로운 버켓을 생성할 때 <strong>PRIVATE</strong>로 생성된다.</p>
+</li>
+<li><p>버켓 사용의 접근 제어를 설정할 수 있다. (시험에 완전 중요)</p>
+<p>  <strong>Bucket Policies - 버켓 정책을 변경하여 버켓 사용의 접근 제어를 설정</strong></p>
+<p>  <strong>Access Control Lists - ACL을 변경하여 버켓 사용의 접근 제어를 설정</strong></p>
+</li>
+<li><p>S3 버킷에 대한 모든 요청을 기록하는 액세스 로그를 생성하도록 S3 버킷을 구성 할 수 있습니다.</p>
+</li>
 </ul>
-<p>AWS DataSync 를 사용하는 이유?</p>
-<p>AWS DataSync 를 사용하면 오픈소스 도구를 사용하여 사용자 지정 솔루션을 구축하거나 비싼 상용 네트워크 가속화 소프트웨어 라이선스를 사용 및 관리할 필요없이 <strong>수십억개의 파일이 포함된 대규모 데이터 세트를 복사</strong>할 수 있다.</p>
+<p>S3 buckets can be configured to create access logs which log all requests made to the S3 bucket.</p>
+<p>⇒ 고객은 필요에 따라 Amazon S3 버킷에 전달된 모든 요청에 대한 액세스 로그 레코드를 생성하도록 Amazon S3 버킷을 구성할 수 있습니다.</p>
+<h3 id="Encryption-시험에-완전-중요"><a href="#Encryption-시험에-완전-중요" class="headerlink" title="Encryption (시험에 완전 중요)"></a>Encryption (시험에 완전 중요)</h3><p>암호화는 Client side와 Server side로 나뉘며 Client side는 <strong>Client에서 S3로 전송될 때의 암호화</strong> (data at transit) 을, Server side는 <strong>S3에 저장될 때의 암호화</strong> (data at rest)를 의미함.</p>
+<ul>
+<li><strong>In Transit;</strong> - <strong>Client에서 S3로 전송될 때의 암호화</strong><ul>
+<li>HTTPS 프로토콜을 사용하는 <strong>SSL 엔드포인트</strong>를 통해 Amazon S3에 데이터를 안전하게 업로드/ 다운로드 할 수 있습니다.</li>
+<li>SSL/TLS ⇒HTTPS를 사용</li>
+</ul>
+</li>
+<li><strong>At Rest - S3에 저장될 때의 암호화</strong><ul>
+<li>서버 측 암호화 Server Side Encryption(3가지)<ul>
+<li>S3 Managed Keys <strong>(SSE-S3)</strong> : Amazon이 다중 보안 계층을 사용하여 키 관리 및 키 보호를 처리하는 통합 솔루션을 제공합니다. <strong>Amazon에서 키를 관리</strong>하도록 하려면 SSE-S3</li>
+<li>AWS Key Management Service, Managed Keys <strong>(SSE-KMS)</strong> : <strong>AWS KMS를 이용해 암호화 키를 관리</strong></li>
+<li>Server Side Encryption With Customer Provided Keys <strong>(SSE-C)</strong> : Amazon S3를 활용하여 객체의 암호화 및 암호 해독을 수행하는 동시에 객체를 암호화하는 데 사용된 키에 대한 제어 권한을 유지. <strong>자체 암호화 키를 유지 관리</strong>하고 싶지만 <strong>클라이언트 측 암호화 라이브러리를 구현하거나 활용하고 싶지 않은</strong> 경우</li>
+</ul>
+</li>
+<li>Client Side Encryption</li>
+</ul>
+</li>
+</ul>
+<h3 id="계정-간에-S3버킷을-공유하는-세가지-방법"><a href="#계정-간에-S3버킷을-공유하는-세가지-방법" class="headerlink" title="계정 간에 S3버킷을 공유하는 세가지 방법"></a>계정 간에 S3버킷을 공유하는 세가지 방법</h3><ul>
+<li><strong>버킷 정책 &amp; IAM (전체 버킷에 적용)</strong> Programmatic 접근만 가능</li>
+<li><strong>버킷 ACLs &amp; IAM (개별 개체)</strong> Programmatic 접근만 가능</li>
+<li>교차 계정 IAM 역할.  Programmatic 접근과 Console 접근 가능</li>
+</ul>
 
         </div>
 
@@ -239,8 +261,6 @@
                     
                         <a href="/tags/Cloud/"># Cloud</a>
                     
-                        <a href="/tags/DataSync/"># DataSync</a>
-                    
                         
                 </span>
             </div>
@@ -252,10 +272,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/06/30/AWS-SAA/AWS-SAA-Athena/">Athena VS Macie</a>
             
-            
-            <a class="next" rel="next" href="/2021/06/27/AWS-SAA/AWS-SAA-S3Select/">S3 Select & Glacier Select</a>
+            <a class="next" rel="next" href="/2021/06/30/AWS-SAA/AWS-SAA-Athena/">Athena VS Macie</a>
             
         </section>
 
