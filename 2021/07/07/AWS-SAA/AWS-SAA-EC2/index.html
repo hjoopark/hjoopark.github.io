@@ -14,7 +14,7 @@
 
 
 
-<title>S3 보안 | ChargingJoo</title>
+<title>Amazon EC2 | ChargingJoo</title>
 
 
 
@@ -185,7 +185,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">S3 보안</h1>
+            <h1 class="post-title">Amazon EC2</h1>
             
                 <div class="post-meta">
                     
@@ -194,7 +194,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">July 6, 2021&nbsp;&nbsp;23:44:55</a>
+                        Date: <a href="#">July 7, 2021&nbsp;&nbsp;23:37:49</a>
                         </span>
                     
                     
@@ -210,41 +210,36 @@
         </header>
 
         <div class="post-content">
-            <h2 id="S3-보안"><a href="#S3-보안" class="headerlink" title="S3 보안"></a>S3 보안</h2><h3 id="Securing-bucket"><a href="#Securing-bucket" class="headerlink" title="Securing bucket"></a>Securing bucket</h3><ul>
-<li><p>디폴트로 새로운 버켓을 생성할 때 <strong>PRIVATE</strong>로 생성된다.</p>
-</li>
-<li><p>버켓 사용의 접근 제어를 설정할 수 있다. (시험에 완전 중요)</p>
-<p>  <strong>Bucket Policies - 버켓 정책을 변경하여 버켓 사용의 접근 제어를 설정</strong></p>
-<p>  <strong>Access Control Lists - ACL을 변경하여 버켓 사용의 접근 제어를 설정</strong></p>
-</li>
-<li><p>S3 버킷에 대한 모든 요청을 기록하는 액세스 로그를 생성하도록 S3 버킷을 구성 할 수 있습니다.</p>
-</li>
-</ul>
-<p>S3 buckets can be configured to create access logs which log all requests made to the S3 bucket.</p>
-<p>⇒ 고객은 필요에 따라 Amazon S3 버킷에 전달된 모든 요청에 대한 액세스 로그 레코드를 생성하도록 Amazon S3 버킷을 구성할 수 있습니다.</p>
-<h3 id="Encryption-시험에-완전-중요"><a href="#Encryption-시험에-완전-중요" class="headerlink" title="Encryption (시험에 완전 중요)"></a>Encryption (시험에 완전 중요)</h3><p>암호화는 Client side와 Server side로 나뉘며 Client side는 <strong>Client에서 S3로 전송될 때의 암호화</strong> (data at transit) 을, Server side는 <strong>S3에 저장될 때의 암호화</strong> (data at rest)를 의미함.</p>
+            <h3 id="Amazon-EC2란"><a href="#Amazon-EC2란" class="headerlink" title="Amazon EC2란?"></a>Amazon EC2란?</h3><p>클라우드에서 컴퓨팅 파워의 규모를 자유자재로 변경할 수 있는 웹 서비스이다. 개발자가 보다 쉽게 웹 규모의 컴퓨팅 작업을 수행할 수 있도록 설계되어있다.</p>
+<h3 id="Amazon-EC2의-이점"><a href="#Amazon-EC2의-이점" class="headerlink" title="Amazon EC2의 이점"></a>Amazon EC2의 이점</h3><p>Amazon EC2로 클라우드에서 <code>컴퓨팅</code>을 수행할 수 있습니다.</p>
+<p>Amazon EC2의 간단한 웹 서비스 인터페이스를 통해 간편하게 <code>필요한 용량</code>을 얻고 구성할 수 있습니다.</p>
+<p>컴퓨팅 리소스에 대한 <code>포괄적인 제어권</code>을 제공(인스턴스를 늘린다던가를 맘대로 제어할 수 있다)</p>
+<p>개발자들이 언제든지 리소스 사용량을 관리</p>
+<p>새로운 서버 인스턴스를 획득하고 부팅하는데 시간이 단축되므로 요구사항의 변화에 따라 신속하게 용량을 확장하거나 축소할 수 있습니다. ⇒ 이벤트 오픈 시 서버 인스턴스 확장</p>
+<p>실제 사용한 만큼만 요금을 지불하면 되므로, 컴퓨팅 비용이 절약됩니다.</p>
+<p>EC2 사용이유</p>
+<p>소규모 개발자들은 대용량 컴퓨팅 리소스를 구입할 자본이 없어 예기치 않은 로드 스파이크를 처리하는 데 필요한 용량을 확보하지 못했습니다. </p>
+<p>개발자들이 초기 투자 또는 성능 저하 없이 Amazon의 고유한 이점인 <code>대규모 확장성</code> 을 활용할 수 있게 되었습니다.</p>
+<p>EC2 서비스의 탄력적인 특성을 갖고 있어 개발자들이 트래픽의 스파이크 또는 수요에 맞춰 즉시 용량을 조정할 수 있습니다.</p>
+<p><strong>EC2 요금</strong> <a target="_blank" rel="noopener" href="https://aws.amazon.com/ko/ec2/pricing/">https://aws.amazon.com/ko/ec2/pricing/</a></p>
 <ul>
-<li><strong>In Transit;</strong> - <strong>Client에서 S3로 전송될 때의 암호화</strong><ul>
-<li>HTTPS 프로토콜을 사용하는 <strong>SSL 엔드포인트</strong>를 통해 Amazon S3에 데이터를 안전하게 업로드/ 다운로드 할 수 있습니다.</li>
-<li>SSL/TLS ⇒HTTPS를 사용</li>
+<li>온디맨드 : 실행하는 인스턴스에 따라 시간당 또는 초당 컴퓨팅 파워에 대한 비용을 지불한다.</li>
+<li>예약 인스턴스 : 용량 예약을 제공하고 인스턴스의 시간당 요금에 대해 상당한 할인 혜택을 제공한다. 또한, 예약 인스턴스를 특정 가용 영역에 지정하면 용량 예약이 제공되므로 필요할 때 예약한 인스턴스를 시작할 수 있다는 확신을 가질 수 있습니다.(spot이랑 다른점)</li>
+<li>스팟 인스턴스 : 인스턴스 용량에 대해 원하는 가격으로 입찰할 수 있으므로 애플리케이션의 시작 및 종료 시간이 유연한 경우 훨씬 더 많은 비용을 절약할 수 있습니다. EC2에 의해 종료가 된다면, 부분 사용시간에 대한 요금이 부과되지 않습니다. 하지만 본인이 인스턴스 사용을 중지한다면 사용한 전체 시간에 대해서 요금이 부과될 것입니다.</li>
+<li>전용 호스팅 : 물리적 EC2 서버, 전용 호스트는 기존 서버 바운드 소프트웨어 라이센스를 사용할 수 있도록하여 비용을 절감 할 수 있습니다.</li>
 </ul>
-</li>
-<li><strong>At Rest - S3에 저장될 때의 암호화</strong><ul>
-<li>서버 측 암호화 Server Side Encryption(3가지)<ul>
-<li>S3 Managed Keys <strong>(SSE-S3)</strong> : Amazon이 다중 보안 계층을 사용하여 키 관리 및 키 보호를 처리하는 통합 솔루션을 제공합니다. <strong>Amazon에서 키를 관리</strong>하도록 하려면 SSE-S3</li>
-<li>AWS Key Management Service, Managed Keys <strong>(SSE-KMS)</strong> : <strong>AWS KMS를 이용해 암호화 키를 관리</strong></li>
-<li>Server Side Encryption With Customer Provided Keys <strong>(SSE-C)</strong> : Amazon S3를 활용하여 객체의 암호화 및 암호 해독을 수행하는 동시에 객체를 암호화하는 데 사용된 키에 대한 제어 권한을 유지. <strong>자체 암호화 키를 유지 관리</strong>하고 싶지만 <strong>클라이언트 측 암호화 라이브러리를 구현하거나 활용하고 싶지 않은</strong> 경우</li>
+<p>EC2 환경에서 시스템을 실행하려면</p>
+<p>계정을 설정하고 AMI를 선택하거나 만들면 인스턴스를 부팅할 수 있습니다. RunInstances API를 호출하여 원하는 수의 온디맨드 인스턴스에서 AMI를 시작할 수 있습니다. 시작할 인스턴스 수를 명시하기만 하면 됩니다. </p>
+<p>AMI(Amazon 머신 이미지) : AMI는 인스턴스를 시작하는데 필요한 정보를 제공합니다. 인스턴스를 시작할 때 AMI를 지정해야 합니다. 동일한 구성의 인스턴스가 여러 개 필요할 때는 한 AMI에서 여러 인스턴스를 시작할 수 있습니다. 서로 다른 구성의 인스턴스가 필요할 때는 다양한 AMI를 사용하여 인스턴스를 시작하면 됩니다.</p>
+<p>AMI는 다음을 포함합니다.</p>
+<ul>
+<li>1개 이상의 Amazon Elastic Block Store(Amazon EBS) 스냅샷 또는, 인스턴스 스토어 기반 AMI의 경우, 인스턴스의 루트 볼륨에 대한 템플릿(예: 운영 체제, 애플리케이션 서버, 애플리케이션)</li>
+<li>AMI를 사용하여 인스턴스를 시작할 수 있는 AWS 계정을 제어하는 시작 권한</li>
+<li>시작될 때 인스턴스에 연결할 볼륨을 지정하는 블록 디바이스 매핑</li>
 </ul>
-</li>
-<li>Client Side Encryption</li>
-</ul>
-</li>
-</ul>
-<h3 id="계정-간에-S3버킷을-공유하는-세가지-방법"><a href="#계정-간에-S3버킷을-공유하는-세가지-방법" class="headerlink" title="계정 간에 S3버킷을 공유하는 세가지 방법"></a>계정 간에 S3버킷을 공유하는 세가지 방법</h3><ul>
-<li><strong>버킷 정책 &amp; IAM (전체 버킷에 적용)</strong> Programmatic 접근만 가능</li>
-<li><strong>버킷 ACLs &amp; IAM (개별 개체)</strong> Programmatic 접근만 가능</li>
-<li>교차 계정 IAM 역할.  Programmatic 접근과 Console 접근 가능</li>
-</ul>
+<p>AMI 사용</p>
+<p>AMI를 생성 및 등록한 다음 새 인스턴스를 시작하기 위해 사용한다. AMI 소유자가 시작 권한을 부여한 경우 AMI에서 인스턴스를 시작할 수 있습니다. AMI를 동일한 AWS리전 또는 다른 AWS리전으로 복사할 수 있습니다. 더 이상 필요 없는 AMI는 등록 취소할 수 있습니다. 인스턴스에 연결되면 사용자는 인스턴스르 ㄹ다른 서버와 동일한 방식으로 사용할 수 있습니다.</p>
+<p>온디맨드 인스턴스 : 인스턴스 구입 옵션 중 하나이다.  온디맨드 인스턴스를 사용하면 장기 약정 없이 초 단위로 컴퓨팅 용량을 구입할 수 있습니다. 수명 주기를 완전하게 제어할 수 있습니다. 즉 시작, 중지, 수면, 사용 시작 또는 종료 시기를 결정할 수 있습니다. 온디맨드 인스턴스가 running 상태인 시간에 대해서만 지불하면 됩니다.</p>
 
         </div>
 
@@ -261,6 +256,8 @@
                     
                         <a href="/tags/Cloud/"># Cloud</a>
                     
+                        <a href="/tags/EC2/"># EC2</a>
+                    
                         
                 </span>
             </div>
@@ -272,10 +269,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/07/07/AWS-SAA/AWS-SAA-EC2/">Amazon EC2</a>
             
-            
-            <a class="next" rel="next" href="/2021/06/30/AWS-SAA/AWS-SAA-Athena/">Athena VS Macie</a>
+            <a class="next" rel="next" href="/2021/07/06/AWS-SAA/AWS-SAA-S3Security/">S3 보안</a>
             
         </section>
 
