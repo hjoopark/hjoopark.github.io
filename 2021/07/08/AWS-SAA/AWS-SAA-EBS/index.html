@@ -14,7 +14,7 @@
 
 
 
-<title>Amazon EC2 | ChargingJoo</title>
+<title>EBS (Elastic Block Store) | ChargingJoo</title>
 
 
 
@@ -185,7 +185,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Amazon EC2</h1>
+            <h1 class="post-title">EBS (Elastic Block Store)</h1>
             
                 <div class="post-meta">
                     
@@ -194,7 +194,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">July 7, 2021&nbsp;&nbsp;23:37:49</a>
+                        Date: <a href="#">July 8, 2021&nbsp;&nbsp;23:29:07</a>
                         </span>
                     
                     
@@ -210,36 +210,94 @@
         </header>
 
         <div class="post-content">
-            <h3 id="Amazon-EC2란"><a href="#Amazon-EC2란" class="headerlink" title="Amazon EC2란?"></a>Amazon EC2란?</h3><p>클라우드에서 컴퓨팅 파워의 규모를 자유자재로 변경할 수 있는 웹 서비스이다. 개발자가 보다 쉽게 웹 규모의 컴퓨팅 작업을 수행할 수 있도록 설계되어있다.</p>
-<h3 id="Amazon-EC2의-이점"><a href="#Amazon-EC2의-이점" class="headerlink" title="Amazon EC2의 이점"></a>Amazon EC2의 이점</h3><p>Amazon EC2로 클라우드에서 <code>컴퓨팅</code>을 수행할 수 있습니다.</p>
-<p>Amazon EC2의 간단한 웹 서비스 인터페이스를 통해 간편하게 <code>필요한 용량</code>을 얻고 구성할 수 있습니다.</p>
-<p>컴퓨팅 리소스에 대한 <code>포괄적인 제어권</code>을 제공(인스턴스를 늘린다던가를 맘대로 제어할 수 있다)</p>
-<p>개발자들이 언제든지 리소스 사용량을 관리</p>
-<p>새로운 서버 인스턴스를 획득하고 부팅하는데 시간이 단축되므로 요구사항의 변화에 따라 신속하게 용량을 확장하거나 축소할 수 있습니다. ⇒ 이벤트 오픈 시 서버 인스턴스 확장</p>
-<p>실제 사용한 만큼만 요금을 지불하면 되므로, 컴퓨팅 비용이 절약됩니다.</p>
-<p>EC2 사용이유</p>
-<p>소규모 개발자들은 대용량 컴퓨팅 리소스를 구입할 자본이 없어 예기치 않은 로드 스파이크를 처리하는 데 필요한 용량을 확보하지 못했습니다. </p>
-<p>개발자들이 초기 투자 또는 성능 저하 없이 Amazon의 고유한 이점인 <code>대규모 확장성</code> 을 활용할 수 있게 되었습니다.</p>
-<p>EC2 서비스의 탄력적인 특성을 갖고 있어 개발자들이 트래픽의 스파이크 또는 수요에 맞춰 즉시 용량을 조정할 수 있습니다.</p>
-<p><strong>EC2 요금</strong> <a target="_blank" rel="noopener" href="https://aws.amazon.com/ko/ec2/pricing/">https://aws.amazon.com/ko/ec2/pricing/</a></p>
+            <h3 id="EBS란"><a href="#EBS란" class="headerlink" title="EBS란?"></a><strong>EBS란?</strong></h3><p><strong>Elastic Block Store : EC2 블록 스토리지 볼륨</strong></p>
+<p>EC2는 가상 서버라면 EBS는 가상 디스크 이다.</p>
+<p>Amazon EBS는 스토리지 볼륨을 생성하고, 스토리지를 Amazon EC2 인스턴스에 연결할 수 있도록 해준다. 한번 연결되면 스토리지 볼륨 맨 위에 파일 시스템을 만들 수 있고, 데이터베이스를 실행할 수 있고, 블록 장치를 사용하는 다른 방법으로 사용할 수 있다. EBS 볼륨은 특정 가용영역에 위치한다. 단일 구성요소의 장애로부터 사용자를 보호하기 위해 자동으로 복제되는 위치에 위치한다. EBS 볼륨은 하나의 물리적 디스크에 저장되지 않는다.</p>
 <ul>
-<li>온디맨드 : 실행하는 인스턴스에 따라 시간당 또는 초당 컴퓨팅 파워에 대한 비용을 지불한다.</li>
-<li>예약 인스턴스 : 용량 예약을 제공하고 인스턴스의 시간당 요금에 대해 상당한 할인 혜택을 제공한다. 또한, 예약 인스턴스를 특정 가용 영역에 지정하면 용량 예약이 제공되므로 필요할 때 예약한 인스턴스를 시작할 수 있다는 확신을 가질 수 있습니다.(spot이랑 다른점)</li>
-<li>스팟 인스턴스 : 인스턴스 용량에 대해 원하는 가격으로 입찰할 수 있으므로 애플리케이션의 시작 및 종료 시간이 유연한 경우 훨씬 더 많은 비용을 절약할 수 있습니다. EC2에 의해 종료가 된다면, 부분 사용시간에 대한 요금이 부과되지 않습니다. 하지만 본인이 인스턴스 사용을 중지한다면 사용한 전체 시간에 대해서 요금이 부과될 것입니다.</li>
-<li>전용 호스팅 : 물리적 EC2 서버, 전용 호스트는 기존 서버 바운드 소프트웨어 라이센스를 사용할 수 있도록하여 비용을 절감 할 수 있습니다.</li>
+<li>EC2가 갖는 블록 형태의 스토리지</li>
+<li>애플리케이션의 기본 스토리지로 쓰거나 시스템 드라이브용으로 쓰기 적합</li>
+<li>인스턴스 생성시 루트 디바이스 볼륨이 생성되며 사용중에는 언마운트 할 수 없다</li>
+<li>인스턴스가 종료 시 루트 EBS 볼륨이 삭제되는 것이 디폴트이다</li>
+<li>인스턴스는 여러 볼륨을 마운트할 수 있고 추가 볼륨에 대해서는 사용중이라도 마운트/언마운트가 가능</li>
+<li>볼륨은 여러 인스턴스에 마운트할 수 없음</li>
+<li>EBS를 특정 AZ에서 생성하더라도 다른 AZ의 인스턴스에 즉시 붙힐 수 있다</li>
+<li>인스턴스 스토어 볼륨과는 달리 EBS 기반 인스턴스는 중지/ 재시작이 가능함</li>
+<li>사용중인 EBS더라도 볼륨유형과 사이즈를 변경할 수 있다 (사이즈 축소는 불가)</li>
+<li>EC2 인스턴스와 EBS 볼륨은 같은 가용영역에 있어야한다. 왜냐하면 EBS가 하드디스크인데 하드디스크가 멀리 떨어져있으면 딜레이가 생길 것이다</li>
 </ul>
-<p>EC2 환경에서 시스템을 실행하려면</p>
-<p>계정을 설정하고 AMI를 선택하거나 만들면 인스턴스를 부팅할 수 있습니다. RunInstances API를 호출하여 원하는 수의 온디맨드 인스턴스에서 AMI를 시작할 수 있습니다. 시작할 인스턴스 수를 명시하기만 하면 됩니다. </p>
-<p>AMI(Amazon 머신 이미지) : AMI는 인스턴스를 시작하는데 필요한 정보를 제공합니다. 인스턴스를 시작할 때 AMI를 지정해야 합니다. 동일한 구성의 인스턴스가 여러 개 필요할 때는 한 AMI에서 여러 인스턴스를 시작할 수 있습니다. 서로 다른 구성의 인스턴스가 필요할 때는 다양한 AMI를 사용하여 인스턴스를 시작하면 됩니다.</p>
-<p>AMI는 다음을 포함합니다.</p>
+<h3 id="EBS-볼륨-유형"><a href="#EBS-볼륨-유형" class="headerlink" title="EBS 볼륨 유형"></a>EBS 볼륨 유형</h3><p><strong>SSD</strong></p>
 <ul>
-<li>1개 이상의 Amazon Elastic Block Store(Amazon EBS) 스냅샷 또는, 인스턴스 스토어 기반 AMI의 경우, 인스턴스의 루트 볼륨에 대한 템플릿(예: 운영 체제, 애플리케이션 서버, 애플리케이션)</li>
-<li>AMI를 사용하여 인스턴스를 시작할 수 있는 AWS 계정을 제어하는 시작 권한</li>
-<li>시작될 때 인스턴스에 연결할 볼륨을 지정하는 블록 디바이스 매핑</li>
+<li><strong>범용 SSD (GP2)</strong> : 시스템 부트 사용가능, 대부분의 워크로드에서 사용<ul>
+<li>범용, 가격과 성능의 균형을 유지한다</li>
+<li>최대 10,000 IOPS의 GB 당 3 IOPS 비율과 3334GiB 이상의 볼륨에 대해 장시간 동안 최대 3000IOPS까지 버스트 할 수있는 기능.</li>
 </ul>
-<p>AMI 사용</p>
-<p>AMI를 생성 및 등록한 다음 새 인스턴스를 시작하기 위해 사용한다. AMI 소유자가 시작 권한을 부여한 경우 AMI에서 인스턴스를 시작할 수 있습니다. AMI를 동일한 AWS리전 또는 다른 AWS리전으로 복사할 수 있습니다. 더 이상 필요 없는 AMI는 등록 취소할 수 있습니다. 인스턴스에 연결되면 사용자는 인스턴스르 ㄹ다른 서버와 동일한 방식으로 사용할 수 있습니다.</p>
-<p>온디맨드 인스턴스 : 인스턴스 구입 옵션 중 하나이다.  온디맨드 인스턴스를 사용하면 장기 약정 없이 초 단위로 컴퓨팅 용량을 구입할 수 있습니다. 수명 주기를 완전하게 제어할 수 있습니다. 즉 시작, 중지, 수면, 사용 시작 또는 종료 시기를 결정할 수 있습니다. 온디맨드 인스턴스가 running 상태인 시간에 대해서만 지불하면 됩니다.</p>
+</li>
+<li><strong>프로비저닝된 IOPS SSD (IO1)</strong>  : 낮은 지연 또는 높은 처리량 워크로드를 위한 고성능 SSD 볼륨<ul>
+<li>대규모 관계형 또는 NoSQL 데이터베이스와 같은 I/O 집약적인 애플리케이션을 위해 설계되었다.</li>
+<li><strong>10,000 IOPS 이상</strong>이 필요할 때 사용</li>
+<li>하나의 볼륨당 20,000 IOPS 이상 프로비저닝할수 있다.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Magnetic</strong></p>
+<ul>
+<li><strong>Throughput Optimized HDD (ST1)</strong> : 자주 액세스하고 처리량이 많은 워크로드를 위해 설계된 저렴한 HDD 볼륨<ul>
+<li>빅데이터</li>
+<li>데이터 warehouse</li>
+<li>로그 처리</li>
+<li>부트 볼륨이 될 수 없다</li>
+</ul>
+</li>
+<li><strong>Cold HDD (SC1)</strong> : 자주 액세스하지 않는 워크로드를 위해 설계된 최저 비용의 HDD 볼륨<ul>
+<li>드물게 접근하는 워크로드를 위한 낮은 비용의 저장소</li>
+<li>파일 서버</li>
+<li>부트 볼륨이 될 수 없다</li>
+</ul>
+</li>
+<li><strong>Magnetic (Standard)</strong> : 부트 볼륨이 가능하다, 볼륨을 수정할 수 없다<ul>
+<li>부팅 가능한 모든 EBS 볼륨 유형 중 기가 바이트 당 최저 비용. Magnetic 볼륨은 데이터에 자주 액세스하지 않는 워크로드와 최저 스토리지 비용이 중요한 애플리케이션에 이상적이다.</li>
+</ul>
+</li>
+</ul>
+<p><strong>EBS 볼륨을 다른 가용영역으로 옮길 때</strong></p>
+<p>create snapshot을 해주고 —&gt; create volume을 해줄 때 가용영역을 바꿔주면 된다.</p>
+<h3 id="스냅샷과-EBS"><a href="#스냅샷과-EBS" class="headerlink" title="스냅샷과 EBS"></a>스냅샷과 EBS</h3><ul>
+<li><p>볼륨은 EBS에 존재한다.</p>
+<p>  가상 하드 디스크 - 루트 볼륨은 운영체제가 설치된 C드라이브 같은 곳</p>
+</li>
+<li><p>스냅샷은 S3에 존재한다</p>
+</li>
+<li><p>스냅샷은 한 시점의 볼륨의 복사본</p>
+</li>
+<li><p>스냅샷은 증분할 수 있다 - 마지막 스냅샷 이후 변경된 블록만 추가적으로 S3에 저장된다.</p>
+</li>
+<li><p>첫 번째 스냅샷일 경우 생성하는데 다소 시간이 걸릴 수 있다.</p>
+</li>
+<li><p>암호화된 볼륨의 스냅샷은 자동으로 암호화된다</p>
+</li>
+<li><p>암호화된 스냅샷에서 생성되는 볼륨은 자동으로 암호화된다</p>
+</li>
+<li><p>암호화되지 않은 EBS에서 암호화된 스냅샷은 생성할 수 없다</p>
+</li>
+<li><p>암호화되지 않은 스냅샷만 공유 가능하다</p>
+</li>
+<li><p>루트 디바이스 역할을 하는 EBS 볼륨에 대한 스냅샷을 생성하려면 스냅샷을 생성하기 전에 인스턴스를 중지해야한다</p>
+</li>
+<li><p>하지만 인스턴스가 실행중일경우 스냅을 할 수 있다</p>
+</li>
+<li><p>EBS 지원 인스턴스 및 스냅샷에서 AMI를 생성할 수 있다</p>
+</li>
+<li><p>크키 및 스토리지 유형 변경을 포함하여 즉시 EBS 볼륨 크기를 변경할 수 있다</p>
+</li>
+<li><p>볼륨은 항상 EC2 인스턴스와 동일한 가용영역에 있다</p>
+</li>
+<li><p>EC2 볼륨을 한 AZ/지역에서 다른 AZ/지역으로 이동하려면 스냅 또는 이미지를 촬영한 다음 새 AZ/지역에 복사한다.</p>
+</li>
+</ul>
+<h3 id="RAID-구성"><a href="#RAID-구성" class="headerlink" title="RAID 구성"></a>RAID 구성</h3><ul>
+<li>RAID 0 : I/O 성능이 내결함성보다 더 중요한 경우</li>
+<li>RAID 1 : 내결함성이 I/O 성능보다 더 중요한 경우</li>
+</ul>
 
         </div>
 
@@ -256,8 +314,6 @@
                     
                         <a href="/tags/Cloud/"># Cloud</a>
                     
-                        <a href="/tags/EC2/"># EC2</a>
-                    
                         
                 </span>
             </div>
@@ -269,10 +325,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/07/08/AWS-SAA/AWS-SAA-EBS/">EBS (Elastic Block Store)</a>
             
-            
-            <a class="next" rel="next" href="/2021/07/06/AWS-SAA/AWS-SAA-S3Security/">S3 보안</a>
+            <a class="next" rel="next" href="/2021/07/07/AWS-SAA/AWS-SAA-EC2/">Amazon EC2</a>
             
         </section>
 
