@@ -14,7 +14,7 @@
 
 
 
-<title>Security Groups | ChargingJoo</title>
+<title>AMIs - EBS Root Volumes vs Instance Store | ChargingJoo</title>
 
 
 
@@ -185,7 +185,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Security Groups</h1>
+            <h1 class="post-title">AMIs - EBS Root Volumes vs Instance Store</h1>
             
                 <div class="post-meta">
                     
@@ -194,7 +194,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">July 11, 2021&nbsp;&nbsp;18:35:50</a>
+                        Date: <a href="#">July 12, 2021&nbsp;&nbsp;23:40:01</a>
                         </span>
                     
                     
@@ -210,29 +210,32 @@
         </header>
 
         <div class="post-content">
-            <h3 id="Security-Groups"><a href="#Security-Groups" class="headerlink" title="Security Groups"></a>Security Groups</h3><p>보안 그룹은 가상의 방화벽이다. </p>
+            <p>AMI Types (EBS vs Instance Store)</p>
+<p>AMI를 선택할 때</p>
 <ul>
-<li><p>하나의 인스턴스에 여러개의 보안그룹이 있을 수 있다.</p>
-</li>
-<li><p>보안 그룹에서 만드는 rule은 <strong>즉시 반영</strong>된다.</p>
-<p>  ex) 인바운드 규칙에서 http를 삭제한 후 http로 접속했을 때 접속 불가능하다. 즉시 반영됨</p>
-</li>
-<li><p>보안그룹은 stateful이다.</p>
-</li>
-<li><p>아웃바운드 규칙을 다 빼도 동작함 ⇒ stateful</p>
-</li>
-<li><p>인바운드 규칙을 작성하면 자동으로 아웃바운드에 추가된다 ⇒ stateful</p>
-</li>
-<li><p>모든 인바운드 트래픽은 디폴트로 막혀있다</p>
-</li>
-<li><p>모든 아웃바운드 트래픽은 허용되어있다</p>
-</li>
-<li><p>보안 그룹을 사용하여 특정 IP 주소를 차단할 수 없다. 대신 Network ACL을 사용하면 된다!</p>
+<li>지역</li>
+<li>운영체제</li>
+<li>Architecture (32-bit or 64-bit)</li>
+<li>Launch Permissions</li>
+<li>루트 디바이스 저장소 (Root Device Volume)<ul>
+<li>Instance Store (임시 저장소)</li>
+<li>EBS Backed Volumes</li>
+</ul>
 </li>
 </ul>
-<p><strong>Stateful 과 Stateless 차이점</strong></p>
-<p>Stateful은 이전 트랜잭션의 컨텍스트에 따라 수행되며, 현재 트랜잭션이 이전 트랜잭션에서 발생한 상황에 영향을 받는다. Stateful은 컨텍스트와 내역이 저장되므로 중단되어도 중단된 곳 부터 다시 시작할 수 있다.</p>
-<p>Stateless는 과거 트랜잭션에 대한 정보 또는 참조가 저장되지 않고, 각 트랜잭션은 모두 처음부터 시작된다.</p>
+<h3 id="EBS-vs-Instance-Store"><a href="#EBS-vs-Instance-Store" class="headerlink" title="EBS vs Instance Store"></a>EBS vs Instance Store</h3><p>모든 AMI는 <strong>Amazon EBS</strong> 지원 또는 <strong>Instance Store</strong> 지원 두가지로 분류된다.</p>
+<p><strong>EBS 볼륨 :</strong> AMI에서 시작된 인스턴스의 루트 디바이스는 <strong>Amazon EBS 스냅 샷</strong>에서 생성 된 Amazon EBS 볼륨이다.</p>
+<p><strong>Instance Store 볼륨 :</strong> AMI에서 시작된 인스턴스의 루트 디바이스는 <strong>Amazon S3에 저장된 템플릿</strong>에서 생성 된 Instance Store 볼륨이다.</p>
+<ul>
+<li>Instance Store은 임시 저장소라고 부른다</li>
+<li>Instance Store은 <strong>stop할 수 없</strong>다. 기본 호스트가 실패하면 데이터가 손실된다.</li>
+<li>EBS 는 <strong>stop할 수 있</strong>다. 인스턴스가 중단 되더라도 데이터를 손실하지 않는다</li>
+<li>둘다 reboot는 가능하다, 데이터 손실이 없다</li>
+<li>디폴트로 인스턴스 <strong>종료시 두 루트 볼륨이 모두 삭제</strong>되지만, EBS볼륨을 사용하면 루트 디바이스 볼륨을 유지하도록 AWS에 알릴 수 있다.</li>
+<li>Instance Store는 인스턴스 타입이 제한적이다</li>
+<li>Instance Store는 인스턴스 볼륨만 추가할 수 있고, launch를 하고 나서 EBS 를 추가할 수 있다</li>
+<li>Instance Store는 스냅샷을 할 수 없다. 왜냐하면 스냅샷은 멈춘 다음 찍어야한다.</li>
+</ul>
 
         </div>
 
@@ -260,10 +263,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/07/12/AWS-SAA/AWS-SAA-AMIs/">AMIs - EBS Root Volumes vs Instance Store</a>
             
-            
-            <a class="next" rel="next" href="/2021/07/08/AWS-SAA/AWS-SAA-EBS/">EBS (Elastic Block Store)</a>
+            <a class="next" rel="next" href="/2021/07/11/AWS-SAA/AWS-SAA-SecurityGroup/">Security Groups</a>
             
         </section>
 
