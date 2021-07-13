@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Hyunjoo Park">
+
+
+    <meta name="subtitle" content="개발 지식 충전 중..">
+
+
+
+
+<title>CloudWatch, CloudTrail, AWS Config | ChargingJoo</title>
+
+
+
+    <link rel="icon" href="/hjoofavicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" type="text/css" href="">
+    
+<link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+
+    
+<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Joo&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Joo&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">CloudWatch, CloudTrail, AWS Config</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Hyunjoo Park</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">July 13, 2021&nbsp;&nbsp;23:06:27</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/AWS-SAA/">AWS-SAA</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="CloudWatch"><a href="#CloudWatch" class="headerlink" title="CloudWatch"></a>CloudWatch</h3><p>AWS 클라우드 리소스와 AWS에서 실행되는 애플리케이션을 위한 모니터링 서비스</p>
+<p>일반 모니터링은 5분 </p>
+<p>상세 모니터링은 1분</p>
+<ul>
+<li>대시보드 : AWS 환경에서 무슨일이 일어나고 있는지 보기 위해 대시보드 새성</li>
+<li>알람 : 특정한 지점을 넘어가면 알람을 보낸다</li>
+<li>이벤트 : AWS 리소스의 상태 변경에 대응하는데 도움이된다<ul>
+<li>AWS 각 서비스의 이벤트가 사용자가 지정한 이벤트 패턴과 일치하거나 일정이 트리거될 경우, 사용자가 <strong>원하는 기능을 발동시키도록하는 기능</strong></li>
+<li>이벤트 소스와 대상으로 나뉘게 된다<ul>
+<li>이벤트 소스 : AWS 환경에서 발생하는 이벤트이며 S3의 경우 오브젝트 등록, 삭제등을 들 수 있다</li>
+<li>대상 : 이벤트 발생시 해야할 행동을 정의하는 것이며, SNS 전송 혹은 람다, SQS게시 등을 설정할 수 있다</li>
+</ul>
+</li>
+<li>이벤트 소스에 해당하는 규칙이 트리거 될 경우 대상에 해당하는 서비스를 실행시킨다</li>
+<li>이벤트가 시스템에 생성해 둔 규칙과 일치하는 경우, AWS Lambda 함수를 자동으로 호출하고, 해당 이벤트를 Amazon Kinesis 스트림에 전달하고, Amazon SNS 주제를 알리는 등의 행동이 가능</li>
+</ul>
+</li>
+<li>로그 : 집계, 모니터링, 로그 저장을 할 수 있다<ul>
+<li>EC2(Agent에서 수집된), CloudTrail, Route53 등 기타 소스에서 발생한 로그 파일을 모니터링, 저장 및 액세스하는 기능</li>
+<li>Cloudwatch Agent를 사용하여 로그를 수집함</li>
+<li>Agent 는 기본적으로 5초마다 로그 데이터를 전송함</li>
+</ul>
+</li>
+</ul>
+<h3 id="CloudTrail"><a href="#CloudTrail" class="headerlink" title="CloudTrail"></a>CloudTrail</h3><p>AWS CloudTrail은 <strong>사용자 계정에서 이루어진 활동을 기록</strong>하고, 로그 파일을 사용자의 Amazon S3 버킷으로 전달하는 웹 서비스이다.</p>
+<p>리소스에 대한 변경 사항을 추적하거나, 사용자 활동에 대한 간단한 질문에 답변하거나, 규정 준수를 입증하거나, 문제를 해결하거나, 보안 분석을 수행하려는 고객은 CloudTrail을 사용해야 한다.</p>
+<p><strong>AWS Key Management Service(KMS)를 사용한 CloudTrail 로그 파일 암호화</strong></p>
+<p>SSE-KMS를 통한 CloudTrail 로그 파일 암호화는 <strong>KMS 키로 로그 파일을 암호화함</strong>으로써 Amazon S3 버킷에 전송된 CloudTrail 로그 파일에 <strong>보안 계층을 추가</strong>할 수 있게 해준다. 기본적으로 CloudTrail은 Amazon S3 버킷으로 전송된 로그 파일을 <strong>Amazon S3 서버 측 암호화를 사용하여 암호화</strong>합니다.</p>
+<p><strong>CloudTrail 로그 파일 암호화를 구성하려면 어떻게 해야 합니까?</strong></p>
+<p>AWS Management Console, AWS CLI 또는 AWS SDK를 사용해 로그 파일 암호화를 구성할 수 있다.</p>
+<h3 id="AWS-Config"><a href="#AWS-Config" class="headerlink" title="AWS Config"></a>AWS Config</h3><p>AWS Config는 <strong>AWS 리소스 인벤토리, 구성 기록, 구성 변경 알림을 제공</strong>하여 보안 및 거버넌스를 실현하는 완벽한 관리형 서비스이다. Config 규칙을 사용하면 <strong>구성 변경이 규정을 준수하는지 확인</strong>할 수 있다.</p>
+<ul>
+<li>AWS Config는 계정에 대해 리전별로 활성화한다.</li>
+<li>AWS Config는 서로 다른 AWS 계정 전체의 데이터를 집계할 수 있다.</li>
+<li>AWS CloudTrail 에서는 AWS Config 자체에 대한 API 활동을 기록한다.</li>
+</ul>
+<p><strong>AWS Config를 사용하면 어떤 이점이 있습니까?</strong></p>
+<p>AWS Config를 사용하면 초기 투자 없이 <strong>리소스 구성을 손쉽게 추적</strong>할 수 있으며, 데이터 수집을 위해 에이전트를 설치하고 업데이트하거나 대용량 데이터베이스를 유지 관리하는 복잡성도 피할 수 있다. AWS Config를 활성화하면 <strong>AWS 리소스와 연관된 모든 구성 속성에 대해 지속적으로 업데이트된 세부 정보를 볼 수 있</strong>다. 모든 구<strong>성이 변경되면 Amazon Simple Notification Service(SNS)를 통해 알림을 받게</strong> 된다.</p>
+<p><strong>AWS Config</strong> 와 <strong>AWS CloudTrail</strong>을 연결해서 ‘변경한 사용자’, ‘변경한 IP 주소’ 등의 세부 정보에서 AWS 리소스와 관련 리소스에 대한 변경 결과에 이르기까지 전체적으로 파악할 수 있다.</p>
+<h3 id="CloudWatch-Events와-AWS-CloudTrail-의-차이점"><a href="#CloudWatch-Events와-AWS-CloudTrail-의-차이점" class="headerlink" title="CloudWatch Events와 AWS CloudTrail 의 차이점"></a>CloudWatch Events와 AWS CloudTrail 의 차이점</h3><p>CloudWatch Events는 AWS 리소스에 대한 변경을 설명하는, 거의 실시간의 시스템 이벤트 스트림이다. CloudWatch Events를 사용하면, <strong>특정 이벤트를 모니터링</strong>하고 <strong>자동으로 작업을 수행하도록 규칙을 정의</strong>할 수 있다. </p>
+<p>AWS CloudTrail은 <strong>AWS 계정에 대한 API 호출을 기록</strong>하고 <strong>API 호출이 포함된 로그 파일을 Amazon S3 버킷이나 CloudWatch Logs 로그 그룹에 전달</strong>하는 서비스이다. AWS CloudTrail을 사용하면, <strong>AWS 리소스의 생성, 삭제 및 변경과 관련된 API 활동 기록을 검색</strong>하고, 운영 문제나 보안 문제를 해결할 수 있다.</p>
+<h3 id="CloudWatch-Events와-AWS-Config의-차이점"><a href="#CloudWatch-Events와-AWS-Config의-차이점" class="headerlink" title="CloudWatch Events와 AWS Config의 차이점"></a>CloudWatch Events와 AWS Config의 차이점</h3><p>AWS Config는 <strong>AWS 리소스 인벤토리, 구성 기록, 구성 변경 알림을 제공</strong>하여 보안 및 거버넌스를 실현하는 완벽한 관리형 서비스이다. Config 규칙을 사용하면 <strong>구성 변경이 규정을 준수하는지 확인</strong>할 수 있다. CloudWatch Events는 리소스 상태 변경에 대해 거의 실시간으로 대응하기 위한 서비스입니다. 해당 변경이 정책을 준수하는지에 대한 의견을 주거나 Config/Config Rules에서 제공하는 것과 같은 상세한 기록을 제공하지 않습니다.</p>
+
+        </div>
+
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/AWS/"># AWS</a>
+                    
+                        <a href="/tags/SAA/"># SAA</a>
+                    
+                        <a href="/tags/Cloud/"># Cloud</a>
+                    
+                        <a href="/tags/CloudWatch/"># CloudWatch</a>
+                    
+                        <a href="/tags/CloudTrail/"># CloudTrail</a>
+                    
+                        <a href="/tags/AWS-Config/"># AWS Config</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/07/12/AWS-SAA/AWS-SAA-AMIs/">AMIs - EBS Root Volumes vs Instance Store</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Hyunjoo Park | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
