@@ -14,7 +14,7 @@
 
 
 
-<title>Autoscaling &amp; EC2 Placement Group | ChargingJoo</title>
+<title>EFS-Elastic File System | ChargingJoo</title>
 
 
 
@@ -185,7 +185,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Autoscaling &amp; EC2 Placement Group</h1>
+            <h1 class="post-title">EFS-Elastic File System</h1>
             
                 <div class="post-meta">
                     
@@ -194,7 +194,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">July 14, 2021&nbsp;&nbsp;23:09:25</a>
+                        Date: <a href="#">July 17, 2021&nbsp;&nbsp;22:57:26</a>
                         </span>
                     
                     
@@ -210,28 +210,36 @@
         </header>
 
         <div class="post-content">
-            <h3 id="Launch-Configurations-amp-Auto-Scaling-Groups"><a href="#Launch-Configurations-amp-Auto-Scaling-Groups" class="headerlink" title="Launch Configurations &amp; Auto Scaling Groups"></a>Launch Configurations &amp; Auto Scaling Groups</h3><p>다른 가용영역에 넣어줘야지 더 좋다!</p>
-<h3 id="EC2-Placement-Groups"><a href="#EC2-Placement-Groups" class="headerlink" title="EC2 Placement Groups"></a>EC2 Placement Groups</h3><ul>
-<li>배치 그룹에 지정하는 이름은 AWS 계정 내에서 고유해야한다</li>
-<li>특정 유형의 인스턴스만 배치그룹에서 시작할 수 있다. (컴퓨팅 최적화, GPU, 메모리 최적화, 저장공간 최적화)</li>
-<li>AWS는 배치 그룹 내에서 동종 인스턴스를 권장한다</li>
-<li>배치 그룹을 합치지 못한다</li>
-<li>기존 인스턴스를 배치 그룹으로 이동할 수 없다. 기존 인스턴스에서 AMI를 생성한 다음 AMI에서 배치그룹으로 새 인스턴스를 시작할 수 있다.</li>
-<li>두 종류의 배치 그룹이 있다.<ul>
-<li><strong>clustered placement group</strong></li>
-<li><strong>spread placement group</strong></li>
+            <h3 id="EFS"><a href="#EFS" class="headerlink" title="EFS ?"></a>EFS ?</h3><p>Amazon EFS는 Amazon EC2 인스턴스를 위한 <strong>파일 스토리지 서비스</strong>이다. Amazon EFS는 사용하기 쉬우며 파일 시스템을 빠르고 쉽게 생성하고 구성할 수 있는 간단한 인터페이스를 제공한다. Amazon EFS는 스토리지 <strong>용량이 탄력적</strong>이라서 파일을 넣고 삭제할 때 <strong>자동으로 증가 및 축소</strong>된다. 애플리케이션이 필요할 때 필요한 스토리지를 확보할 수 있다.</p>
+<p><strong>Amazon EFS에서 지원하는 사용 사례?</strong></p>
+<p>amazon EFS는 빅데이터 및 분석, 미디어 처리 워크플로, 컨텐츠 관리, 웹 지원 및 홈 디렉토리를 비롯하여 다양한 워크로드와 애플리케이션에 필요한 성능을 제공하도록 설계되었다.</p>
+<p><strong>온프레미스 데이터 센터의 서버에서 Amazon EFS 파일 시스템에 액세스하려면 어떻게 해야 합니까?</strong></p>
+<p>온프레미스에서 Amazon EFS 파일 시스템에 액세스하려면 <strong>온프레미스 데이터 센터</strong>와 <strong>Amazon VPC</strong> 간에 <strong><a target="_blank" rel="noopener" href="https://aws.amazon.com/ko/directconnect/">AWS Direct Connect</a> 또는 <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_VPN.html">AWS VPN</a> 연결</strong>을 구성해야 한다.</p>
+<h3 id="EFS-특징"><a href="#EFS-특징" class="headerlink" title="EFS 특징"></a>EFS 특징</h3><ul>
+<li>네트워크 파일시스템(NFS) 버전 4 프로토콜 지원</li>
+<li>스토리지를 쓴만큼만 지불한다. (미리 요구되는 비용이 없다)</li>
+<li><strong>페타바이트</strong>까지 확장 가능하다</li>
+<li><strong>수천 개의 동시 NFS 연결</strong>을 지원할 수 있다.</li>
+<li>데이터는 지역 내 <strong>여러 가용영역에 저장</strong>된다. ⇒ <strong>가용성</strong></li>
+<li>쓰기 일관성 후 읽기</li>
 </ul>
-</li>
+<p>성능 모드 / 처리량 모드</p>
+<ul>
+<li>성능모드에 있어서 대부분의 파일 시스템에 Bursting Mode를 권장하지만 처리량이 많을 경우, Provisioned Mode를 권장</li>
+<li>처리량 모드에 있어서 액세스하는 EC2가 매우 많을 경우 MAX I/O Mode를 사용하는 것이 바람직하고, 그 밖의 경우는 General Mode를 사용하는 것을 권장</li>
 </ul>
-<h3 id="Clustered-Placement-Group"><a href="#Clustered-Placement-Group" class="headerlink" title="Clustered Placement Group"></a>Clustered Placement Group</h3><ul>
-<li>클러스터 배치그룹은 <strong>하나의 가용영역</strong> 내의 인스턴스 그룹이다.</li>
-<li>배치그룹은 <strong>낮은 네트워크 대기시간, 높은 네트워크 처리량</strong> 또는 둘 다를 필요로하는 애플리케이션에 권장된다.</li>
-<li>특정 인스턴스만 클러스터 배치그룹에서 시작할 수 있다.</li>
+<h3 id="EFS-Amazon-FSx-for-Windows-Amazon-FSx-for-Lustre-차이"><a href="#EFS-Amazon-FSx-for-Windows-Amazon-FSx-for-Lustre-차이" class="headerlink" title="EFS, Amazon FSx for Windows, Amazon FSx for Lustre 차이"></a>EFS, <strong>Amazon FSx for Windows, Amazon FSx for Lustre 차이</strong></h3><ul>
+<li><strong>EFS</strong></li>
 </ul>
-<h3 id="Spread-Placement-Group"><a href="#Spread-Placement-Group" class="headerlink" title="Spread Placement Group"></a>Spread Placement Group</h3><ul>
-<li>분산 배치 그룹은 각각 별개의 기본 하드웨어에 배치되는 인스턴스 그룹이다.</li>
-<li>분산 배치 그룹은 서로 분리해야하는 중요 인스턴스 수가 적은 애플리케이션에 권장된다.</li>
+<p><strong>Linux</strong> 인스턴스 및 Linux기반 애플리케이션을 위한 <strong>탄력성이 뛰어난 분산 스토리지</strong>가 필요한 경우</p>
+<ul>
+<li><strong>Amazon FSx for Windows</strong></li>
 </ul>
+<p>Sharepoint, Microsoft SQL Server, Workspaces, IIS 웹 서버 또는 기타 기본 Microsoft 애플리케이션과 같은 <strong>Windows</strong> 기반 애플리케이션을 위한 <strong>중앙 집중식 스토리지</strong>가 필요한 경우</p>
+<ul>
+<li><strong>Amazon FSx for Lustre</strong></li>
+</ul>
+<p>고속, 대용량 분산 스토리지가 필요할 때 사용한다. 이것은 <strong>고성능 컴퓨팅(HPC)</strong>, 재무모델링 등을 수행하는 애플리케이션을 위한 것이다. FSx for Lustre는 <strong>데이터를 S3에 직접 저장</strong> 시킬 수 있다.</p>
 
         </div>
 
@@ -248,9 +256,7 @@
                     
                         <a href="/tags/Cloud/"># Cloud</a>
                     
-                        <a href="/tags/Autoscaling/"># Autoscaling</a>
-                    
-                        <a href="/tags/EC2-Placement-Group/"># EC2 Placement Group</a>
+                        <a href="/tags/EFS/"># EFS</a>
                     
                         
                 </span>
@@ -263,10 +269,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/07/17/AWS-SAA/AWS-SAA-EFS/">EFS-Elastic File System</a>
             
-            
-            <a class="next" rel="next" href="/2021/07/13/AWS-SAA/AWS-SAA-CloudWatch/">CloudWatch, CloudTrail, AWS Config</a>
+            <a class="next" rel="next" href="/2021/07/14/AWS-SAA/AWS-SAA-Autoscaling-PlacementGroup/">Autoscaling & EC2 Placement Group</a>
             
         </section>
 
