@@ -14,7 +14,7 @@
 
 
 
-<title>EFS-Elastic File System | ChargingJoo</title>
+<title>Lambda | ChargingJoo</title>
 
 
 
@@ -185,7 +185,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">EFS-Elastic File System</h1>
+            <h1 class="post-title">Lambda</h1>
             
                 <div class="post-meta">
                     
@@ -194,7 +194,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">July 17, 2021&nbsp;&nbsp;22:57:26</a>
+                        Date: <a href="#">July 20, 2021&nbsp;&nbsp;23:47:15</a>
                         </span>
                     
                     
@@ -210,36 +210,42 @@
         </header>
 
         <div class="post-content">
-            <h3 id="EFS"><a href="#EFS" class="headerlink" title="EFS ?"></a>EFS ?</h3><p>Amazon EFS는 Amazon EC2 인스턴스를 위한 <strong>파일 스토리지 서비스</strong>이다. Amazon EFS는 사용하기 쉬우며 파일 시스템을 빠르고 쉽게 생성하고 구성할 수 있는 간단한 인터페이스를 제공한다. Amazon EFS는 스토리지 <strong>용량이 탄력적</strong>이라서 파일을 넣고 삭제할 때 <strong>자동으로 증가 및 축소</strong>된다. 애플리케이션이 필요할 때 필요한 스토리지를 확보할 수 있다.</p>
-<p><strong>Amazon EFS에서 지원하는 사용 사례?</strong></p>
-<p>amazon EFS는 빅데이터 및 분석, 미디어 처리 워크플로, 컨텐츠 관리, 웹 지원 및 홈 디렉토리를 비롯하여 다양한 워크로드와 애플리케이션에 필요한 성능을 제공하도록 설계되었다.</p>
-<p><strong>온프레미스 데이터 센터의 서버에서 Amazon EFS 파일 시스템에 액세스하려면 어떻게 해야 합니까?</strong></p>
-<p>온프레미스에서 Amazon EFS 파일 시스템에 액세스하려면 <strong>온프레미스 데이터 센터</strong>와 <strong>Amazon VPC</strong> 간에 <strong><a target="_blank" rel="noopener" href="https://aws.amazon.com/ko/directconnect/">AWS Direct Connect</a> 또는 <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_VPN.html">AWS VPN</a> 연결</strong>을 구성해야 한다.</p>
-<h3 id="EFS-특징"><a href="#EFS-특징" class="headerlink" title="EFS 특징"></a>EFS 특징</h3><ul>
-<li>네트워크 파일시스템(NFS) 버전 4 프로토콜 지원</li>
-<li>스토리지를 쓴만큼만 지불한다. (미리 요구되는 비용이 없다)</li>
-<li><strong>페타바이트</strong>까지 확장 가능하다</li>
-<li><strong>수천 개의 동시 NFS 연결</strong>을 지원할 수 있다.</li>
-<li>데이터는 지역 내 <strong>여러 가용영역에 저장</strong>된다. ⇒ <strong>가용성</strong></li>
-<li>쓰기 일관성 후 읽기</li>
-</ul>
-<p>성능 모드 / 처리량 모드</p>
+            <h3 id="Lambda"><a href="#Lambda" class="headerlink" title="Lambda"></a>Lambda</h3><p>AWS Lambda를 사용하면 <strong>서버를 프러비저닝하거나 관리할 필요 없이 코드를 실행</strong>할 수 있다. 사용자 애플리케이션이나 백엔드 서비스를 관리할 필요 없이 코드를 실행할 수 있다. API Gateway 와 Lambda를 조합하여 요청별로 특정 코드를 수행하도록 구성 가능하다.</p>
 <ul>
-<li>성능모드에 있어서 대부분의 파일 시스템에 Bursting Mode를 권장하지만 처리량이 많을 경우, Provisioned Mode를 권장</li>
-<li>처리량 모드에 있어서 액세스하는 EC2가 매우 많을 경우 MAX I/O Mode를 사용하는 것이 바람직하고, 그 밖의 경우는 General Mode를 사용하는 것을 권장</li>
+<li><p><strong>API Gateway, Alexa Skills Kit, CloudFront, CloudWatch, DynamoDB, Kinessis, S3, SNS</strong>등을 트리거로 이용하여 특정 상황에서 코드를 실행시킬 수 있다.</p>
+<p>  ex) SNS의 메세지 구독 대상에 Lambda를 포함시키면, 메시지 발송시 Lambda가 이를 전달받고 함수코드 실행</p>
+</li>
+<li><p>Lambda는 자동으로 scales out을 한다.</p>
+<p>  (scale up : 장비를 업그레이드 하는 것, scale out : 장비를 추가하는 것)</p>
+</li>
+<li><p>Lambda 함수는 독립적이다. 하나의 이벤트 = 하나의 함수</p>
+</li>
+<li><p>람다는 <strong>서버리스</strong>이다.</p>
+</li>
+<li><p>AWS 서비스 중 서버리스 = <strong>S3, API GATEWAY, Lambda, dynamo DB</strong></p>
+<p>  (EC2는 EC2인스턴스를 관리하기 때문에 서버리스가 아니다.)</p>
+</li>
+<li><p>Lambda함수는 다른 람다 함수를 트리거 할 수 있다. 함수가 다른 함수를 트리거할 때, 1이벤트는 x 함수를 트리거할 수 있다. <strong>즉, 하나의 이벤트가 여러 함수를 트리거할 수 있다.</strong></p>
+</li>
+<li><p>아키텍처는 매우 복잡해질 수 있습니다. AWS X-ray 를 사용하면 무슨 일이 일어나고 있는지 디버깅 할 수 있습니다.</p>
+</li>
+<li><p>Lambda는 전 세계적으로 작업을 수행할 수 있으며, 이를 사용하여 S3 버켓을 다른 S3 버킷 등에 백업할 수 있다.</p>
+</li>
 </ul>
-<h3 id="EFS-Amazon-FSx-for-Windows-Amazon-FSx-for-Lustre-차이"><a href="#EFS-Amazon-FSx-for-Windows-Amazon-FSx-for-Lustre-차이" class="headerlink" title="EFS, Amazon FSx for Windows, Amazon FSx for Lustre 차이"></a>EFS, <strong>Amazon FSx for Windows, Amazon FSx for Lustre 차이</strong></h3><ul>
-<li><strong>EFS</strong></li>
-</ul>
-<p><strong>Linux</strong> 인스턴스 및 Linux기반 애플리케이션을 위한 <strong>탄력성이 뛰어난 분산 스토리지</strong>가 필요한 경우</p>
+<p><strong>람다 트리거 완전 중요!</strong></p>
+<p>람다 트리거가 아닌 것은?으로 문제가 나올 수도 있다!!</p>
+<p>⇒ <strong>API Gateway, Alexa Skills Kit, CloudFront, CloudWatch, DynamoDB, Kinessis, S3, SNS</strong></p>
+<p>Lambda를 사용하는 이유?</p>
 <ul>
-<li><strong>Amazon FSx for Windows</strong></li>
+<li>NO SERVERS!</li>
+<li>Continuous Scaling</li>
+<li>Super super super cheap!</li>
 </ul>
-<p>Sharepoint, Microsoft SQL Server, Workspaces, IIS 웹 서버 또는 기타 기본 Microsoft 애플리케이션과 같은 <strong>Windows</strong> 기반 애플리케이션을 위한 <strong>중앙 집중식 스토리지</strong>가 필요한 경우</p>
-<ul>
-<li><strong>Amazon FSx for Lustre</strong></li>
-</ul>
-<p>고속, 대용량 분산 스토리지가 필요할 때 사용한다. 이것은 <strong>고성능 컴퓨팅(HPC)</strong>, 재무모델링 등을 수행하는 애플리케이션을 위한 것이다. FSx for Lustre는 <strong>데이터를 S3에 직접 저장</strong> 시킬 수 있다.</p>
+<h3 id="Lambda-Edge"><a href="#Lambda-Edge" class="headerlink" title="Lambda@Edge"></a>Lambda@Edge</h3><p>Lambda@Edge를 사용하면 서버를 프로비저닝하거나 관리하지 않고 <strong>글로벌 AWS 엣지 로케이션에서 코드를 실행</strong>할 수 있으므로 <strong>가장 짧은 네트워크 지연 시간으로 최종 사용자에게 응답</strong>할 수 있다. Node.js 또는 Python 코드를 AWS Lambda에 업로드하고 Amazon CloudFront 요청에 대한 응답으로 함수가 트리거되도록 구성하기만 하면 된다.</p>
+<p><strong>Lambda@Edge를 사용하려면 어떻게 해야 합니까?</strong></p>
+<p>Lambda@Edge를 사용하려면, <strong>코드를 AWS Lambda에 업로드</strong>하고 <strong>Amazon CloudFront 요청에 대한 응답으로 트리거되도록 함수 버전을 연결</strong>하기만 하면 된다.</p>
+<p><strong>Lambda@Edge는 언제 사용해야 합니까?</strong></p>
+<p>Lambda@Edge는 최종 사용자가 전 세계에 분산되어 있고 지연 시간에 민감한 사용 사례에 최적화되어 있다. 사용자 특성(위치, 클라이언트 디바이스 등)을 바탕으로 콘텐츠를 제공하는 방법을 결정하려는 사용 사례의 경우, 중앙 서버로 다시 라우팅할 필요 없이 이제 사용자와 가까운 위치에서 바로 실행하고 지원할 수 있다.</p>
 
         </div>
 
@@ -256,7 +262,7 @@
                     
                         <a href="/tags/Cloud/"># Cloud</a>
                     
-                        <a href="/tags/EFS/"># EFS</a>
+                        <a href="/tags/Lambda/"># Lambda</a>
                     
                         
                 </span>
@@ -269,10 +275,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/07/20/AWS-SAA/AWS-SAA-Lambda/">Lambda</a>
             
-            
-            <a class="next" rel="next" href="/2021/07/14/AWS-SAA/AWS-SAA-Autoscaling-PlacementGroup/">Autoscaling & EC2 Placement Group</a>
+            <a class="next" rel="next" href="/2021/07/17/AWS-SAA/AWS-SAA-EFS/">EFS-Elastic File System</a>
             
         </section>
 
