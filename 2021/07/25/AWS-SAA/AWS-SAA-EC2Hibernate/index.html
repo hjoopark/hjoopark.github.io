@@ -14,7 +14,7 @@
 
 
 
-<title>Spot Instance &amp; Spot Fleets | ChargingJoo</title>
+<title>EC2 Hibernate | ChargingJoo</title>
 
 
 
@@ -185,7 +185,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Spot Instance &amp; Spot Fleets</h1>
+            <h1 class="post-title">EC2 Hibernate</h1>
             
                 <div class="post-meta">
                     
@@ -194,7 +194,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">July 22, 2021&nbsp;&nbsp;23:10:05</a>
+                        Date: <a href="#">July 25, 2021&nbsp;&nbsp;23:42:47</a>
                         </span>
                     
                     
@@ -210,42 +210,41 @@
         </header>
 
         <div class="post-content">
-            <h3 id="Spot-Instance"><a href="#Spot-Instance" class="headerlink" title="Spot Instance"></a>Spot Instance</h3><p>스팟 인스턴스를 사용하려면 먼저 <strong>최대 스팟 가격을 결정</strong>해야한다. 스팟 가격이 최대 스팟 가격 보다 낮은 경우 인스턴스가 프로비저닝 된다.</p>
-<ul>
-<li>시간당 스팟 가격은 용량 및 지역에 따라 다르다</li>
-<li>스팟 가격이 최대 값을 초과하는 경우 2분 안에 인스턴스를 중지할지 또는 종료할지 선택할 수 있다.</li>
+            <h3 id="Hibernate와-중지의-차이"><a href="#Hibernate와-중지의-차이" class="headerlink" title="Hibernate와 중지의 차이"></a>Hibernate와 중지의 차이</h3><ul>
+<li>인스턴스가 <strong>하이버네이션</strong> 상태일 경우는 <strong>RAM 데이터는 유지</strong>가 된다.</li>
+<li><strong>중지</strong>일 경우 인스턴스가 종료되고 <strong>RAM 데이터가 삭제</strong>된다.</li>
+<li>두 경우 모두 EBS 루트 볼륨과 연결된 모든 <strong>EBS 데이터 볼륨의 데이터는 유지</strong>된다.</li>
+<li>EC2가 중지되었을 때 디스크에 있는(EBS) 데이터는 지워지지 않는다.</li>
+<li>인스턴스가 중지되었을 때 루트 디바이스 볼륨은 디폴트로 같이 중지된다.</li>
+<li>중지 및 하이버네이트는 <strong>Amazon EBS 지원 인스턴스에만 사용</strong>할 수 있다</li>
+<li><strong>로컬 인스턴스 스토리지는 유지되지 않</strong>는다</li>
 </ul>
-<p><strong>스팟 블록</strong>을 사용하여 스팟 가격이 최대 스팟 가격을 초과하더라도 스팟 인스턴스가 종료되지 않도록 할 수 있다. 1시간~6시간 동안 스팟 블록을 설정할 수 있다.</p>
-<p><strong>Spot Instances 유용한 점</strong></p>
+<h3 id="EC2-Hibernate"><a href="#EC2-Hibernate" class="headerlink" title="EC2 Hibernate"></a>EC2 Hibernate</h3><p>EC2 인스턴스를 <strong>최대 절전 모드로 전환</strong>하면 <strong>운영체제에 최대 절전모드를 수행하라는 메시지가 표시</strong>된다. 최대 절전 모드는 인스턴스 메모리의 콘텐츠를 <strong>Amazon EBS 루트 볼륨</strong>에 저장한다. 인스턴스의 <strong>Amazon EBS 루트 볼륨과 연결된 모든 Amazon EBS 데이터 볼륨을 유지</strong>한다.</p>
+<p><strong>EC2 Hibernate를 시작하면</strong></p>
 <ul>
-<li>Big data and analytics - 빅데이터와 분석</li>
-<li>containerized workloads - 컨테이너화 된 워크로드</li>
-<li>ci/cd and testing - ci / cd 및 테스트</li>
-<li>web services - 웹서비스</li>
-<li>image and media rendering - 이미지 및 미디어 렌더링</li>
-<li>high-performance computing - 고성능 컴퓨팅</li>
+<li><p><strong>amazon EBS 루트 볼륨</strong>이 이전 상태로 <strong>복원</strong>된다.</p>
+</li>
+<li><p><strong>RAM</strong> 컨텐츠가 다시 로드된다.</p>
+</li>
+<li><p>이전에 인스턴스에서 실행중이던 프로세스가 재개된다.</p>
+</li>
+<li><p>이전에 연결된 데이터 볼륨이 <strong>다시 연결되고 인스턴스는 해당 인스턴스 ID를 유지</strong>한다.</p>
+</li>
+<li><p>EC2 Hibernate를 사용하면, 인스턴스가 훨씨 빠르게 부팅된다.  메모리 내 상태(RAM)가 유지되므로 운영체제를 재부팅 할 필요가 없다.</p>
+<ul>
+<li>Long-running processes</li>
+<li>Services that take time to initialize</li>
 </ul>
-<p><strong>Spot Instances 단점</strong></p>
-<ul>
-<li>Persistent workloads - 지속적인 워크로드</li>
-<li>critical jobs - 중요한 작업</li>
-<li>databases - 데이터베이스</li>
+</li>
 </ul>
-<h3 id="Spot-Fleets"><a href="#Spot-Fleets" class="headerlink" title="Spot Fleets?"></a>Spot Fleets?</h3><p><strong>Spot Fleets</strong>은 <strong>스팟 인스턴스</strong> 및 <strong>선택적으로 온 디맨드 인스턴스의 모음</strong>이다.</p>
-<p><strong>Spot Fleet</strong>는 Spot Fleet 요청에서 지정한 <strong>목표 용량을 충족하기 위해</strong> 스팟 인스턴스 및 온디맨드 인스턴스 수를 시작하려고한다. <strong>사용 가능한 용량이 있고</strong> 요청에서 <strong>지정한 최대 가격이 현재 스팟 가격을 초과</strong>하면 스팟 인스턴스에 대한 요청이 이행된다. Spot Fleet은 또한 스팟 인스턴스가 중단된 경우 대상 용량 집합을 유지하려고 시도한다.</p>
-<p>스팟 플릿을 사용하면 단위당 가장 낮은 요금을 제공하는 여러 스팟 인스턴스를 자동으로 요청하고 관리할 수 있다. 스팟 플릿을 사용하면 <strong>목표 용량을 시작 및 유지</strong>하고, <strong>중단되거나 직접 종료한 인스턴스를 대체하는 리소스를 자동으로 요청</strong>할 수 있다.</p>
-<p><strong>Spot Fleet는 목표 용량을 가격 제한과 일치시키려고 시도한다</strong></p>
-<ol>
-<li>다른 시작풀을 설정한다. EC2 인스턴스 유형, 운영체제, 가용영역 등을 정의한다</li>
-<li>풀을 여러개 가질 수 있으며 fleet은 정의한 전략에 따라 구현할 가장 좋은 방법을 선택</li>
-<li>가격 임계 값 또는 원하는 용량에 도달하면 스팟 집합이 인스턴스 시작을 중지한다.</li>
-</ol>
-<p><strong>Spot Fleets으로 다음 전략을 가질 수 있다</strong></p>
-<ul>
-<li>용량 최적화</li>
-<li>낮은 가격</li>
-<li>다양화</li>
-<li>사용할 인스턴스 풀 수</li>
+<h3 id="EC2-Hibernate-특징"><a href="#EC2-Hibernate-특징" class="headerlink" title="EC2 Hibernate 특징"></a>EC2 Hibernate 특징</h3><ul>
+<li>EC2 Hibernate는 영구 스토리지 (<strong>EBS</strong>)에 메모리 내 <strong>RAM을 보존</strong>한다</li>
+<li><strong>운영 체제를 다시 로드할 필요가 없</strong>기 때문에 <strong>부팅 속도가 훨씬 빠르다</strong></li>
+<li>인스턴스의 RAM은 <strong>150GB</strong>보다 적어야한다</li>
+<li>인스턴스 패밀리에는 C3, C4, C5, M3, M4, M5, R3, R4, R5가 포함된다</li>
+<li>Windows, Amazon Linux 2 AMI, Ubuntu에서 사용가능하다</li>
+<li>인스턴스는 <strong>60일 이상 hibernated 될 수 없다</strong></li>
+<li>온디맨드 인스턴스와 예약 인스턴스에서 사용가능하다</li>
 </ul>
 
         </div>
@@ -263,6 +262,8 @@
                     
                         <a href="/tags/Cloud/"># Cloud</a>
                     
+                        <a href="/tags/EC2/"># EC2</a>
+                    
                         
                 </span>
             </div>
@@ -274,10 +275,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/07/25/AWS-SAA/AWS-SAA-EC2Hibernate/">EC2 Hibernate</a>
             
-            
-            <a class="next" rel="next" href="/2021/07/20/AWS-SAA/AWS-SAA-Lambda/">Lambda</a>
+            <a class="next" rel="next" href="/2021/07/22/AWS-SAA/AWS-SAA-SpotInstance/">Spot Instance & Spot Fleets</a>
             
         </section>
 
